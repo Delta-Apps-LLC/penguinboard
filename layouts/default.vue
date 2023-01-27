@@ -1,9 +1,8 @@
 <template>
   <v-app dark>
     <v-navigation-drawer
-      v-model="drawer"
       :mini-variant="miniVariant"
-      :clipped="clipped"
+      :clipped="true"
       fixed
       app
     >
@@ -12,6 +11,7 @@
           v-for="(item, i) in items"
           :key="i"
           :to="item.to"
+          @click="item.click"
           router
           exact
         >
@@ -24,33 +24,16 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
+
     <v-app-bar
-      :clipped-left="clipped"
+      :clipped-left="true"
       fixed
       app
     >
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-btn
-        icon
-        @click.stop="miniVariant = !miniVariant"
-      >
-        <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
-      </v-btn>
-      <v-btn
-        icon
-        @click.stop="clipped = !clipped"
-      >
-        <v-icon>mdi-application</v-icon>
-      </v-btn>
-      <v-btn
-        icon
-        @click.stop="fixed = !fixed"
-      >
-        <v-icon>mdi-minus</v-icon>
-      </v-btn>
+      <v-app-bar-nav-icon @click.stop="miniVariant = !miniVariant" />
       <v-toolbar-title>{{ title }}</v-toolbar-title>
-      
     </v-app-bar>
+
     <v-main>
       <v-container>
         <Nuxt />
@@ -69,10 +52,9 @@
 <script>
 export default {
   name: 'DefaultLayout',
+  
   data () {
     return {
-      clipped: false,
-      drawer: false,
       fixed: false,
       items: [
         {
@@ -81,16 +63,20 @@ export default {
           to: '/'
         },
         {
-          icon: 'mdi-chart-bubble',
-          title: 'Inspire',
-          to: '/inspire'
+          icon: 'mdi-logout-variant',
+          title: 'Logout',
+          click: this.signOut
         }
       ],
       miniVariant: false,
-      right: true,
-      rightDrawer: false,
-      title: 'Vuetify.js'
+      title: 'Bravo!'
     }
-  }
+  },
+
+  methods: {
+    async signOut () {
+      await this.$store.dispatch('account/signOut')
+    }
+  },
 }
 </script>
