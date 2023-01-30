@@ -22,8 +22,8 @@ export default {
   methods: {
     async signup () {
       const user = {
-        email: 'jackkentmorgan@gmail.com',
-        password: 'jackmorgan',
+        email: 'a.thibs98@gmail.com',
+        password: 'hellothere',
       }
       await this.$store.dispatch('account/signup', {
         user: user
