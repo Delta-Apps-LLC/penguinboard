@@ -1,5 +1,14 @@
 # propsv1
 
+## Temporary Name: Bravo
+
+Below is a diagram showing the total flow of the web app for the whole stack.
+![Diagram](/assets/files/Sandbox-Bravo.png)
+
+### Frontend
+The client-side of this web app was build using NuxtJS, a Javacsript framework wrapping VueJS.
+
+
 ## Build Setup
 
 ```bash
