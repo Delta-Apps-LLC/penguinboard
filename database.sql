@@ -2,7 +2,7 @@
 
 CREATE TABLE "user"
 (
-  "userid" INT NOT NULL,
+  "userid" SERIAL NOT NULL,
   "firstname" VARCHAR NOT NULL,
   "lastname" VARCHAR NOT NULL,
   "email" VARCHAR NOT NULL,
@@ -97,22 +97,22 @@ $$;
 --
 
 CREATE OR REPLACE FUNCTION
-public.signup(email varchar, password varchar, firstname varchar, lastname varchar) RETURNS VOID
+public.signup(email varchar, "password" varchar, firstname varchar, lastname varchar) RETURNS VOID
 AS $$
-  INSERT INTO "user" (email, password, firstname, lastname) VALUES
+  INSERT INTO "user" (email, "password", firstname, lastname) VALUES
     (signup.email, signup.password, signup.firstname, signup.lastname);
 $$ LANGUAGE sql SECURITY DEFINER;
 
 
 CREATE OR REPLACE FUNCTION
-public.login(email varchar, password varchar) RETURNS jwt_token
+public.login(email varchar, "password" varchar) RETURNS jwt_token
   LANGUAGE plpgsql SECURITY DEFINER
   AS $$
 DECLARE
   _role NAME;
   result jwt_token;
 BEGIN
-  SELECT "user".userid FROM "user" WHERE "user".email=login.email AND password=login.password INTO _role;
+  SELECT "user".userid FROM "user" WHERE "user".email=login.email AND "user".password=login.password INTO _role;
   IF _role IS NULL THEN
     RAISE invalid_password USING message = 'invalid user or password';
   END IF;
