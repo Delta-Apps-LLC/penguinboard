@@ -6,7 +6,13 @@ Below is a diagram showing the total flow of the web app for the whole stack.
 ![Diagram](/assets/files/Sandbox-Bravo.png)
 
 ### Frontend
-The client-side of this web app was build using NuxtJS, a Javacsript framework wrapping VueJS.
+The client-side of this web app is build using NuxtJS, a Javacsript framework wrapping VueJS. NuxtJS handles the User Interface, and sends data to the API when needed.
+
+### Server
+The server is PostgREST, which is an auto-generated API layer that sits over the database. PostgREST reads the database and automatically creates endpoints for each table that can be targeted through the API access point. It can be called through HTTP requests, such as GET, POST, PATCH, and DELETE. This is hosted in a simple EC2 in AWS. Authentication is done using JWTs.
+
+### Database
+Data is hosted in a PostgreSQL database on Railway. PostgreSQL is a relational database, and is queried by the PostgREST API based on the requests it receives. More information about how the server and database were setup can be found in [this tutorial](https://github.com/aatishnn/it350_sample/wiki/Creating-a-REST-API).
 
 
 ## Build Setup
