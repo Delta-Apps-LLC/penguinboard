@@ -1,6 +1,7 @@
 <template>
   <v-col justify="center" align="center">
     <p>{{ user }}</p>
+    <v-btn @click="goToDashboard()">Show Board</v-btn>
   </v-col>
 </template>
 
@@ -15,6 +16,10 @@ export default {
   },
 
   methods: {
+    goToDashboard() {
+      alert("Made it here")
+      this.$router.push('/dashboard')
+    }
   },
 
   computed: {
