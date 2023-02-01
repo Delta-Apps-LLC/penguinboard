@@ -21,6 +21,19 @@
         <input class="form-field" type="email" v-model="email" placeholder="Email" />
         <input class="form-field" type="password" v-model="password" placeholder="Password" />
         <v-spacer class="spacer" />
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              @click="clearForm()"
+              v-bind="attrs"
+              v-on="on"
+              icon
+            >
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
+          </template>
+          <span>Clear Form</span>
+        </v-tooltip>
         <v-btn type="submit">Sign Up</v-btn>
       </form>
 
@@ -28,6 +41,19 @@
         <input class="form-field" type="email" v-model="email" placeholder="Email" />
         <input class="form-field" type="password" v-model="password" placeholder="Password" />
         <v-spacer class="spacer" />
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              @click="clearForm()"
+              v-bind="attrs"
+              v-on="on"
+              icon
+            >
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
+          </template>
+          <span>Clear Form</span>
+        </v-tooltip>
         <v-btn type="submit">Sign In</v-btn>
       </form>
     </v-col>
@@ -50,6 +76,13 @@ export default {
   },
 
   methods: {
+    clearForm () {
+      this.firstname = '' 
+      this.lastname = ''
+      this.email = ''
+      this.password = ''
+    },
+
     async signup () {
       const user = {
         firstname: this.firstname,
@@ -60,7 +93,7 @@ export default {
       await this.$store.dispatch('account/signup', {
         user: user
       })
-      this.firstname, this.lastname, this.email, this.password = ''
+      this.clearForm()
     },
 
     async login () {
@@ -71,7 +104,7 @@ export default {
       await this.$store.dispatch('account/login', {
         user: user
       })
-      this.firstname, this.lastname, this.email, this.password = ''
+      this.clearForm()
     },
   },
 
