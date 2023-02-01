@@ -35,10 +35,15 @@ export const actions = {
                 headers: authHeader()
             })
             console.log(res)
-            await dispatch('login', { user: user })
+            if (res.status === 200) {
+                await dispatch('login', { user: user })
+            }
         } catch (err) {
             // 409 conflict user exists
             console.log(err)
+            if (err.response.status === 409) {
+                alert('An account with that email already exists.')
+            }
         }
         // const { data, error } = await supabase.auth.signUp({
         //     email: user.email,
@@ -47,11 +52,6 @@ export const actions = {
     },
 
     async login({ commit }, { user }) {
-        // const { data, error } = await supabase.auth.signInWithPassword({
-        //     email: user.email,
-        //     password: user.password
-        // })
-        // setJwtToken(data.session.access_token)
         try {
             const res = await axios.post(`${API}/rpc/login`, {
                 email: user.email,
@@ -61,13 +61,23 @@ export const actions = {
                 headers: authHeader()
             })
             console.log(res)
-            setJwtToken(res.data[0].token)
-            await commit('setUser', getUserIdFromToken(getJwtToken()))
-            this.$router.push('/')
+            if (res.status === 200) {
+                setJwtToken(res.data[0].token)
+                await commit('setUser', getUserIdFromToken(getJwtToken()))
+                this.$router.push('/')
+            }
         } catch (err) {
             // 403 invalid user or password
             console.log(err)
+            if (err.response.status === 403 || err.response.status === 401) {
+                alert('Email or password is incorrect.')
+            }
         }
+        // const { data, error } = await supabase.auth.signInWithPassword({
+        //     email: user.email,
+        //     password: user.password
+        // })
+        // setJwtToken(data.session.access_token)
     },
 
     async signOut({ commit }) {
