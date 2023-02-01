@@ -1,11 +1,37 @@
 <template>
-  <v-row>
+  <v-app>
     <v-col class="text-center">
-      <h3>Login Page</h3>
-      <v-btn @click="signup()">Signup</v-btn>
-      <v-btn @click="login()">Login</v-btn>
+      <v-btn-toggle
+        mandatory
+        rounded
+        v-model="isLogin"
+      >
+        <v-btn @click="isLogin = false">
+          Sign Up
+        </v-btn>
+        <v-btn @click="isLogin = true">
+          Sign In
+        </v-btn>
+      </v-btn-toggle>
+
+      <form class="form" @submit.prevent="signup" v-if="!isLogin">
+        <input class="form-field" type="name" v-model="firstname" placeholder="First Name" />
+        <input class="form-field" type="name" v-model="lastname" placeholder="Last Name" />
+        <v-spacer class="spacer" />
+        <input class="form-field" type="email" v-model="email" placeholder="Email" />
+        <input class="form-field" type="password" v-model="password" placeholder="Password" />
+        <v-spacer class="spacer" />
+        <v-btn type="submit">Sign Up</v-btn>
+      </form>
+
+      <form class="form" @submit.prevent="login" v-if="isLogin">
+        <input class="form-field" type="email" v-model="email" placeholder="Email" />
+        <input class="form-field" type="password" v-model="password" placeholder="Password" />
+        <v-spacer class="spacer" />
+        <v-btn type="submit">Sign In</v-btn>
+      </form>
     </v-col>
-  </v-row>
+  </v-app>
 </template>
 
 <script>
@@ -15,31 +41,37 @@ export default {
 
   data () {
     return {
-
+      firstname: '',
+      lastname: '',
+      email: '',
+      password: '',
+      isLogin: false,
     }
   },
 
   methods: {
     async signup () {
       const user = {
-        firstname: 'Andrew',
-        lastname: 'Thibaudeau',
-        email: 'a.thibs98@gmail.com',
-        password: 'hellothere',
+        firstname: this.firstname,
+        lastname: this.lastname,
+        email: this.email.toLowerCase(),
+        password: this.password,
       }
       await this.$store.dispatch('account/signup', {
         user: user
       })
+      this.firstname, this.lastname, this.email, this.password = ''
     },
 
     async login () {
       const user = {
-        email: 'a.thibs98@gmail.com',
-        password: 'hellothere',
+        email: this.email.toLowerCase(),
+        password: this.password,
       }
       await this.$store.dispatch('account/login', {
         user: user
       })
+      this.firstname, this.lastname, this.email, this.password = ''
     },
   },
 
@@ -50,3 +82,23 @@ export default {
   },
 }
 </script>
+
+
+<style scoped>
+@import '~/assets/style.css';
+
+.form {
+  margin-top: 20px;
+}
+
+.form-field {
+  border: solid gray;
+  border-radius: 6px;
+  padding: 6px;
+}
+
+.spacer {
+  margin-top: 6px;
+}
+
+</style>
