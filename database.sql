@@ -33,6 +33,12 @@ CREATE TABLE "post"
   FOREIGN KEY ("boardid") REFERENCES "board"("boardid") ON DELETE CASCADE
 );
 
+-- VIEWS
+create or replace view get_user_data as
+	select u.userid, u.firstname, u.lastname, u.email
+	from "user" u;
+
+
 -- ROLES, GRANTS
 
 CREATE ROLE authenticator NOINHERIT;
