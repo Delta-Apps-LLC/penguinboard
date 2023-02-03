@@ -1,13 +1,7 @@
-import { authHeader, deleteJwtToken, getJwtToken, getUserIdFromToken, setJwtToken } from "./auth";
+import { API, authHeader, deleteJwtToken, getJwtToken, getUserIdFromToken, setJwtToken } from "./auth";
 import axios from "axios"
 // import { createClient } from '@supabase/supabase-js'
 // const supabase = createClient('https://hpjkjrfphqywelznpkei.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhwamtqcmZwaHF5d2Vsem5wa2VpIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzQyNDk4OTIsImV4cCI6MTk4OTgyNTg5Mn0._wwi-agtY8LScuU9MqLogT2BO05_57ADZatuJ4DQX90')
-
-// const API = "https://d1shlwd9bc483j.cloudfront.net"
-const API = "http://ec2-54-219-6-20.us-west-1.compute.amazonaws.com:8000"
-// Test http connection with AWS Amplify/Beanstalk/Lightsail
-// Netlify hosting doesn't allow API connections over http
-// AWS EC2 not responding over https
 
 export const state = () => ({
     jwtUser: getJwtToken(),

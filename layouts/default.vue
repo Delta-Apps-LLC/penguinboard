@@ -64,9 +64,19 @@ export default {
       fixed: false,
       items: [
         {
-          icon: 'mdi-apps',
+          icon: 'mdi-home',
           title: 'Welcome',
           to: '/'
+        },
+        {
+          icon: 'mdi-apps',
+          title: 'Boards',
+          to: '/boards'
+        },
+        {
+          icon: 'mdi-account',
+          title: 'Account',
+          to: '/account'
         },
         {
           icon: 'mdi-logout-variant',

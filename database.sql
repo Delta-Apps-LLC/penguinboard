@@ -13,19 +13,20 @@ CREATE TABLE "user"
 
 CREATE TABLE "board"
 (
-  "boardid" INT NOT NULL,
+  "boardid" SERIAL NOT NULL,
   "title" VARCHAR NOT NULL,
-  "recipient" VARCHAR NOT NULL,
+  "recipientemail" VARCHAR NOT NULL,
+  "recipientname" VARCHAR NOT NULL,
   "link" VARCHAR NOT NULL,
   "sender" VARCHAR,
   PRIMARY KEY ("boardid"),
-  UNIQUE ("recipient"),
+  UNIQUE ("recipientemail"),
   UNIQUE ("link")
 );
 
 CREATE TABLE "post"
 (
-  "postid" INT NOT NULL,
+  "postid" SERIAL NOT NULL,
   "message" VARCHAR NOT NULL,
   "image" VARCHAR,
   "boardid" INT NOT NULL,
@@ -37,6 +38,9 @@ CREATE TABLE "post"
 create or replace view get_user_data as
 	select u.userid, u.firstname, u.lastname, u.email
 	from "user" u;
+
+create or replace view get_managed_boards as
+	select * from board;
 
 
 -- ROLES, GRANTS
