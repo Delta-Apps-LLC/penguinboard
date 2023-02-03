@@ -1,6 +1,7 @@
 <template>
   <v-col justify="center" align="center">
-    <p>{{ user }}</p>
+    <p>{{ jwtUser }}</p>
+    <p>{{ userData }}</p>
   </v-col>
 </template>
 
@@ -18,9 +19,13 @@ export default {
   },
 
   computed: {
-    user () {
-      return this.$store.state.account.user
-    }
+    jwtUser () {
+      return this.$store.state.account.jwtUser
+    },
+
+    userData () {
+      return this.$store.state.account.userData
+    },
   },
 }
 </script>

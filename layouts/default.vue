@@ -50,8 +50,14 @@
 </template>
 
 <script>
+import { getJwtToken, getUserIdFromToken } from "../store/auth"
 export default {
   name: 'DefaultLayout',
+
+  mounted () {
+    this.$store.commit('account/setUserFromJwt', getUserIdFromToken(getJwtToken()))
+    this.$store.dispatch('account/getCurrentUser')
+  },
   
   data () {
     return {

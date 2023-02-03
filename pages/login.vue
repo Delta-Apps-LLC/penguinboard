@@ -62,7 +62,7 @@
 
 <script>
 export default {
-  name: 'InspirePage',
+  name: 'LoginPage',
   layout: 'noauth',
 
   data () {
@@ -109,8 +109,8 @@ export default {
   },
 
   computed: {
-    user () {
-      return this.$store.state.account.user
+    jwtUser () {
+      return this.$store.state.account.jwtUser
     }
   },
 }
