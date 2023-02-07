@@ -14,6 +14,10 @@ export const getters = {
 export const mutations = {
     setManagedBoards(state, data) {
         state.managedBoards = data
+    },
+
+    setMyBoards(state, data) {
+        state.myBoards = data
     }
 }
 
@@ -49,9 +53,20 @@ export const actions = {
 
     async getManagedBoards({ commit, rootState }) {
         try {
-            const res = await axios.get(`${API}/get_managed_boards?sender=eq.${rootState.account.jwtUser.email}`)
+            const res = await axios.get(`${API}/get_boards?sender=eq.${rootState.account.jwtUser.email}`)
             if (res.status === 200) {
                 await commit('setManagedBoards', res.data)
+            }
+        } catch (err) {
+            console.log(err)
+        }
+    },
+
+    async getMyBoards({ commit, rootState }) {
+        try {
+            const res = await axios.get(`${API}/get_boards?recipientemail=eq.${rootState.account.jwtUser.email}`)
+            if (res.status === 200) {
+                await commit('setMyBoards', res.data)
             }
         } catch (err) {
             console.log(err)

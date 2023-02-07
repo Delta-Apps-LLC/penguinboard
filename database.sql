@@ -39,7 +39,7 @@ create or replace view get_user_data as
 	select u.userid, u.firstname, u.lastname, u.email
 	from "user" u;
 
-create or replace view get_managed_boards as
+create or replace view get_boards as
 	select * from board;
 
 create or replace view get_board_posts as
@@ -49,6 +49,7 @@ create or replace view get_board_posts as
 
 create or replace view get_board_data as
 	select * from board;
+
 
 -- ROLES, GRANTS
 

@@ -1,9 +1,20 @@
 <template>
   <v-col justify="center" align="center">
-    <p>Managed Boards: {{ managedBoards }}</p>
-    <v-row>
-        <v-card class="board-card" v-for="(board, i) in managedBoards" :key="i"
-            width="250px"
+    <span>
+      <v-tabs left v-model="tab">
+        <v-tabs-slider></v-tabs-slider>
+          <v-tab v-for="item in items" :key="item.tab">
+            {{ item.tab }} ({{item.tab === 'managed boards' ? managedBoards.length : myBoards.length}})
+          </v-tab>
+      </v-tabs>
+    </span>
+
+    <v-tab-items v-model="tab">
+      <v-row class="board-row">
+        <v-card class="board-card"
+          v-for="(board, i) in tab === 0 ? managedBoards : myBoards"
+          :key="i"
+          width="250px"
         >
             <v-card-title class="justify-center">{{board.recipientname}}</v-card-title>
             <v-card-subtitle>{{board.title}}</v-card-subtitle>
@@ -19,7 +30,8 @@
                 <v-btn>Open</v-btn>
             </v-card-actions>
         </v-card>
-    </v-row>
+      </v-row>
+    </v-tab-items>
   </v-col>
 </template>
 
@@ -33,10 +45,16 @@ export default {
     this.$store.commit('account/setUserFromJwt', getUserIdFromToken(getJwtToken()))
     this.$store.dispatch('account/getCurrentUser')
     this.$store.dispatch('board/getManagedBoards')
+    this.$store.dispatch('board/getMyBoards')
   },
 
   data () {
     return {
+      tab: 0,
+      items: [
+        { tab: 'managed boards' },
+        { tab: 'my boards' },
+      ],
     }
   },
 
@@ -54,6 +72,10 @@ export default {
 
     managedBoards () {
       return this.$store.state.board.managedBoards
+    },
+
+    myBoards () {
+      return this.$store.state.board.myBoards
     }
   },
 }
@@ -61,6 +83,10 @@ export default {
 
 <style scoped>
 @import '~/assets/style.css';
+
+.board-row {
+  margin-top: 20px;
+}
 
 .board-card {
     margin: 6px;
