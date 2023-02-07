@@ -18,9 +18,8 @@ export const mutations = {
 }
 
 export const actions = {
-    async createBoard({ commit, dispatch, rootState }, { title, recipientemail, recipientname, suffix = '' }) {
+    async createBoard({ dispatch, rootState }, { title, recipientemail, recipientname, suffix = '' }) {
         let link = recipientname.replace(/\s/g, '').toLowerCase().concat(suffix)
-        console.log(link)
         try {
             const res = await axios.post(`${API}/board`, {
                 title: title,
