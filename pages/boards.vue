@@ -24,11 +24,14 @@
 </template>
 
 <script>
+import { getJwtToken, getUserIdFromToken } from "../store/auth"
 export default {
   name: 'BoardsPage',
   middleware: "auth",
 
-  created () {
+  mounted () {
+    this.$store.commit('account/setUserFromJwt', getUserIdFromToken(getJwtToken()))
+    this.$store.dispatch('account/getCurrentUser')
     this.$store.dispatch('board/getManagedBoards')
   },
 

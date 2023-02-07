@@ -1,5 +1,5 @@
 import axios from "axios"
-import { API, authHeader } from './auth'
+import { API, authHeader, getJwtToken, getUserIdFromToken } from './auth'
 import randomstring from "randomstring"
 
 export const state = () => ({
