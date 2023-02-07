@@ -13,25 +13,42 @@ CREATE TABLE "user"
 
 CREATE TABLE "board"
 (
-  "boardid" INT NOT NULL,
+  "boardid" SERIAL NOT NULL,
   "title" VARCHAR NOT NULL,
-  "recipient" VARCHAR NOT NULL,
+  "recipientemail" VARCHAR NOT NULL,
+  "recipientname" VARCHAR NOT NULL,
   "link" VARCHAR NOT NULL,
   "sender" VARCHAR,
   PRIMARY KEY ("boardid"),
-  UNIQUE ("recipient"),
+  UNIQUE ("recipientemail"),
   UNIQUE ("link")
 );
 
 CREATE TABLE "post"
 (
-  "postid" INT NOT NULL,
+  "postid" SERIAL NOT NULL,
   "message" VARCHAR NOT NULL,
-  "image" VARCHAR,
+  "from" VARCHAR NOT NULL,
   "boardid" INT NOT NULL,
   PRIMARY KEY ("postid"),
   FOREIGN KEY ("boardid") REFERENCES "board"("boardid") ON DELETE CASCADE
 );
+
+-- VIEWS
+create or replace view get_user_data as
+	select u.userid, u.firstname, u.lastname, u.email
+	from "user" u;
+
+create or replace view get_managed_boards as
+	select * from board;
+
+create or replace view get_board_posts as
+	select p.postid, p.message, p.boardid, b.link
+	from post p inner join board b
+	on p.boardid = b.boardid;
+
+create or replace view get_board_data as
+	select * from board;
 
 -- ROLES, GRANTS
 
