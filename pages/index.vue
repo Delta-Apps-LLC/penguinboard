@@ -18,7 +18,7 @@ export default {
   methods: {
     goToDashboard() {
       alert("Made it here")
-      this.$router.push('/dashboard')
+      this.$router.push('./dashboard')
     }
   },
 
