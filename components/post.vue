@@ -1,16 +1,21 @@
 <template>
-    <section>    
-        <ul>
-            <div class="image-box">
-                <ol>{{image}}</ol>
-            </div>
+    <section>
+        <head>
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        </head>
+        <body class="whole-card">
+            <img :src="image"
+                class="image-box">
             <div class="message-box">
                 <p class="message-paragraph">{{message}}</p>
-                <p class="message-author">{{author}}</p>
+                <p class="message-author">Author: {{author}}</p>
             </div>
-        </ul>
+        </body>    
     </section>
 </template>
+
+<!-- style="width: 106.957px; height: 82px; margin: 1.6px 0px;" -->
 
 <script>
 export default {
@@ -18,7 +23,7 @@ export default {
         image: {
             type: String,
             required: false,
-            default: "Image"
+            default: ''
         },
         message: {
             type: String,
@@ -30,29 +35,46 @@ export default {
         }
     },
     setup() {},
+    methods: {
+        getLink() {
+            return this.image
+        }
+    }
 }
 </script>
 
-<style>
+<style scope>
+    .whole-card {
+        background-color: #D3D3D3;
+        border: 1px solid black;
+        float: center;
+        padding: 1%;
+        vertical-align: center;
+        margin-top: 10px;
+    }
+
+    .card-body {
+        padding: 1%;
+    }
+
     .image-box {
-        background-color: blue;
-        text-align: center;
-        width: 420px;
-        height: 225px;
-        padding: 10px;
-        border: 4px solid red;
+        max-width: 100%;
+        height: 250px;
+        width: auto;
+        float: center;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
     }
 
     .message-box{
-        background-color: aqua;
-        width: 420px;
-        height: 218px;
-        top: 213px;
+        background-color: white;
         text-align: center;
         padding: 10px;
-        border: 4px solid red;
         float: center;
-        width: 33.33%;
+        height: 200px;
+        width: auto;
+        overflow: auto;
     }
 
     .message-paragraph {
