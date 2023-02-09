@@ -1,13 +1,12 @@
 <template>
   <v-col justify="center" align="center">
-    <p>{{ link }}</p>
     <p>Posts: {{ posts }}</p>
   </v-col>
 </template>
 
 <script>
 export default {
-  layout: 'noauth',
+  layout: 'linknoauth',
   name: 'LinkPage',
 
   async asyncData({ params }) {

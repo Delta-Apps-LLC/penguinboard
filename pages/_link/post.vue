@@ -3,6 +3,36 @@
     <v-card width="40%">
       <v-card-title class="justify-center" v-if="board != null">{{ board.recipientname }}</v-card-title>
       <v-card-subtitle v-if="board != null">{{ board.title }}</v-card-subtitle>
+
+      <v-btn class="gif-btn" @click="showGifs ? hideGifs() : getGifs(true)" v-if="!isGifSelected">
+        {{ showGifs ? 'Cancel' : 'Add GIF' }}
+      </v-btn>
+      <v-text-field id="gif-search" v-if="showGifs"
+        v-model="gifSearch"
+        rounded
+        filled
+        dense
+        placeholder="Search GIF"
+        append-icon="mdi-magnify"
+        @click:append="searchGif(true)"
+        @keyup.enter="searchGif(true)"
+      ></v-text-field>
+
+      <v-col class="gif-section" v-if="showGifs">
+        <p id="category"><q>{{ category }}</q></p>
+        <v-row justify="center" align="center">
+          <div id="parent" v-for="(gif, i) in gifs" :key="i">
+            <iframe :src="`https://giphy.com/embed/${gif.id}`" width="200" frameBorder="0"></iframe>
+            <button @click="chooseGif(gif.id)">Select</button>
+          </div>
+        </v-row>
+        <v-btn @click="loadMore()">Load More</v-btn>
+      </v-col>
+
+      <!-- Display Selected GIF here -->
+      <iframe v-if="isGifSelected" :src="`https://giphy.com/embed/${chosenGif}`" width="200" frameBorder="0"></iframe>
+      <v-btn class="remove-icon" v-if="isGifSelected" @click="removeGif()" icon><v-icon>mdi-close</v-icon></v-btn>
+
       <v-card-text>
         <client-only>
           <VueEditor
@@ -16,6 +46,7 @@
           placeholder="Enter your name"
         ></v-text-field>
       </v-card-text>
+
       <v-card-actions>
         <v-spacer />
         <v-btn @click="message = ''">Clear</v-btn>
@@ -28,7 +59,7 @@
 <script>
 import { VueEditor } from "vue2-editor"
 export default {
-  layout: 'noauth',
+  layout: 'linknoauth',
   name: 'PostPage',
 
   components: {
@@ -42,7 +73,7 @@ export default {
 
   created () {
     let path = this.$route.path.split('/')[1]
-    this.$store.dispatch('post/getBoardData', {
+    this.$store.dispatch('board/getBoardData', {
       link: path
     })
   },
@@ -52,28 +83,28 @@ export default {
         message: '',
         name: '',
         customToolbar: [
-          [{ font: [] }, { header: [false, 1, 2, 3, 4, 5, 6] }],
+          [{ header: [false, 1, 2, 3, 4, 5, 6] }],
           ["bold", "italic", "underline", "strike"],
           [{ color: [] }, { background: [] }],
           [{ list: "ordered" }, { list: "bullet" }],
-          [
-            { align: "" },
-            { align: "center" },
-            { align: "right" },
-            { align: "justify" }
-          ],
-          ["image", "code-block"],
         ],
+        showGifs: false,
+        gifSearch: '',
+        category: 'Trending',
+        quantity: 0,
+        isGifSelected: false,
+        chosenGif: '',
     }
   },
 
   methods: {
     async sendPost() {
       if (this.message === '' || this.name === '') {
-        alert('No field may be left empty.')
+        alert('Message and name fields cannot be empty.')
       } else {
         let post = {
           from: this.name,
+          gif: this.isGifSelected ? this.chosenGif : null,
           message: this.message,
           boardid: this.board.boardid
         }
@@ -82,14 +113,64 @@ export default {
         })
         this.name = ''
         this.message = ''
+        this.removeGif()
       }
+    },
+
+    async getGifs(isFirst) {
+      isFirst ? this.quantity += 15 : null
+      await this.$store.dispatch('giphy/getGifs', {
+        quantity: this.quantity
+      })
+      this.category = 'Trending'
+      this.showGifs = true
+    },
+
+    async searchGif(isNewSearch) {
+      if (this.gifSearch === '') this.getGifs(true)
+      isNewSearch ? this.quantity = 15 : null
+      this.category = this.gifSearch
+      await this.$store.dispatch('giphy/searchGifs', {
+        searchText: this.gifSearch,
+        quantity: this.quantity
+      })
+    },
+
+    async loadMore() {
+      this.quantity += 15
+      if (this.category === 'Trending') {
+        this.getGifs(false)
+      } else {
+        this.searchGif(false)
+      }
+    },
+
+    async hideGifs() {
+      this.showGifs = false
+      this.gifSearch = ''
+      this.quantity = 0
+    },
+
+    async chooseGif(id) {
+      this.chosenGif = id
+      this.isGifSelected = true
+      this.hideGifs()
+    },
+
+    async removeGif() {
+      this.chosenGif = ''
+      this.isGifSelected = false
     }
   },
 
   computed: {
     board () {
-      return this.$store.state.post.boardData
+      return this.$store.state.board.boardData
     },
+
+    gifs () {
+      return this.$store.state.giphy.gifs
+    }
   },
 }
 </script>
@@ -97,5 +178,58 @@ export default {
 <style scoped>
 @import '~/assets/style.css';
 
+.gif-section {
+  margin-top: 10px;
+  width: 100%;
+  height: 300px;
+  overflow-y: scroll;
+  justify-content: center;
+  background-color: rgb(57, 57, 57);
+}
+
+.gif-btn {
+  margin-bottom: 6px;
+}
+
+#category {
+  color: rgb(221, 221, 221);
+  font-weight: bold;
+}
+
+#parent {
+  width: 125px;
+  height: auto;
+  margin: 2px;
+}
+
+iframe {
+  width: 100%;
+  height: 100%;
+  border: 0px;
+  vertical-align: top;
+}
+
+#parent > button {
+  opacity: 0.3;
+  position: relative;
+  float: right;
+  right: 10px;
+  bottom: 35px;
+  transition: 0.5s;
+}
+
+#parent > button {
+  opacity: 1;
+}
+
+button {
+  background-color: rgb(221, 221, 221);
+  padding: 0 4px;
+  border-radius: 4px;
+}
+
+.remove-icon {
+  margin-top: 6px;
+}
 
 </style>

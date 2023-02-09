@@ -64,6 +64,7 @@
 export default {
   name: 'LoginPage',
   layout: 'noauth',
+  middleware: "login",
 
   data () {
     return {

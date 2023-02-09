@@ -9,29 +9,28 @@
       </v-tabs>
     </span>
 
-    <v-tab-items v-model="tab">
-      <v-row class="board-row">
-        <v-card class="board-card"
-          v-for="(board, i) in tab === 0 ? managedBoards : myBoards"
-          :key="i"
-          width="250px"
-        >
-            <v-card-title class="justify-center">{{board.recipientname}}</v-card-title>
-            <v-card-subtitle>{{board.title}}</v-card-subtitle>
-            <v-card-text>
-                {{board.recipientemail}}
-                <v-spacer />
-                <a target="_blank" :href="`http://localhost:3000/${board.link}/post`">Post</a>
-            </v-card-text>
-            <v-card-actions>
-                <v-spacer />
-                <v-btn>Delete</v-btn>
-                <v-btn>Send</v-btn>
-                <v-btn>Open</v-btn>
-            </v-card-actions>
-        </v-card>
-      </v-row>
-    </v-tab-items>
+    <v-row class="board-row">
+      <v-card class="board-card"
+        v-for="(board, i) in tab === 0 ? managedBoards : myBoards"
+        :key="i"
+        width="250px"
+      >
+          <v-card-title class="justify-center">{{ tab === 0 ? board.recipientname : board.title }}</v-card-title>
+          <v-card-subtitle>{{ tab === 0 ? board.title : `From: ${board.sender}` }}</v-card-subtitle>
+          <v-card-text>
+            <a v-if="tab === 0" target="_blank" :href="`http://localhost:3000/${board.link}/post`">Post</a>
+          </v-card-text>
+          <v-card-actions>
+              <v-spacer />
+              <v-btn @click="deleteBoard(board)">Delete</v-btn>
+              <v-btn v-if="tab === 0" @click="sendBoard(board)">Send</v-btn>
+              <v-btn v-if="tab === 0" @click="openBoard(board)">Open</v-btn>
+              <v-btn v-else>
+                <a target="_blank" :href="`http://localhost:3000/${board.link}`">View</a>
+              </v-btn>
+          </v-card-actions>
+      </v-card>
+    </v-row>
   </v-col>
 </template>
 
@@ -59,6 +58,26 @@ export default {
   },
 
   methods: {
+    async deleteBoard(board) {
+      if (confirm('Are you sure you want to delete this board, and all posts in it?')) {
+        await this.$store.dispatch('board/deleteBoard', {
+          board: board
+        })
+      }
+    },
+
+    async sendBoard(board) {
+      if (confirm(`Are you sure you\'re ready to send this board to ${board.recipientemail}?`)) {
+        await this.$store.dispatch('board/sendBoard', {
+          board: board
+        })
+      }
+    },
+
+    async openBoard(board) {
+      localStorage.setItem('boardToEdit', JSON.stringify(board))
+      this.$router.push('/edit')
+    },
   },
 
   computed: {

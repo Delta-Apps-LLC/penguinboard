@@ -3,7 +3,6 @@ import { API, authHeader } from './auth'
 
 export const state = () => ({
     posts: [],
-    boardData: null,
 })
 
 export const getters = {
@@ -13,10 +12,6 @@ export const mutations = {
     setPosts(state, data) {
         state.posts = data
     },
-
-    setBoardData(state, data) {
-        state.boardData = data
-    }
 }
 
 export const actions = {
@@ -31,30 +26,32 @@ export const actions = {
         }
     },
 
-    async getBoardData({ commit }, { link }) {
+    async sendPost({}, { post }) {
         try {
-            const res = await axios.get(`${API}/get_board_data?link=eq.${link}`)
-            if (res.status === 200) {
-                await commit('setBoardData', res.data[0])
+            const res = await axios.post(`${API}/post`, {
+                message: post.message,
+                boardid: post.boardid,
+                from: post.from,
+                gif: post.gif
+            },
+            {
+                headers: authHeader()
+            })
+            if (res.status === 201 || res.status === 200) {
+                alert('Your post has been sent!')
             }
         } catch (err) {
             console.log(err)
         }
     },
 
-    async sendPost({ commit }, { post }) {
+    async deletePost({ dispatch }, { postid, link }) {
         try {
-            const res = await axios.post(`${API}/post`, {
-                message: post.message,
-                boardid: post.boardid,
-                from: post.from
-            },
-            {
+            const res = await axios.delete(`${API}/post?postid=eq.${postid}`, {
                 headers: authHeader()
             })
-            if (res.status === 201 || res.status === 200) {
-                console.log(res)
-                alert('Your post has been sent!')
+            if (res.status === 204 || res.status === 404) {
+                await dispatch('getBoardPosts', { link: link })
             }
         } catch (err) {
             console.log(err)

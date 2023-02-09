@@ -1,10 +1,12 @@
 import axios from "axios"
 import { API, authHeader, getJwtToken, getUserIdFromToken } from './auth'
 import randomstring from "randomstring"
+import emailjs from "@emailjs/browser"
 
 export const state = () => ({
     managedBoards: [],
     myBoards: [],
+    boardData: null,
 })
 
 export const getters = {
@@ -18,6 +20,10 @@ export const mutations = {
 
     setMyBoards(state, data) {
         state.myBoards = data
+    },
+
+    setBoardData(state, data) {
+        state.boardData = data
     }
 }
 
@@ -36,6 +42,7 @@ export const actions = {
                 headers: authHeader()
             })
             if (res.status === 201) {
+                alert('Board successfully created!')
                 await dispatch('getManagedBoards')
             }
         } catch (err) {
@@ -53,7 +60,7 @@ export const actions = {
 
     async getManagedBoards({ commit, rootState }) {
         try {
-            const res = await axios.get(`${API}/get_boards?sender=eq.${rootState.account.jwtUser.email}`)
+            const res = await axios.get(`${API}/get_managed_boards?sender=eq.${rootState.account.jwtUser.email}`)
             if (res.status === 200) {
                 await commit('setManagedBoards', res.data)
             }
@@ -64,12 +71,66 @@ export const actions = {
 
     async getMyBoards({ commit, rootState }) {
         try {
-            const res = await axios.get(`${API}/get_boards?recipientemail=eq.${rootState.account.jwtUser.email}`)
+            const sent = true
+            const res = await axios.get(`${API}/get_my_boards?recipientemail=eq.${rootState.account.jwtUser.email}`)
             if (res.status === 200) {
                 await commit('setMyBoards', res.data)
             }
         } catch (err) {
             console.log(err)
         }
-    }
+    },
+
+    async deleteBoard({ dispatch }, { board }) {
+        try {
+            const res = await axios.delete(`${API}/board?boardid=eq.${board.boardid}`, {
+                headers: authHeader()
+            })
+            if (res.status === 204 || res.status === 404) {
+                await dispatch('getManagedBoards')
+                await dispatch('getMyBoards')
+            }
+        } catch (err) {
+            console.log(err)
+        }
+    },
+
+    async sendBoard({ dispatch }, { board }) {
+        try {
+            const params = {
+                to_name: board.recipientname,
+                link: board.link,
+                from_email: board.sender,
+                to_email: board.recipientemail
+            }
+            emailjs.send('mmq_gmail_service', 'template_t7nqxg9', params, 'rWfLyPQyBNY3WqQSS')
+                .then(async function(response) {
+                    console.log('SUCCESS!', response.status, response.text);
+                    const res = await axios.patch(`${API}/board?boardid=eq.${board.boardid}`, {
+                        sent: true
+                    },
+                    {
+                        headers: authHeader()
+                    })
+                    if (res.status === 204) {
+                        await dispatch('getManagedBoards')
+                    }
+                }, function(error) {
+                    console.log('FAILED...', error);
+                });
+        } catch (err) {
+            console.log(err)
+        }
+    },
+
+    async getBoardData({ commit }, { link }) {
+        try {
+            const res = await axios.get(`${API}/get_board_data?link=eq.${link}`)
+            if (res.status === 200) {
+                await commit('setBoardData', res.data[0])
+            }
+        } catch (err) {
+            console.log(err)
+        }
+    },
 }
