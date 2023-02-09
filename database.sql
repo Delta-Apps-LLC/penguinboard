@@ -19,6 +19,7 @@ CREATE TABLE "board"
   "recipientname" VARCHAR NOT NULL,
   "link" VARCHAR NOT NULL,
   "sender" VARCHAR,
+  "sent" BOOLEAN NOT NULL DEFAULT false,
   PRIMARY KEY ("boardid"),
   UNIQUE ("recipientemail"),
   UNIQUE ("link")
@@ -29,6 +30,7 @@ CREATE TABLE "post"
   "postid" SERIAL NOT NULL,
   "message" VARCHAR NOT NULL,
   "from" VARCHAR NOT NULL,
+  "gif" VARCHAR,
   "boardid" INT NOT NULL,
   PRIMARY KEY ("postid"),
   FOREIGN KEY ("boardid") REFERENCES "board"("boardid") ON DELETE CASCADE
@@ -39,11 +41,14 @@ create or replace view get_user_data as
 	select u.userid, u.firstname, u.lastname, u.email
 	from "user" u;
 
-create or replace view get_boards as
-	select * from board;
+create or replace view get_managed_boards as
+	select * from board where sent = false;
+
+create or replace view get_my_boards as
+	select * from board where sent = true;
 
 create or replace view get_board_posts as
-	select p.postid, p.message, p.boardid, b.link
+	select p.postid, p.message, p.boardid, p.from, p.gif, b.link
 	from post p inner join board b
 	on p.boardid = b.boardid;
 

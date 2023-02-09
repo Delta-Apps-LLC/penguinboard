@@ -1,6 +1,5 @@
 <template>
   <v-col justify="center" align="center">
-    <p>{{ jwtUser }}</p>
     <p>{{ userData }}</p>
   </v-col>
 </template>

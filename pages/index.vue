@@ -1,6 +1,5 @@
 <template>
   <v-col justify="center" align="center">
-    <p>{{ user }}</p>
     <v-btn @click="goToDashboard()">Show Board</v-btn>
     <v-btn @click="showBoard = true">Create Board</v-btn>
     <v-card class="board-card" v-if="showBoard"
