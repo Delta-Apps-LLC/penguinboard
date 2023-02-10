@@ -7,7 +7,7 @@
       <v-toolbar-title>{{ title }}</v-toolbar-title>
       <v-spacer />
       <v-btn v-if="jwtUser == null || jwtUser == undefined" @click="showLogin = true">Signup</v-btn>
-      <v-btn v-else to="/">Home</v-btn>
+      <v-btn v-else @click="toHome()">Home</v-btn>
     </v-app-bar>
 
     <v-main>
@@ -46,6 +46,9 @@ export default {
   },
 
   methods: {
+    toHome() {
+      this.$router.push('/')
+    }
   },
 
   computed: {
