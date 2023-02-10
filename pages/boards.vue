@@ -1,7 +1,7 @@
 <template>
   <v-col justify="center" align="center">
     <span>
-      <v-tabs left v-model="tab">
+      <v-tabs background-color="transparent" left v-model="tab">
         <v-tabs-slider></v-tabs-slider>
           <v-tab v-for="item in items" :key="item.tab">
             {{ item.tab }} ({{item.tab === 'managed boards' ? managedBoards.length : myBoards.length}})
@@ -15,7 +15,10 @@
         :key="i"
         width="250px"
       >
-          <v-card-title class="justify-center">{{ tab === 0 ? board.recipientname : board.title }}</v-card-title>
+          <v-card-title class="justify-center">
+            {{ tab === 0 ? board.recipientname : board.title }}
+          </v-card-title>
+          <img id="image" v-if="board.image != null" :src="board.image" />
           <v-card-subtitle>{{ tab === 0 ? board.title : `From: ${board.sender}` }}</v-card-subtitle>
           <v-card-text>
             <a v-if="tab === 0" target="_blank" :href="`http://localhost:3000/${board.link}/post`">Post</a>
@@ -24,12 +27,10 @@
               <v-spacer />
               <v-btn @click="deleteBoard(board)">Delete</v-btn>
               <v-btn v-if="tab === 0" @click="sendBoard(board)">Send</v-btn>
-              <v-btn v-if="tab === 0" @click="openBoard(board)">Open</v-btn>
-                <a v-else target="_blank" :href="`http://localhost:3000/${board.link}`">
-              <v-btn>
-                View
-              </v-btn>
-                </a>
+              <v-btn v-if="tab === 0" @click="openBoard(board)">Edit</v-btn>
+              <a v-else target="_blank" :href="`http://localhost:3000/${board.link}`">
+                <v-btn>View</v-btn>
+              </a>
           </v-card-actions>
       </v-card>
     </v-row>
@@ -111,6 +112,10 @@ export default {
 
 .board-card {
     margin: 6px;
+}
+
+#image {
+  max-width: 100px;
 }
 
 </style>

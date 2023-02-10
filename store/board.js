@@ -28,7 +28,7 @@ export const mutations = {
 }
 
 export const actions = {
-    async createBoard({ dispatch, rootState }, { title, recipientemail, recipientname, suffix = '' }) {
+    async createBoard({ dispatch, rootState }, { title, recipientemail, recipientname, image, suffix = '' }) {
         let link = recipientname.replace(/\s/g, '').toLowerCase().concat(suffix)
         try {
             const res = await axios.post(`${API}/board`, {
@@ -37,6 +37,7 @@ export const actions = {
                 recipientname: recipientname,
                 sender: rootState.account.jwtUser.email,
                 link: link,
+                image: image
             },
             {
                 headers: authHeader()

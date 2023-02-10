@@ -21,6 +21,7 @@ CREATE TABLE "board"
   "sender" VARCHAR,
   "sent" BOOLEAN NOT NULL DEFAULT false,
   "expiration" VARCHAR NOT NULL DEFAULT '0',
+  "image" VARCHAR,
   PRIMARY KEY ("boardid"),
   UNIQUE ("link")
 );

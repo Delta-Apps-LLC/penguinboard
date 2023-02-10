@@ -6,6 +6,8 @@
       width="50%"
     >
       <v-card-text>
+        <input type="file" ref="fileInput" accept="image/*" @input="previewImage"/>
+        <img id="preview-img" :src="imageData" v-if="imageData" />
         <v-text-field
           v-model="title"
           placeholder="Board Title"
@@ -41,10 +43,21 @@ export default {
       title: '',
       recipientemail: '',
       recipientname: '',
+      imageData: null,
     }
   },
 
   methods: {
+    previewImage(event) {
+      const file = event.target.files[0]
+      if (!file) return;
+      const reader = new FileReader()
+      reader.onload = e => {
+        this.imageData = e.target.result
+      }
+      reader.readAsDataURL(file)
+    },
+
     goToDashboard() {
       this.$router.push('./dashboard')
     },
@@ -64,6 +77,7 @@ export default {
           title: this.title,
           recipientemail: this.recipientemail,
           recipientname: this.recipientname,
+          image: this.imageData,
         })
         this.cancelBoard()
       }
@@ -87,6 +101,11 @@ export default {
 
 .board-card {
   margin-top: 20px;
+}
+
+#preview-img {
+  margin-top: 5px;
+  max-width: 300px;
 }
 
 </style>
