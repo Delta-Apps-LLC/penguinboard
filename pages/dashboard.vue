@@ -1,36 +1,32 @@
 <template>
-    <section>
-        <head>
-            <link rel="stylesheet" 
-            href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-            integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" 
-            crossorigin="anonymous">
-        </head>
-        <v-app class="dashboard_background">
-            <h1 class="bravo">Bravo!</h1>
-            <h2 class="title-board">Title Board</h2>
-            <v-row>
-                <post v-for="post in posts"
-                    :key="post.author"
-                    :image="post.image"
-                    :message="post.message"
-                    :author="post.author"
-                    class="col-lg-4 col-md-6 col-sm-12 px-0"
-                ></post>
-            </v-row>
-        </v-app>
-    </section>
+    <v-col class="whole_dashboard">
+        <link rel="stylesheet" 
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" 
+        crossorigin="anonymous">
+        <h1 class="bravo">Bravo!</h1>
+        <h2 class="title-board">Title Board</h2>
+        <v-row>
+            <post v-for="post in posts"
+                :key="post.author"
+                :image="post.image"
+                :message="post.message"
+                :author="post.author"
+                class="col-lg-4 col-md-6 col-sm-12 px-0"
+            ></post>
+        </v-row> 
+    </v-col>
 </template>
 
 <script>
-import post from "~/components/post"
+    import post from "~/components/post"
 
-export default {
-    name: "dashboard",
-    middleware: "auth",
-    components: {
-        post
-    },
+    export default {
+        name: "dashboard",
+        middleware: "auth",
+        components: {
+            post
+        },
 
     data() {
         return {
@@ -75,25 +71,24 @@ export default {
 </script>
 
 <style scoped>
-    .dashboard_background {
-        background-color: #E0EBE7;
-        background: #E0EBE7;
-        width: 100%;
-        height: 100%;
-        background-size:     cover;                 
-        background-repeat:   repeat;
-        background-position: center center;
-    }
-    .bravo {
-        color: black;
-        background-color: white;
-        padding: 10px;
-        text-align: center;
-    }
-    .title-board {
-        background-color: #585858;
-        padding: 20px;
-        text-align: center;
-        color: white;
-    }
+@import '~/assets/style.css';
+
+.bravo {
+    color: black;
+    background-color: white;
+    padding: 10px;
+    text-align: center;
+    width: 103%;
+    margin-left: -15px;
+}
+
+.title-board {
+    background-color: #585858;
+    padding: 20px;
+    text-align: center;
+    color: white;
+    width: 103%;
+    margin-left: -15px;
+}
+
 </style>

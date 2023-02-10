@@ -34,7 +34,7 @@
       <v-toolbar-title>{{ title }}</v-toolbar-title>
     </v-app-bar>
 
-    <v-main>
+    <v-main class="main">
       <v-container>
         <Nuxt />
       </v-container>
@@ -96,3 +96,12 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+@import '~/assets/style.css';
+
+.main {
+  background-color: #E0EBE7;
+}
+
+</style>
