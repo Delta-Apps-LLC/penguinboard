@@ -6,16 +6,17 @@
         </head>
         <body class="whole-card">
             <img :src="image"
-                class="image-box">
+                class="image-box"
+                v-if="image !== ''">
+            <div v-else class="transparent-box"></div>
             <div class="message-box">
                 <p class="message-paragraph">{{message}}</p>
                 <p class="message-author">Author: {{author}}</p>
             </div>
+            <div v-if="image === ''" class="transparent-box"></div>
         </body>    
     </section>
 </template>
-
-<!-- style="width: 106.957px; height: 82px; margin: 1.6px 0px;" -->
 
 <script>
 export default {
@@ -45,12 +46,15 @@ export default {
 
 <style scope>
     .whole-card {
-        background-color: #D3D3D3;
         border: 1px solid black;
         float: center;
         padding: 1%;
         vertical-align: center;
         margin-top: 10px;
+        background-image: url('assets/files/post_background.jpg');     
+        background-size: 100% 100%;
+        background-repeat: repeat; 
+        margin: 0px;  
     }
 
     .card-body {
@@ -91,5 +95,13 @@ export default {
         font-weight: 400;
         font-size: 16px;
         line-height: 20.16px;
+    }
+
+    .transparent-box {
+        height: 125px;
+        width: auto;
+        opacity: 0.0;
+        padding: 10px;
+        padding-top: 10px;
     }
 </style>
