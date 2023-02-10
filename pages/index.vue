@@ -5,21 +5,17 @@
     <v-card class="board-card" v-if="showBoard"
       width="50%"
     >
-      <v-card-title>
+      <v-card-text>
         <v-text-field
           v-model="title"
           placeholder="Board Title"
           counter="75"
         ></v-text-field>
-      </v-card-title>
-      <v-card-text>
         <v-text-field
           v-model="recipientname"
           placeholder="Recipients Name"
           type="name"
         ></v-text-field>
-      </v-card-text>
-      <v-card-text>
         <v-text-field
           v-model="recipientemail"
           placeholder="Recipients Email"

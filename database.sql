@@ -20,8 +20,8 @@ CREATE TABLE "board"
   "link" VARCHAR NOT NULL,
   "sender" VARCHAR,
   "sent" BOOLEAN NOT NULL DEFAULT false,
+  "expiration" VARCHAR NOT NULL DEFAULT '0',
   PRIMARY KEY ("boardid"),
-  UNIQUE ("recipientemail"),
   UNIQUE ("link")
 );
 

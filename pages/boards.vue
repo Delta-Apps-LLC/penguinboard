@@ -25,9 +25,11 @@
               <v-btn @click="deleteBoard(board)">Delete</v-btn>
               <v-btn v-if="tab === 0" @click="sendBoard(board)">Send</v-btn>
               <v-btn v-if="tab === 0" @click="openBoard(board)">Open</v-btn>
-              <v-btn v-else>
-                <a target="_blank" :href="`http://localhost:3000/${board.link}`">View</a>
+                <a v-else target="_blank" :href="`http://localhost:3000/${board.link}`">
+              <v-btn>
+                View
               </v-btn>
+                </a>
           </v-card-actions>
       </v-card>
     </v-row>

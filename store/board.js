@@ -36,7 +36,7 @@ export const actions = {
                 recipientemail: recipientemail,
                 recipientname: recipientname,
                 sender: rootState.account.jwtUser.email,
-                link: link
+                link: link,
             },
             {
                 headers: authHeader()
@@ -97,17 +97,20 @@ export const actions = {
 
     async sendBoard({ dispatch }, { board }) {
         try {
+            const twoWeeksMs = 1209600000
+            const expiration = Date.now() + twoWeeksMs
             const params = {
                 to_name: board.recipientname,
                 link: board.link,
                 from_email: board.sender,
-                to_email: board.recipientemail
+                to_email: board.recipientemail,
             }
             emailjs.send('mmq_gmail_service', 'template_t7nqxg9', params, 'rWfLyPQyBNY3WqQSS')
                 .then(async function(response) {
                     console.log('SUCCESS!', response.status, response.text);
                     const res = await axios.patch(`${API}/board?boardid=eq.${board.boardid}`, {
-                        sent: true
+                        sent: true,
+                        expiration: expiration.toString(),
                     },
                     {
                         headers: authHeader()

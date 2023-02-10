@@ -1,8 +1,8 @@
 <template>
   <v-col justify="center" align="center">
-    <v-card width="40%">
-      <v-card-title class="justify-center" v-if="board != null">{{ board.recipientname }}</v-card-title>
-      <v-card-subtitle v-if="board != null">{{ board.title }}</v-card-subtitle>
+    <v-card v-if="board != null && !board.sent" width="40%">
+      <v-card-title class="justify-center">{{ board.recipientname }}</v-card-title>
+      <v-card-subtitle>{{ board.title }}</v-card-subtitle>
 
       <v-btn class="gif-btn" @click="showGifs ? hideGifs() : getGifs(true)" v-if="!isGifSelected">
         {{ showGifs ? 'Cancel' : 'Add GIF' }}
@@ -53,6 +53,8 @@
         <v-btn @click="sendPost()">Send</v-btn>
       </v-card-actions>
     </v-card>
+
+    <h3 v-else-if="board != null && board.sent">This board has been sent, and posting is now closed.</h3>
   </v-col>
 </template>
 
@@ -160,7 +162,7 @@ export default {
     async removeGif() {
       this.chosenGif = ''
       this.isGifSelected = false
-    }
+    },
   },
 
   computed: {
