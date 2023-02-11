@@ -12,7 +12,7 @@
         <v-row>
             <post v-for="post in posts"
                 :key="post.author"
-                :image="post.image"
+                :gif="post.image"
                 :message="post.message"
                 :author="post.author"
                 class="col-lg-4 col-md-6 col-sm-12 px-0"
@@ -42,17 +42,17 @@
                     author: "Billy B. Bob"
                 },
                 {
-                    image: 'https://media.giphy.com/media/5cdenDXni65aM/giphy.gif',
+                    image: '5cdenDXni65aM',
                     message: "Good job on the sell. You jacked them like this monkey.",
                     author: "Marx"
                 },
                 {
-                    image: 'https://media.giphy.com/media/KzGCAlMiK6hQQ/giphy.gif',
+                    image: 'KzGCAlMiK6hQQ',
                     message: "You're worse than Fred, I despise that guy.",
                     author: "Fred",
                 },
                 {
-                    image: 'https://media.giphy.com/media/xT5LMQgNBvswjMfF0Q/giphy.gif',
+                    image: 'xT5LMQgNBvswjMfF0Q',
                     message: "Yeah yeah, let's go Brandon",
                     author: "Sen. Joe Biren"
                 },
@@ -61,12 +61,12 @@
                     author: "Tom"
                 },
                 {
-                    image: 'https://media.giphy.com/media/tu54GM19sqJOw/giphy.gif',
+                    image: 'tu54GM19sqJOw',
                     message: "What if someone just writes a freaking ton of stuff? Like... what if some douche bag just writes a ton of text because they really want to congratulate some person for doing a sucky job that was doomed to begin with? WHAT WOULD HAPPEN?!?!",
                     author: "Some Douchebag"
                 },
                 {
-                    image: 'https://media.giphy.com/media/RSEuJxiw2H24U/giphy.gif',
+                    image: 'RSEuJxiw2H24U',
                     message: "Yo! Let's smoke it up after work.",
                     author: "Elon Musk"
                 }

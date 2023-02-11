@@ -5,15 +5,15 @@
     integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         </head>
         <body class="whole-card">
-            <img :src="image"
+            <img :src="`https://media.giphy.com/media/${gif}/giphy.gif`"
                 class="image-box"
-                v-if="image !== ''">
+                v-if="gif !== ''">
             <div v-else class="transparent-box"></div>
             <div class="message-box">
                 <p class="message-paragraph">{{message}}</p>
                 <p class="message-author">From - {{author}}</p>
             </div>
-            <div v-if="image === ''" class="transparent-box"></div>
+            <div v-if="gif === ''" class="transparent-box"></div>
         </body>    
     </section>
 </template>
@@ -21,7 +21,7 @@
 <script>
 export default {
     props: {
-        image: {
+        gif: {
             type: String,
             required: false,
             default: ''

@@ -1,37 +1,42 @@
 <template>
   <v-col class="whole_dashboard">
-        <link rel="stylesheet" 
-        href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" 
-        crossorigin="anonymous">
-        <h1 class="bravo">Bravo!</h1>
-        <div class="title-card">
-            <!-- <img :src="image2" class="title-image" v-if="image1 !== ''"> -->
-            <p class="title-text">{{ board.title }}</p>
-        </div>
-        <v-row>
-            <post v-for="post in posts"
-                :key="post.postid"
-                :image="`https://giphy.com/embed/${post.gif}`"
-                :message="post.message"
-                :author="post.from"
-                class="col-lg-4 col-md-6 col-sm-12 px-0"
-            ></post>
-        </v-row> 
+    <link rel="stylesheet" 
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" 
+      crossorigin="anonymous">
+    <h1 class="bravo">Bravo!</h1>
+    <div class="title-card">
+      <img :src="image2" class="title-image" v-if="image1 !== ''"> 
+      <p class="title-text">{{ board.title }}</p>
+    </div>
+    <v-row>
+      <post v-for="post in posts"
+        :key="post.postid"
+        :gif="post.gif"
+        :message="post.message"
+        :author="post.from"
+        class="col-lg-4 col-md-6 col-sm-12 px-0"
+      ></post>
+    </v-row> 
 
-        <v-col justify="center" align="center">
-    <p>Posts: {{ posts }}</p>
-    <p>Board: {{ board }}</p>
+    <!-- <v-col justify="center" align="center">
+      <p>Posts: {{ posts }}</p>
+      <p>Board: {{ board }}</p>
+    </v-col> -->
   </v-col>
-
-    </v-col>
 </template>
 
 <script>
 import { getJwtToken, getUserIdFromToken } from "../../store/auth"
+import post from "~/components/post"
+
 export default {
   layout: 'linknoauth',
   name: 'LinkPage',
+
+  components: {
+    post
+  },
 
   async asyncData({ params }) {
     const link = params.link
