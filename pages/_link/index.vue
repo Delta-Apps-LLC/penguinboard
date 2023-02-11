@@ -1,12 +1,12 @@
 <template> 
-  <v-col class="whole_dashboard">
+  <v-col class="whole-dashboard">
     <link rel="stylesheet" 
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
       integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" 
       crossorigin="anonymous">
     <h1 class="bravo">Bravo!</h1>
     <div class="title-card">
-      <img :src="image2" class="title-image" v-if="image1 !== ''"> 
+      <img :src="board.image" class="title-image" v-if="board.image !== ''"> 
       <p class="title-text">{{ board.title }}</p>
     </div>
     <v-row>
@@ -18,15 +18,16 @@
         class="col-lg-4 col-md-6 col-sm-12 px-0"
       ></post>
     </v-row> 
-  </v-col>
+  <!-- </v-col>
 </template>
 
-<!-- <template>
+<template> -->
   <v-col justify="center" align="center">
     <p>Posts: {{ posts }}</p>
     <p>Board: {{ board }}</p>
   </v-col>
-</template> -->
+  </v-col>
+</template>
 
 <script>
 import { getJwtToken, getUserIdFromToken } from "../../store/auth"
@@ -100,6 +101,10 @@ export default {
 
 <style scoped>
 @import '~/assets/style.css';
+
+/* .whole-dashboard {
+  background-color: aqua;
+} */
 
 .bravo {
     color: black;
