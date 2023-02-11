@@ -11,7 +11,7 @@
             <div v-else class="transparent-box"></div>
             <div class="message-box">
                 <p class="message-paragraph">{{message}}</p>
-                <p class="message-author">Author: {{author}}</p>
+                <p class="message-author">From - {{author}}</p>
             </div>
             <div v-if="image === ''" class="transparent-box"></div>
         </body>    

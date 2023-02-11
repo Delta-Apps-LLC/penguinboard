@@ -5,7 +5,10 @@
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" 
         crossorigin="anonymous">
         <h1 class="bravo">Bravo!</h1>
-        <h2 class="title-board">Title Board</h2>
+        <div class="title-card">
+            <img :src="image2" class="title-image" v-if="image1 !== ''">
+            <p class="title-text">Congratulations on the sell</p>
+        </div>
         <v-row>
             <post v-for="post in posts"
                 :key="post.author"
@@ -28,8 +31,11 @@
             post
         },
 
-    data() {
+        data() {
         return {
+            image1: 'https://media.istockphoto.com/id/187722063/photo/funny-man-with-watermelon-helmet-and-goggles.jpg?s=612x612&w=0&k=20&c=gRAm8vtLqdOU8a-mJVt6m_Wnv8pLpa3TBh2vRQP4208=',
+            image2: 'https://cdn.xxl.thumbs.canstockphoto.com/crazy-emotion-stock-photography_csp11187800.jpg',
+            image3: '',
             posts: [
                 {
                     message: "Piss off",
@@ -37,22 +43,22 @@
                 },
                 {
                     image: 'https://media.giphy.com/media/5cdenDXni65aM/giphy.gif',
-                    message: "Congrats",
-                    author: "Carl"
-                },
-                {
-                    message: "Take a Hike",
-                    author: "Tom"
+                    message: "Good job on the sell. You jacked them like this monkey.",
+                    author: "Marx"
                 },
                 {
                     image: 'https://media.giphy.com/media/KzGCAlMiK6hQQ/giphy.gif',
-                    message: "You're worse than Weird Al",
-                    author: "Weird Al",
+                    message: "You're worse than Fred, I despise that guy.",
+                    author: "Fred",
                 },
                 {
                     image: 'https://media.giphy.com/media/xT5LMQgNBvswjMfF0Q/giphy.gif',
                     message: "Yeah yeah, let's go Brandon",
                     author: "Sen. Joe Biren"
+                },
+                {
+                    message: "Take a Hike",
+                    author: "Tom"
                 },
                 {
                     image: 'https://media.giphy.com/media/tu54GM19sqJOw/giphy.gif',
@@ -82,13 +88,29 @@
     margin-left: -15px;
 }
 
-.title-board {
+.title-card {
     background-color: #585858;
     padding: 20px;
-    text-align: center;
+    justify-content: center;
+    align-items: center;
     color: white;
+    
     width: 103%;
     margin-left: -15px;
+    display: flex;
+    margin-bottom: 1em;
+    border: solid 2px;
+}
+
+.title-image {
+    max-height: auto;
+    max-width: 40%;
+}
+
+.title-text {
+    width: auto;
+    margin: 100px;
+    font-size: 50px;
 }
 
 </style>
