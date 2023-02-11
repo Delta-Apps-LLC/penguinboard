@@ -1,4 +1,4 @@
-<template>
+<template> 
   <v-col class="whole_dashboard">
     <link rel="stylesheet" 
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
@@ -18,13 +18,15 @@
         class="col-lg-4 col-md-6 col-sm-12 px-0"
       ></post>
     </v-row> 
-
-    <!-- <v-col justify="center" align="center">
-      <p>Posts: {{ posts }}</p>
-      <p>Board: {{ board }}</p>
-    </v-col> -->
   </v-col>
 </template>
+
+<!-- <template>
+  <v-col justify="center" align="center">
+    <p>Posts: {{ posts }}</p>
+    <p>Board: {{ board }}</p>
+  </v-col>
+</template> -->
 
 <script>
 import { getJwtToken, getUserIdFromToken } from "../../store/auth"
