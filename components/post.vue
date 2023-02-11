@@ -10,7 +10,7 @@
                 v-if="gif !== ''">
             <div v-else class="transparent-box"></div>
             <div class="message-box">
-                <p class="message-paragraph">{{message}}</p>
+                <p class="message-paragraph" v-html="message"></p>
                 <p class="message-author">From - {{author}}</p>
             </div>
             <div v-if="gif === ''" class="transparent-box"></div>

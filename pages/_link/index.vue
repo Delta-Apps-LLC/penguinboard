@@ -5,8 +5,8 @@
       integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" 
       crossorigin="anonymous">
     <h1 class="bravo">Bravo!</h1>
-    <div class="title-card">
-      <img :src="board.image" class="title-image" v-if="board.image !== ''"> 
+    <div class="title-card" v-if="board != null">
+      <img :src="board.image" class="title-image" v-if="board.image != null">
       <p class="title-text">{{ board.title }}</p>
     </div>
     <v-row>
@@ -55,6 +55,7 @@ export default {
       this.$router.push('/')
     } else if (this.jwtUser == null || this.jwtUser == undefined) {
       if (Date.now().toString() > this.board.expiration) {
+        console.log(Date.now(), this.board.expiration)
         alert('Viewing priviledges for this board have expired, please log in or sign up to regain access.')
         this.$router.push('/login')
       } else {

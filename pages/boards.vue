@@ -14,6 +14,7 @@
         v-for="(board, i) in tab === 0 ? managedBoards : myBoards"
         :key="i"
         width="250px"
+        height="100%"
       >
           <v-card-title class="justify-center">
             {{ tab === 0 ? board.recipientname : board.title }}
