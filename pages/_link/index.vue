@@ -1,8 +1,30 @@
 <template>
-  <v-col justify="center" align="center">
+  <v-col class="whole_dashboard">
+        <link rel="stylesheet" 
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" 
+        crossorigin="anonymous">
+        <h1 class="bravo">Bravo!</h1>
+        <div class="title-card">
+            <!-- <img :src="image2" class="title-image" v-if="image1 !== ''"> -->
+            <p class="title-text">{{ board.title }}</p>
+        </div>
+        <v-row>
+            <post v-for="post in posts"
+                :key="post.postid"
+                :image="`https://giphy.com/embed/${post.gif}`"
+                :message="post.message"
+                :author="post.from"
+                class="col-lg-4 col-md-6 col-sm-12 px-0"
+            ></post>
+        </v-row> 
+
+        <v-col justify="center" align="center">
     <p>Posts: {{ posts }}</p>
     <p>Board: {{ board }}</p>
   </v-col>
+
+    </v-col>
 </template>
 
 <script>
@@ -71,6 +93,40 @@ export default {
 
 <style scoped>
 @import '~/assets/style.css';
+
+.bravo {
+    color: black;
+    background-color: white;
+    padding: 10px;
+    text-align: center;
+    width: 103%;
+    margin-left: -15px;
+}
+
+.title-card {
+    background-color: #585858;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    
+    width: 103%;
+    margin-left: -15px;
+    display: flex;
+    margin-bottom: 1em;
+    border: solid 2px;
+}
+
+.title-image {
+    max-height: auto;
+    max-width: 40%;
+}
+
+.title-text {
+    width: auto;
+    margin: 100px;
+    font-size: 50px;
+}
 
 
 </style>
