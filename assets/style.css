@@ -1,3 +1,8 @@
 .main {
     background-color: #E0EBE7;
 }
+
+.logo {
+    height: 50px;
+    vertical-align: bottom;
+}

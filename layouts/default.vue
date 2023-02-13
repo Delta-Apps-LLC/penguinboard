@@ -31,7 +31,9 @@
       app
     >
       <v-app-bar-nav-icon @click.stop="miniVariant = !miniVariant" />
-      <v-toolbar-title>{{ title }}</v-toolbar-title>
+      <v-toolbar-title>
+        <img class="logo" src="~/assets/images/bravo_logo.png" />
+      </v-toolbar-title>
     </v-app-bar>
 
     <v-main class="main">

@@ -1,9 +1,9 @@
 <template>
   <v-col justify="center" align="center">
-    <v-btn @click="showBoard = true">Create Board</v-btn>
-    <v-card class="board-card" v-if="showBoard"
+    <v-card class="board-card"
       width="50%"
     >
+      <v-card-title class="title justify-center">Create a New Board Here!</v-card-title>
       <v-card-text>
         <input type="file" ref="fileInput" accept="image/*" @input="previewImage"/>
         <img id="preview-img" :src="imageData" v-if="imageData" />
@@ -24,7 +24,8 @@
         ></v-text-field>
       </v-card-text>
       <v-card-actions>
-        <v-btn @click="cancelBoard()">Cancel</v-btn>
+        <v-spacer />
+        <v-btn @click="clearBoard()">Clear</v-btn>
         <v-btn @click="createBoard()">Create Board</v-btn>
       </v-card-actions>
     </v-card>
@@ -38,7 +39,6 @@ export default {
 
   data () {
     return {
-      showBoard: false,
       title: '',
       recipientemail: '',
       recipientname: '',
@@ -57,11 +57,11 @@ export default {
       reader.readAsDataURL(file)
     },
     
-    cancelBoard () {
+    clearBoard () {
       this.title = ''
       this.recipientemail = ''
       this.recipientname = ''
-      this.showBoard = false
+      this.imageData = null
     },
 
     async createBoard () {
@@ -74,7 +74,7 @@ export default {
           recipientname: this.recipientname,
           image: this.imageData,
         })
-        this.cancelBoard()
+        this.clearBoard()
       }
     },
   },
@@ -96,6 +96,13 @@ export default {
 
 .board-card {
   margin-top: 20px;
+}
+
+.title {
+  font-family: Plus Jakarta Sans !important;
+  font-size: 24px !important;
+  color: #303030;
+
 }
 
 #preview-img {

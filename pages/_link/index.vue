@@ -4,7 +4,7 @@
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
       integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" 
       crossorigin="anonymous">
-    <h1 class="bravo">Bravo!</h1>
+    <!-- <h1 class="bravo">Bravo!</h1> -->
     <div class="title-card" v-if="board != null">
       <img :src="board.image" class="title-image" v-if="board.image != null">
       <p class="title-text">{{ board.title }}</p>
@@ -136,10 +136,7 @@ export default {
 .title-image {
   max-height: auto;
   max-width: 40%;
-  border-top-right-radius:15px;
-  border-top-left-radius:15px;
-  border-bottom-right-radius:15px;
-  border-bottom-left-radius:15px;
+  border-radius: 15px;
 }
 
 .title-text {

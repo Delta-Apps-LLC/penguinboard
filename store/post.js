@@ -41,6 +41,7 @@ export const actions = {
                 alert('Your post has been sent!')
             }
         } catch (err) {
+            alert('Something went wrong, please try again.')
             console.log(err)
         }
     },
