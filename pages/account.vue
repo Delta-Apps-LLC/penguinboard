@@ -1,6 +1,7 @@
 <template>
   <v-col justify="center" align="center">
-    <p>{{ userData }}</p>
+    <p>User's name: {{ userData.firstname }} {{ userData.lastname }}</p>
+    <p>User's email: {{ userData.email }}</p>
   </v-col>
 </template>
 
