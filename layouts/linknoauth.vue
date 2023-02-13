@@ -10,7 +10,7 @@
       <v-btn v-else @click="toHome()">Home</v-btn>
     </v-app-bar>
 
-    <v-main>
+    <v-main class="main">
       <v-container>
         <Nuxt />
       </v-container>
@@ -58,3 +58,8 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+@import '~/assets/style.css';
+
+</style>

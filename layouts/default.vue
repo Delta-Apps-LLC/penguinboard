@@ -100,8 +100,5 @@ export default {
 <style scoped>
 @import '~/assets/style.css';
 
-.main {
-  background-color: #E0EBE7;
-}
 
 </style>
