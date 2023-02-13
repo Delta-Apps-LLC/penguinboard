@@ -7,13 +7,13 @@
         <body class="whole-card">
             <img :src="`https://media.giphy.com/media/${gif}/giphy.gif`"
                 class="image-box"
-                v-if="gif !== ''">
+                v-if="gif !== null">
             <div v-else class="transparent-box"></div>
             <div class="message-box">
                 <p class="message-paragraph" v-html="message"></p>
                 <p class="message-author">From - {{author}}</p>
             </div>
-            <div v-if="gif === ''" class="transparent-box"></div>
+            <div v-if="gif === null" class="transparent-box"></div>
         </body>    
     </section>
 </template>
@@ -24,7 +24,7 @@ export default {
         gif: {
             type: String,
             required: false,
-            default: ''
+            default: null
         },
         message: {
             type: String,
@@ -54,7 +54,12 @@ export default {
         background-image: url('assets/files/post_background.jpg');     
         background-size: 100% 100%;
         background-repeat: repeat; 
-        margin: 0px;  
+        margin: 8px;  
+        border-top-right-radius:15px;
+        border-top-left-radius:15px;
+        border-bottom-right-radius:15px;
+        border-bottom-left-radius:15px;
+
     }
 
     .card-body {
@@ -69,6 +74,10 @@ export default {
         margin-left: auto;
         margin-right: auto;
         display: block;
+        border-top-right-radius:15px;
+        border-top-left-radius:15px;
+        border-bottom-right-radius:15px;
+        border-bottom-left-radius:15px;
     }
 
     .message-box{
@@ -79,6 +88,10 @@ export default {
         height: 200px;
         width: auto;
         overflow: auto;
+        border-top-right-radius:15px;
+        border-top-left-radius:15px;
+        border-bottom-right-radius:15px;
+        border-bottom-left-radius:15px;
     }
 
     .message-paragraph {

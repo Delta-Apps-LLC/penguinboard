@@ -18,16 +18,16 @@
         class="col-lg-4 col-md-6 col-sm-12 px-0"
       ></post>
     </v-row> 
-  <!-- </v-col>
-</template>
+  </v-col>
+</template>  
 
-<template> -->
+<!-- <template>
   <v-col justify="center" align="center">
     <p>Posts: {{ posts }}</p>
     <p>Board: {{ board }}</p>
   </v-col>
   </v-col>
-</template>
+</template> -->
 
 <script>
 import { getJwtToken, getUserIdFromToken } from "../../store/auth"
@@ -103,42 +103,49 @@ export default {
 <style scoped>
 @import '~/assets/style.css';
 
-/* .whole-dashboard {
-  background-color: aqua;
-} */
-
 .bravo {
-    color: black;
-    background-color: white;
-    padding: 10px;
-    text-align: center;
-    width: 103%;
-    margin-left: -15px;
+  color: black;
+  background-color: white;
+  padding: 10px;
+  text-align: center;
+  width: 103%;
+  margin-left: -15px;
+  border-top-right-radius:15px;
+  border-top-left-radius:15px;
+  border-bottom-right-radius:15px;
+  border-bottom-left-radius:15px;
 }
 
 .title-card {
-    background-color: #585858;
-    padding: 20px;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    
-    width: 103%;
-    margin-left: -15px;
-    display: flex;
-    margin-bottom: 1em;
-    border: solid 2px;
+  background-color: #585858;
+  padding: 20px;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  width: 103%;
+  margin-left: -15px;
+  display: flex;
+  margin-bottom: 1em;
+  border: solid 2px;
+  border-top-right-radius:15px;
+  border-top-left-radius:15px;
+  border-bottom-right-radius:15px;
+  border-bottom-left-radius:15px;
 }
 
 .title-image {
-    max-height: auto;
-    max-width: 40%;
+  max-height: auto;
+  max-width: 40%;
+  border-top-right-radius:15px;
+  border-top-left-radius:15px;
+  border-bottom-right-radius:15px;
+  border-bottom-left-radius:15px;
 }
 
 .title-text {
-    width: auto;
-    margin: 100px;
-    font-size: 50px;
+  width: auto;
+  margin: 100px;
+  font-size: 50px;
 }
 
 
