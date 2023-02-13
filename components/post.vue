@@ -45,76 +45,76 @@ export default {
 </script>
 
 <style scope>
-    .whole-card {
-        border: 1px solid black;
-        float: center;
-        padding: 1%;
-        vertical-align: center;
-        margin-top: 10px;
-        background-image: url('assets/files/post_background.jpg');     
-        background-size: 100% 100%;
-        background-repeat: repeat; 
-        margin: 8px;  
-        border-top-right-radius:15px;
-        border-top-left-radius:15px;
-        border-bottom-right-radius:15px;
-        border-bottom-left-radius:15px;
+.whole-card {
+    border: 1px solid grey;
+    float: center;
+    padding: 1%;
+    vertical-align: center;
+    margin-top: 10px;
+    background-image: url('assets/files/post_background.jpg');     
+    background-size: 100% 100%;
+    background-repeat: repeat; 
+    margin: 8px;  
+    border-top-right-radius:15px;
+    border-top-left-radius:15px;
+    border-bottom-right-radius:15px;
+    border-bottom-left-radius:15px;
 
-    }
+}
 
-    .card-body {
-        padding: 1%;
-    }
+.card-body {
+    padding: 1%;
+}
 
-    .image-box {
-        max-width: 100%;
-        height: 250px;
-        width: auto;
-        float: center;
-        margin-left: auto;
-        margin-right: auto;
-        display: block;
-        border-top-right-radius:15px;
-        border-top-left-radius:15px;
-        border-bottom-right-radius:15px;
-        border-bottom-left-radius:15px;
-    }
+.image-box {
+    max-width: 100%;
+    height: 250px;
+    width: auto;
+    float: center;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    border-top-right-radius:15px;
+    border-top-left-radius:15px;
+    border-bottom-right-radius:15px;
+    border-bottom-left-radius:15px;
+}
 
-    .message-box{
-        background-color: white;
-        text-align: center;
-        padding: 10px;
-        float: center;
-        height: 200px;
-        width: auto;
-        overflow: auto;
-        border-top-right-radius:15px;
-        border-top-left-radius:15px;
-        border-bottom-right-radius:15px;
-        border-bottom-left-radius:15px;
-    }
+.message-box{
+    background-color: white;
+    text-align: center;
+    padding: 10px;
+    float: center;
+    height: 200px;
+    width: auto;
+    overflow: auto;
+    border-top-right-radius:15px;
+    border-top-left-radius:15px;
+    border-bottom-right-radius:15px;
+    border-bottom-left-radius:15px;
+}
 
-    .message-paragraph {
-        text-align: center;
-        font-weight: 400;
-        font-size: 24px;
-        line-height: 30.24px;
-        padding: 10px;
-        font: Plus Jakarta Sans;
-    }
-    
-    .message-author {
-        text-align: right end;
-        font-weight: 400;
-        font-size: 16px;
-        line-height: 20.16px;
-    }
+.message-paragraph {
+    text-align: center;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 30.24px;
+    padding: 10px;
+    font: Plus Jakarta Sans;
+}
 
-    .transparent-box {
-        height: 125px;
-        width: auto;
-        opacity: 0.0;
-        padding: 10px;
-        padding-top: 10px;
-    }
+.message-author {
+    text-align: right end;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20.16px;
+}
+
+.transparent-box {
+    height: 125px;
+    width: auto;
+    opacity: 0.0;
+    padding: 10px;
+    padding-top: 10px;
+}
 </style>

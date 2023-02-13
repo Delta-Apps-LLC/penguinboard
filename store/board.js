@@ -44,7 +44,7 @@ export const actions = {
             })
             if (res.status === 201) {
                 alert('Board successfully created!')
-                await dispatch('getManagedBoards')
+                // await dispatch('getManagedBoards')
             }
         } catch (err) {
             console.log(err)
@@ -55,6 +55,8 @@ export const actions = {
                     recipientname: recipientname,
                     suffix: randomstring.generate(5)
                 })
+            } else {
+                alert('Something went wrong, please try again.')
             }
         }
     },
@@ -123,6 +125,7 @@ export const actions = {
                     console.log('FAILED...', error);
                 });
         } catch (err) {
+            alert('Could not send email, something went wrong.')
             console.log(err)
         }
     },
