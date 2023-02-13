@@ -7,9 +7,9 @@
       <v-toolbar-title>{{ title }}</v-toolbar-title>
     </v-app-bar>
 
-    <v-main>
+    <v-main class="main">
       <v-container>
-        <Nuxt />
+        <Nuxt class="main" />
       </v-container>
     </v-main>
     
@@ -37,3 +37,8 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+@import '~/assets/style.css';
+
+</style>
