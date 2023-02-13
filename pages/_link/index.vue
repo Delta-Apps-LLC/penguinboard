@@ -136,10 +136,7 @@ export default {
 .title-image {
   max-height: auto;
   max-width: 40%;
-  border-top-right-radius:15px;
-  border-top-left-radius:15px;
-  border-bottom-right-radius:15px;
-  border-bottom-left-radius:15px;
+  border-radius: 15px;
 }
 
 .title-text {

@@ -46,19 +46,15 @@ export default {
 
 <style scope>
 .whole-card {
-    border: 1px solid grey;
     float: center;
     padding: 1%;
     vertical-align: center;
     margin-top: 10px;
-    background-image: url('assets/files/post_background.jpg');     
+    background-image: linear-gradient(to top right, #c12222, #0085FF);
+    /* background-image: url('assets/files/post_background.jpg'); */
     background-size: 100% 100%;
-    background-repeat: repeat; 
-    margin: 8px;  
-    border-top-right-radius:15px;
-    border-top-left-radius:15px;
-    border-bottom-right-radius:15px;
-    border-bottom-left-radius:15px;
+    margin: 8px;
+    border-radius: 15px;
 
 }
 
@@ -74,33 +70,27 @@ export default {
     margin-left: auto;
     margin-right: auto;
     display: block;
-    border-top-right-radius:15px;
-    border-top-left-radius:15px;
-    border-bottom-right-radius:15px;
-    border-bottom-left-radius:15px;
+    border-radius: 15px;
 }
 
 .message-box{
-    background-color: white;
+    background-color: #f3f3f3;
     text-align: center;
     padding: 10px;
     float: center;
     height: 200px;
     width: auto;
     overflow: auto;
-    border-top-right-radius:15px;
-    border-top-left-radius:15px;
-    border-bottom-right-radius:15px;
-    border-bottom-left-radius:15px;
+    border-radius: 15px;
 }
 
 .message-paragraph {
     text-align: center;
     font-weight: 400;
-    font-size: 24px;
+    font-size: 21px;
     line-height: 30.24px;
     padding: 10px;
-    font: Plus Jakarta Sans;
+    font-family: Plus Jakarta Sans;
 }
 
 .message-author {
