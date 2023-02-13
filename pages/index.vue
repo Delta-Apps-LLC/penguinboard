@@ -1,6 +1,5 @@
 <template>
   <v-col justify="center" align="center">
-    <v-btn @click="goToDashboard()">Show Board</v-btn>
     <v-btn @click="showBoard = true">Create Board</v-btn>
     <v-card class="board-card" v-if="showBoard"
       width="50%"
@@ -56,10 +55,6 @@ export default {
         this.imageData = e.target.result
       }
       reader.readAsDataURL(file)
-    },
-
-    goToDashboard() {
-      this.$router.push('./dashboard')
     },
     
     cancelBoard () {
