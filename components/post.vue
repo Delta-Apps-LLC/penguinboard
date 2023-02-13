@@ -11,10 +11,10 @@
             <div v-else class="transparent-box"></div>
             <div class="message-box">
                 <p class="message-paragraph" v-html="message"></p>
-                <p class="message-author">From - {{author}}</p>
+                <p class="message-author">&#126;{{author}}</p>
             </div>
             <div v-if="gif === ''" class="transparent-box"></div>
-        </body>    
+        </body>
     </section>
 </template>
 
