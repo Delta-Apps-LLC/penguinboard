@@ -22,7 +22,7 @@
         <p id="category"><q>{{ category }}</q></p>
         <v-row justify="center" align="center">
           <div id="parent" v-for="(gif, i) in gifs" :key="i">
-            <iframe :src="`https://giphy.com/embed/${gif.id}`" width="200" frameBorder="0"></iframe>
+            <iframe class="gif-iframe" :src="`https://giphy.com/embed/${gif.id}`" width="200" frameBorder="0"></iframe>
             <button @click="chooseGif(gif.id)">Select</button>
           </div>
         </v-row>
@@ -30,7 +30,7 @@
       </v-col>
 
       <!-- Display Selected GIF here -->
-      <iframe v-if="isGifSelected" :src="`https://giphy.com/embed/${chosenGif}`" width="200" frameBorder="0"></iframe>
+      <iframe class="gif-iframe" v-if="isGifSelected" :src="`https://giphy.com/embed/${chosenGif}`" width="200" frameBorder="0"></iframe>
       <v-btn class="remove-icon" v-if="isGifSelected" @click="removeGif()" icon><v-icon>mdi-close</v-icon></v-btn>
 
       <v-card-text>

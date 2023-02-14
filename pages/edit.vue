@@ -79,7 +79,7 @@
     <!-- Row of posts -->
     <v-row class="post-row">
       <v-card class="post-card text-center" v-for="(post, i) in posts" :key="i">
-        <iframe class="gif"
+        <iframe class="gif-iframe"
           v-if="post.gif != null"
           :src="`https://giphy.com/embed/${post.gif}`"
           width="90%"
@@ -210,7 +210,7 @@ export default {
   border-radius: 15px;
 }
 
-.gif {
+.gif-iframe {
   margin-top: 10px;
 }
 
