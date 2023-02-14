@@ -158,7 +158,7 @@ export const actions = {
             if (res.status === 204 || res.status === 200 || res.status === 201) {
                 alert('Your changes have successfully been saved.')
                 await commit('setBoardData', res.data[0])
-                localStorage.setItem('boardToEdit', JSON.stringify(res.data[0]))
+                localStorage.setItem('boardToEdit', res.data[0].link)
             }
         } catch (err) {
             console.log(err)
