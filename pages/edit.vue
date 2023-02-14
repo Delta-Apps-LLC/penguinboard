@@ -104,9 +104,12 @@ export default {
 
   async mounted () {
     await this.$store.dispatch('post/getBoardPosts', {
-        link: JSON.parse(localStorage.getItem('boardToEdit')).link
+        link: localStorage.getItem('boardToEdit')
     })
-    await this.$store.commit('board/setBoardData', JSON.parse(localStorage.getItem('boardToEdit')))
+    await this.$store.dispatch('board/getBoardData', {
+      link: localStorage.getItem('boardToEdit')
+    })
+    this.loadData()
   },
 
   data () {
@@ -116,14 +119,21 @@ export default {
       ],
       show: false,
       edit: false,
-      title: JSON.parse(localStorage.getItem('boardToEdit')).title,
-      recipientemail: JSON.parse(localStorage.getItem('boardToEdit')).recipientemail,
-      recipientname: JSON.parse(localStorage.getItem('boardToEdit')).recipientname,
-      imageData: JSON.parse(localStorage.getItem('boardToEdit')).image,
+      title: null,
+      recipientemail: null,
+      recipientname: null,
+      imageData: null,
     }
   },
 
   methods: {
+    loadData () {
+      this.title = this.boardData.title
+      this.recipientemail = this.boardData.recipientemail
+      this.recipientname = this.boardData.recipientname
+      this.imageData = this.boardData.image
+    },
+
     goBack() {
       localStorage.removeItem('boardToEdit')
       this.$router.push('/boards')

@@ -6,7 +6,7 @@
     >
       <v-toolbar-title><img class="logo" src="~/assets/images/bravo_logo.png" /></v-toolbar-title>
       <v-spacer />
-      <v-btn v-if="jwtUser == null || jwtUser == undefined" @click="showLogin = true" text>Signup</v-btn>
+      <v-btn v-if="jwtUser == null || jwtUser == undefined" to="/login" text>Signup</v-btn>
       <v-btn v-else @click="toHome()" text>Home</v-btn>
     </v-app-bar>
 
@@ -22,9 +22,6 @@
     >
       <span>&copy; {{ new Date().getFullYear() }}</span>
     </v-footer>
-
-    <Login v-show="showLogin" @close-modal="showLogin = false" />
-
   </v-app>
 </template>
 

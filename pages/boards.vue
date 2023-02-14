@@ -81,7 +81,8 @@ export default {
     },
 
     async openBoard(board) {
-      localStorage.setItem('boardToEdit', JSON.stringify(board))
+      localStorage.removeItem('boardToEdit')
+      localStorage.setItem('boardToEdit', board.link)
       this.$router.push('/edit')
     },
   },
