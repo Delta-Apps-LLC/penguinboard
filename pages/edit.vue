@@ -1,22 +1,85 @@
 <template>
   <v-col>
-    <v-tooltip right>
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn
-          @click="goBack()"
-          v-bind="attrs"
-          v-on="on"
-          icon
-        >
-          <v-icon size="50">mdi-chevron-left</v-icon>
-        </v-btn>
-      </template>
-      <span>Back</span>
-    </v-tooltip>
+    <v-row>
+      <v-tooltip right>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            @click="goBack()"
+            v-bind="attrs"
+            v-on="on"
+            icon
+          >
+            <v-icon size="50">mdi-chevron-left</v-icon>
+          </v-btn>
+        </template>
+        <span>Back</span>
+      </v-tooltip>
 
-    <v-row class="row">
+      <v-btn @click="show = !show" text>{{ show ? 'Hide' : 'Show'}} Board Details</v-btn>
+      
+      <!-- Card with board details -->
+      <v-card v-if="show"
+        class="board-card"
+        width="50%"
+      >
+        <v-card-text class="text-center">
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn class="edit-icon"
+                @click="edit = true"
+                v-bind="attrs"
+                v-on="on"
+                icon
+              >
+                <v-icon>mdi-pencil</v-icon>
+              </v-btn>
+            </template>
+            <span>Edit</span>
+          </v-tooltip>
+
+          <label for="image">Upload image (optional)</label>
+          <input
+            type="file"
+            name="image"
+            ref="fileInput"
+            accept="image/*"
+            @input="previewImage"
+            :disabled="!edit"
+          />
+          <img id="preview-img" :src="imageData" v-if="imageData" />
+
+          <v-text-field
+            v-model="title"
+            placeholder="Board Title"
+            counter="75"
+            :disabled="!edit"
+          ></v-text-field>
+          <v-text-field
+            v-model="recipientname"
+            placeholder="Recipients Name"
+            type="name"
+            :disabled="!edit"
+          ></v-text-field>
+          <v-text-field
+            v-model="recipientemail"
+            placeholder="Recipients Email"
+            type="email"
+            :disabled="!edit"
+          ></v-text-field>
+        </v-card-text>
+
+        <v-card-actions>
+          <v-spacer />
+          <v-btn @click="clearBoard()" text>Clear</v-btn>
+          <v-btn @click="saveChanges()" text>Save Changes</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-row>
+
+    <!-- Row of posts -->
+    <v-row class="post-row">
       <v-card class="post-card text-center" v-for="(post, i) in posts" :key="i">
-        <iframe class="gif"
+        <iframe class="gif-iframe"
           v-if="post.gif != null"
           :src="`https://giphy.com/embed/${post.gif}`"
           width="90%"
@@ -26,7 +89,7 @@
         <v-card-subtitle>&#126;{{post.from}}</v-card-subtitle>
         <v-card-actions>
           <v-spacer />
-          <v-btn @click="deletePost(post.postid)">Delete</v-btn>
+          <v-btn @click="deletePost(post.postid)" text>Delete</v-btn>
         </v-card-actions>
       </v-card>
     </v-row>
@@ -39,20 +102,24 @@ export default {
   middleware: "auth",
   name: 'EditPage',
 
-  mounted () {
-    this.$store.dispatch('post/getBoardPosts', {
+  async mounted () {
+    await this.$store.dispatch('post/getBoardPosts', {
         link: JSON.parse(localStorage.getItem('boardToEdit')).link
     })
-    this.$store.dispatch('board/getBoardData', {
-        link: JSON.parse(localStorage.getItem('boardToEdit')).link
-    })
+    await this.$store.commit('board/setBoardData', JSON.parse(localStorage.getItem('boardToEdit')))
   },
 
   data () {
     return {
       customToolbar: [
         ['blank']
-      ]
+      ],
+      show: false,
+      edit: false,
+      title: JSON.parse(localStorage.getItem('boardToEdit')).title,
+      recipientemail: JSON.parse(localStorage.getItem('boardToEdit')).recipientemail,
+      recipientname: JSON.parse(localStorage.getItem('boardToEdit')).recipientname,
+      imageData: JSON.parse(localStorage.getItem('boardToEdit')).image,
     }
   },
 
@@ -60,6 +127,38 @@ export default {
     goBack() {
       localStorage.removeItem('boardToEdit')
       this.$router.push('/boards')
+    },
+
+    previewImage(event) {
+      const file = event.target.files[0]
+      if (!file) return;
+      const reader = new FileReader()
+      reader.onload = e => {
+        this.imageData = e.target.result
+      }
+      reader.readAsDataURL(file)
+    },
+    
+    clearBoard () {
+      this.title = ''
+      this.recipientemail = ''
+      this.recipientname = ''
+      this.imageData = null
+    },
+
+    saveChanges() {
+      if (this.title === '' || this.recipientemail === '' || this.recipientname === '') {
+        alert('No field may be left blank.')
+      } else {
+        this.$store.dispatch('board/saveChanges', {
+          boardid: this.boardData.boardid,
+          title: this.title,
+          recipientemail: this.recipientemail,
+          recipientname: this.recipientname,
+          image: this.imageData
+        })
+        this.edit = false
+      }
     },
 
     deletePost(postid) {
@@ -87,17 +186,31 @@ export default {
 <style scoped>
 @import '~/assets/style.css';
 
-.row {
+.board-card {
+  margin-top: 20px;
+}
+
+.edit-icon {
+  float: right;
+}
+
+#preview-img {
   margin-top: 5px;
+  max-width: 300px;
+}
+
+.post-row {
+  margin-top: 20px;
 }
 
 .post-card {
   margin: 6px;
   width: 300px;
   height: 100%;
+  border-radius: 15px;
 }
 
-.gif {
+.gif-iframe {
   margin-top: 10px;
 }
 

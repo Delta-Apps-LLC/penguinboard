@@ -6,3 +6,7 @@
     height: 50px;
     vertical-align: bottom;
 }
+
+.gif-iframe {
+    pointer-events: none;
+  }

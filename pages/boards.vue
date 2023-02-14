@@ -16,21 +16,23 @@
         width="250px"
         height="100%"
       >
-          <v-card-title class="justify-center">
+          <v-card-title class="card-title justify-center">
             {{ tab === 0 ? board.recipientname : board.title }}
           </v-card-title>
+          <v-card-subtitle class="card-subtitle">
+            {{ tab === 0 ? board.title : `From: ${board.sender}` }}
+          </v-card-subtitle>
           <img id="image" v-if="board.image != null" :src="board.image" />
-          <v-card-subtitle>{{ tab === 0 ? board.title : `From: ${board.sender}` }}</v-card-subtitle>
           <v-card-text>
             <a v-if="tab === 0" target="_blank" :href="`http://localhost:3000/${board.link}/post`">Post</a>
           </v-card-text>
           <v-card-actions>
               <v-spacer />
-              <v-btn @click="deleteBoard(board)">Delete</v-btn>
-              <v-btn v-if="tab === 0" @click="sendBoard(board)">Send</v-btn>
-              <v-btn v-if="tab === 0" @click="openBoard(board)">Edit</v-btn>
+              <v-btn @click="deleteBoard(board)" text>Delete</v-btn>
+              <v-btn v-if="tab === 0" @click="sendBoard(board)" text>Send</v-btn>
+              <v-btn v-if="tab === 0" @click="openBoard(board)" text>Edit</v-btn>
               <a v-else target="_blank" :href="`http://localhost:3000/${board.link}`">
-                <v-btn>View</v-btn>
+                <v-btn text>View</v-btn>
               </a>
           </v-card-actions>
       </v-card>
@@ -113,6 +115,16 @@ export default {
 
 .board-card {
     margin: 6px;
+    border-radius: 15px;
+}
+
+.card-title, .card-subtitle {
+  font-family: Plus Jakarta Sans;
+  word-wrap: break-word pre;
+}
+
+.card-subtitle {
+  font-size: 16px;
 }
 
 #image {

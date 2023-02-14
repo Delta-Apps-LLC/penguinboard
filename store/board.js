@@ -53,6 +53,7 @@ export const actions = {
                     title: title,
                     recipientemail: recipientemail,
                     recipientname: recipientname,
+                    image: image,
                     suffix: randomstring.generate(5)
                 })
             } else {
@@ -118,7 +119,7 @@ export const actions = {
                     {
                         headers: authHeader()
                     })
-                    if (res.status === 204) {
+                    if (res.status === 204 || res.status === 200 || res.status === 201) {
                         await dispatch('getManagedBoards')
                     }
                 }, function(error) {
@@ -140,4 +141,39 @@ export const actions = {
             console.log(err)
         }
     },
+
+    async saveChanges({ commit, dispatch }, { boardid, title, recipientemail, recipientname, image, suffix = '' }) {
+        let link = recipientname.replace(/\s/g, '').toLowerCase().concat(suffix)
+        try {
+            const res = await axios.patch(`${API}/board?boardid=eq.${boardid}`, {
+                title: title,
+                recipientemail: recipientemail,
+                recipientname: recipientname,
+                image: image,
+                link: link
+            },
+            {
+                headers: { ...authHeader(), Prefer: "return=representation" }
+            })
+            if (res.status === 204 || res.status === 200 || res.status === 201) {
+                alert('Your changes have successfully been saved.')
+                await commit('setBoardData', res.data[0])
+                localStorage.setItem('boardToEdit', JSON.stringify(res.data[0]))
+            }
+        } catch (err) {
+            console.log(err)
+            if (err.response.status === 409) {
+                await dispatch('saveChanges', {
+                    boardid: boardid,
+                    title: title,
+                    recipientemail: recipientemail,
+                    recipientname: recipientname,
+                    image: image,
+                    suffix: randomstring.generate(5)
+                })
+            } else {
+                alert('Something went wrong, please try again.')
+            }
+        }
+    }
 }

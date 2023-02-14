@@ -6,8 +6,8 @@
     >
       <v-toolbar-title><img class="logo" src="~/assets/images/bravo_logo.png" /></v-toolbar-title>
       <v-spacer />
-      <v-btn v-if="jwtUser == null || jwtUser == undefined" @click="showLogin = true">Signup</v-btn>
-      <v-btn v-else @click="toHome()">Home</v-btn>
+      <v-btn v-if="jwtUser == null || jwtUser == undefined" @click="showLogin = true" text>Signup</v-btn>
+      <v-btn v-else @click="toHome()" text>Home</v-btn>
     </v-app-bar>
 
     <v-main class="main">
