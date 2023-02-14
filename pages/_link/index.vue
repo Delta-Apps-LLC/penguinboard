@@ -4,10 +4,12 @@
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
       integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" 
       crossorigin="anonymous">
-    <!-- <h1 class="bravo">Bravo!</h1> -->
     <div class="title-card" v-if="board != null">
       <img :src="board.image" class="title-image" v-if="board.image != null">
-      <p class="title-text">{{ board.title }}</p>
+      <span class="title text-center">
+        <p class="title-name">{{ board.recipientname }}</p>
+        <p class="title-text">{{ board.title }}</p>
+      </span>
     </div>
     <v-row>
       <post v-for="post in posts"
@@ -50,7 +52,7 @@ export default {
     await this.$store.dispatch('board/getBoardData', {
       link: this.link
     })
-    if (this.board.expiration == '0') {
+    if (this.board.sent === false) {
       alert('This board has not been published yet.')
       this.$router.push('/')
     } else if (this.jwtUser == null || this.jwtUser == undefined) {
@@ -103,46 +105,50 @@ export default {
 <style scoped>
 @import '~/assets/style.css';
 
-.bravo {
+/* .bravo {
   color: black;
   background-color: white;
   padding: 10px;
   text-align: center;
   width: 103%;
   margin-left: -15px;
-  border-top-right-radius:15px;
-  border-top-left-radius:15px;
-  border-bottom-right-radius:15px;
-  border-bottom-left-radius:15px;
-}
+  border-radius: 15px;
+} */
 
 .title-card {
   background-color: #585858;
-  padding: 20px;
+  padding: 30px;
   justify-content: center;
   align-items: center;
   color: white;
-  width: 103%;
-  margin-left: -15px;
+  margin: 10px 0;
   display: flex;
-  margin-bottom: 1em;
   border: solid 2px;
-  border-top-right-radius:15px;
-  border-top-left-radius:15px;
-  border-bottom-right-radius:15px;
-  border-bottom-left-radius:15px;
-}
-
-.title-image {
-  max-height: auto;
-  max-width: 40%;
   border-radius: 15px;
 }
 
-.title-text {
+.title-image {
+  max-height: 300px;
+  max-width: auto;
+  border-radius: 15px;
+}
+
+.title {
+  color: #f3f3f3;
   width: auto;
-  margin: 100px;
-  font-size: 50px;
+  margin: 0 50px;
+  line-height: 250%;
+}
+
+.title-name {
+  font-size: 45px;
+  font-family: Plus Jakarta Sans;
+  text-decoration: underline;
+}
+
+.title-text {
+  font-size: 40px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 

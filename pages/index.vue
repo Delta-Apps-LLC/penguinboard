@@ -5,7 +5,8 @@
     >
       <v-card-title class="title justify-center">Create a New Board Here!</v-card-title>
       <v-card-text>
-        <input type="file" ref="fileInput" accept="image/*" @input="previewImage"/>
+        <label for="image">Upload image (optional)</label>
+        <input type="file" name="image" ref="fileInput" accept="image/*" @input="previewImage"/>
         <img id="preview-img" :src="imageData" v-if="imageData" />
         <v-text-field
           v-model="title"
