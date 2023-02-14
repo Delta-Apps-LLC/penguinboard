@@ -111,7 +111,6 @@ export const actions = {
             }
             emailjs.send('mmq_gmail_service', 'template_t7nqxg9', params, 'rWfLyPQyBNY3WqQSS')
                 .then(async function(response) {
-                    console.log('SUCCESS!', response.status, response.text);
                     const res = await axios.patch(`${API}/board?boardid=eq.${board.boardid}`, {
                         sent: true,
                         expiration: expiration.toString(),
@@ -120,6 +119,7 @@ export const actions = {
                         headers: authHeader()
                     })
                     if (res.status === 204 || res.status === 200 || res.status === 201) {
+                        alert(`The board has been sent to ${board.recipientemail}`)
                         await dispatch('getManagedBoards')
                     }
                 }, function(error) {
