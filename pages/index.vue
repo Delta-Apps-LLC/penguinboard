@@ -26,8 +26,8 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer />
-        <v-btn @click="clearBoard()">Clear</v-btn>
-        <v-btn @click="createBoard()">Create Board</v-btn>
+        <v-btn @click="clearBoard()" text>Clear</v-btn>
+        <v-btn @click="createBoard()" text>Create Board</v-btn>
       </v-card-actions>
     </v-card>
   </v-col>
@@ -103,7 +103,6 @@ export default {
   font-family: Plus Jakarta Sans !important;
   font-size: 24px !important;
   color: #303030;
-
 }
 
 #preview-img {
