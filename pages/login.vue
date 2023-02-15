@@ -57,6 +57,8 @@
       </v-tooltip>
       <v-btn class="submit-btn" type="submit">Sign In</v-btn>
     </form>
+
+    <nuxt-link to="/password">Forgot Password</nuxt-link>
   </div>
 </template>
 
