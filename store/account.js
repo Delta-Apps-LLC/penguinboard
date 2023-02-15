@@ -1,5 +1,7 @@
 import { API, authHeader, deleteJwtToken, getJwtToken, getUserIdFromToken, setJwtToken } from "./auth";
 import axios from "axios"
+import randomstring from "randomstring"
+import emailjs from "@emailjs/browser"
 const bcrypt = require('bcryptjs')
 // import { createClient } from '@supabase/supabase-js'
 // const supabase = createClient('https://hpjkjrfphqywelznpkei.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhwamtqcmZwaHF5d2Vsem5wa2VpIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzQyNDk4OTIsImV4cCI6MTk4OTgyNTg5Mn0._wwi-agtY8LScuU9MqLogT2BO05_57ADZatuJ4DQX90')
@@ -7,6 +9,7 @@ const bcrypt = require('bcryptjs')
 export const state = () => ({
     jwtUser: getJwtToken(),
     userData: null,
+    resetCode: null,
 })
 
 export const getters = {
@@ -19,6 +22,10 @@ export const mutations = {
 
     setUserData(state, data) {
         state.userData = data
+    },
+
+    setResetCode(state, data) {
+        state.resetCode = data
     }
 }
 
@@ -108,6 +115,68 @@ export const actions = {
         await commit('setUserFromJwt', null)
         this.$router.push('/login')
     },
+
+    async getPassResetCode({ commit, dispatch }, { email, code = randomstring.generate(6) }) {
+        try {
+            const res = await axios.get(`${API}/user?email=eq.${email}`)
+            if (res.status === 200) {
+                try {
+                    const fifteenMin = 900000
+                    const expiration = Date.now() + fifteenMin
+                    const res2 = await axios.post(`${API}/reset_code`, {
+                        code: code,
+                        codeemail: email,
+                        codeexpiration: expiration.toString(),
+                    },
+                    {
+                        headers: { Prefer: "return=representation" }
+                    })
+                    if (res2.status === 200 || res2.status === 201) {
+                        const params = {
+                            to_name: res.data[0].firstname,
+                            to_email: res2.data[0].codeemail,
+                            code: code,
+                            codeexpiration: new Date(expiration)
+                        }
+                        emailjs.send('mmq_gmail_service', 'template_kbqejnl', params, 'rWfLyPQyBNY3WqQSS')
+                        .then(async function(response) {
+                            alert(`Check your email and enter the code in the space below. The code will expire in 15 minutes.`)
+                            await commit('setResetCode', res2.data[0])
+                        }, function(error) {
+                            console.log('FAILED...', error);
+                        });
+                    }
+                } catch (err) {
+                    console.log(err)
+                    if (err.response.status === 409) {
+                        await dispatch('getPassResetCode', { email: email })
+                    }
+                }
+            }
+        } catch (err) {
+            console.log(err)
+            if (err.response.status === 404) {
+                alert('No account found with that email.')
+            } else {
+                alert('Something went wrong, please try again.')
+            }
+        }
+    },
+
+    async resetPass({}, { email, password }) {
+        try {
+            const res = await axios.patch(`${API}/user?email=eq.${email}`, {
+                password: await encryptPassword(password)
+            })
+            if (res.status === 204 || res.status === 201 || res.status === 200) {
+                alert('Password reset successful')
+                this.$router.push('/login')
+            }
+        } catch (err) {
+            console.log(err)
+            alert('Something went wrong, please try again.')
+        }
+    }
 }
 
 

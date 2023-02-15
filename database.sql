@@ -37,6 +37,16 @@ CREATE TABLE "post"
   FOREIGN KEY ("boardid") REFERENCES "board"("boardid") ON DELETE CASCADE
 );
 
+CREATE TABLE "reset_code"
+(
+  "codeid" SERIAL NOT NULL,
+  "code" VARCHAR NOT NULL,
+  "codeemail" VARCHAR NOT NULL,
+  "codeexpiration" VARCHAR NOT NULL,
+  PRIMARY KEY ("codeid"),
+  UNIQUE ("code")
+);
+
 -- VIEWS
 create or replace view get_user_data as
 	select u.userid, u.firstname, u.lastname, u.email
@@ -65,7 +75,8 @@ CREATE ROLE anonymous;
 
 GRANT anonymous, admins TO authenticator;
 
-GRANT SELECT ON ALL TABLES IN SCHEMA public TO anonymous;
+GRANT USAGE, UPDATE, SELECT ON SEQUENCE reset_code_codeid_seq TO anonymous;
+GRANT SELECT, UPDATE ON ALL TABLES IN SCHEMA public TO anonymous;
 GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO admins;
 GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO admins;
 GRANT ALL PRIVILEGES ON ALL FUNCTIONS IN SCHEMA public TO admins;
