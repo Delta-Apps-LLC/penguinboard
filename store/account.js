@@ -170,7 +170,6 @@ export const actions = {
             })
             if (res.status === 204 || res.status === 201 || res.status === 200) {
                 alert('Password reset successful')
-                this.$router.push('/login')
             }
         } catch (err) {
             console.log(err)
@@ -192,7 +191,7 @@ async function encryptPassword (password) {
     return await bcrypt.hash(password, salt)
 }
 
-async function matchPassword(givenPass, accountPass) {
+export async function matchPassword(givenPass, accountPass) {
     const match = await bcrypt.compare(givenPass, accountPass)
     return match
 }

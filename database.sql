@@ -49,8 +49,7 @@ CREATE TABLE "reset_code"
 
 -- VIEWS
 create or replace view get_user_data as
-	select u.userid, u.firstname, u.lastname, u.email
-	from "user" u;
+	select * from "user";
 
 create or replace view get_managed_boards as
 	select * from board where sent = false;
