@@ -24,17 +24,25 @@
           </v-card-subtitle>
           <img id="image" v-if="board.image != null" :src="board.image" />
           <v-card-text>
-            <a v-if="tab === 0" target="_blank" :href="`http://localhost:3000/${board.link}/post`">Post</a>
+            <v-btn v-if="tab === 0" target="_blank" :href="`http://localhost:3000/${board.link}/post`" text>Add Post</v-btn>
+            <v-btn v-if="tab === 0" @click="copyToClipboard(`http://localhost:3000/${board.link}/post`)" text>Invite Others to Post</v-btn>
+            <v-btn v-if="tab === 0" @click="deleteBoard(board)" text>Delete Board</v-btn>
+            <v-btn v-if="tab === 0" @click="openBoard(board)" text>Edit Board</v-btn>
+            <v-btn v-if="tab === 0" @click="sendBoard(board)" text>Send to Recipient</v-btn>
+            <a v-else target="_blank" :href="`http://localhost:3000/${board.link}`">
+              <v-btn text>View</v-btn>
+            </a>
           </v-card-text>
-          <v-card-actions>
+          <!-- <v-card-actions>
               <v-spacer />
-              <v-btn @click="deleteBoard(board)" text>Delete</v-btn>
-              <v-btn v-if="tab === 0" @click="sendBoard(board)" text>Send</v-btn>
-              <v-btn v-if="tab === 0" @click="openBoard(board)" text>Edit</v-btn>
+              <v-btn v-if="tab === 0" target="_blank" :href="`http://localhost:3000/${board.link}/post`" text>Add Post</v-btn>
+              <v-btn v-if="tab === 0" @click="deleteBoard(board)" text>Delete Board</v-btn>
+              <v-btn v-if="tab === 0" @click="sendBoard(board)" text>Send to Recipient</v-btn>
+              <v-btn v-if="tab === 0" @click="openBoard(board)" text>Edit Board</v-btn>
               <a v-else target="_blank" :href="`http://localhost:3000/${board.link}`">
                 <v-btn text>View</v-btn>
               </a>
-          </v-card-actions>
+          </v-card-actions> -->
       </v-card>
     </v-row>
   </v-col>
@@ -85,6 +93,15 @@ export default {
       localStorage.setItem('boardToEdit', board.link)
       this.$router.push('/edit')
     },
+
+    async copyToClipboard(link) {
+      navigator.clipboard.writeText(link)
+      .then(() => {
+        alert(`Link to post copied to clipboard. Please share with others to invite them to participate on your board. ${link}`)      })
+      .catch(() => {
+        alert("something went wrong");
+      });
+    }
   },
 
   computed: {
