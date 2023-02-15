@@ -7,6 +7,8 @@ export const state = () => ({
     managedBoards: [],
     myBoards: [],
     boardData: null,
+    loadingManaged: false,
+    loadingMine: false,
 })
 
 export const getters = {
@@ -24,6 +26,14 @@ export const mutations = {
 
     setBoardData(state, data) {
         state.boardData = data
+    },
+
+    toggleLoadingManaged(state, data) {
+        state.loadingManaged = data
+    },
+
+    toggleLoadingMine(state, data) {
+        state.loadingMine = data
     }
 }
 
@@ -64,24 +74,29 @@ export const actions = {
 
     async getManagedBoards({ commit, rootState }) {
         try {
+            await commit('toggleLoadingManaged', true)
             const res = await axios.get(`${API}/get_managed_boards?sender=eq.${rootState.account.jwtUser.email}`)
             if (res.status === 200) {
+                await commit('toggleLoadingManaged', false)
                 await commit('setManagedBoards', res.data)
             }
         } catch (err) {
             console.log(err)
+            await commit('toggleLoadingManaged', false)
         }
     },
 
     async getMyBoards({ commit, rootState }) {
         try {
-            const sent = true
+            await commit('toggleLoadingMine', true)
             const res = await axios.get(`${API}/get_my_boards?recipientemail=eq.${rootState.account.jwtUser.email}`)
             if (res.status === 200) {
+                await commit('toggleLoadingMine', false)
                 await commit('setMyBoards', res.data)
             }
         } catch (err) {
             console.log(err)
+            await commit('toggleLoadingMine', false)
         }
     },
 

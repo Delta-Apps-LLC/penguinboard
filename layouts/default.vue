@@ -1,5 +1,5 @@
 <template>
-  <v-app dark>
+  <v-app class="main-fade" dark>
     <v-navigation-drawer
       :mini-variant="miniVariant"
       :clipped="true"
@@ -36,7 +36,7 @@
       </v-toolbar-title>
     </v-app-bar>
 
-    <v-main class="main">
+    <v-main class="main-fade" id="main">
       <v-container>
         <Nuxt />
       </v-container>

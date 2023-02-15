@@ -76,6 +76,7 @@ export default {
           image: this.imageData,
         })
         this.clearBoard()
+        this.$router.push('/boards')
       }
     },
   },

@@ -1,5 +1,5 @@
 <template>
-  <v-app dark>
+  <v-app class="main-fade" dark>
     <v-app-bar
       fixed
       app
@@ -7,9 +7,9 @@
       <v-toolbar-title><img class="logo" src="~/assets/images/bravo_logo.png" /></v-toolbar-title>
     </v-app-bar>
 
-    <v-main class="main">
+    <v-main class="main-fade" id="main">
       <v-container>
-        <Nuxt class="main" />
+        <Nuxt id="main" />
       </v-container>
     </v-main>
     

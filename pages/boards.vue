@@ -9,7 +9,7 @@
       </v-tabs>
     </span>
 
-    <v-row class="board-row">
+    <v-row class="board-row" v-if="tab === 0 ? !loadingManaged : !loadingMine">
       <v-card class="board-card"
         v-for="(board, i) in tab === 0 ? managedBoards : myBoards"
         :key="i"
@@ -37,6 +37,14 @@
           </v-card-actions>
       </v-card>
     </v-row>
+
+    <!-- Loading indicator -->
+    <div class="sk-folding-cube" v-if="tab === 0 ? loadingManaged : loadingMine">
+      <div class="sk-cube1 sk-cube"></div>
+      <div class="sk-cube2 sk-cube"></div>
+      <div class="sk-cube4 sk-cube"></div>
+      <div class="sk-cube3 sk-cube"></div>
+    </div>
   </v-col>
 </template>
 
@@ -102,6 +110,14 @@ export default {
 
     myBoards () {
       return this.$store.state.board.myBoards
+    },
+
+    loadingMine () {
+      return this.$store.state.board.loadingMine
+    },
+
+    loadingManaged () {
+      return this.$store.state.board.loadingManaged
     }
   },
 }
