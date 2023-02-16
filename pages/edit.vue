@@ -66,6 +66,7 @@
             type="email"
             :disabled="!edit"
           ></v-text-field>
+          <v-checkbox :disabled="!edit" v-model="isPublic" label="Make Public"></v-checkbox>
         </v-card-text>
 
         <v-card-actions>
@@ -123,6 +124,7 @@ export default {
       recipientemail: null,
       recipientname: null,
       imageData: null,
+      isPublic: false,
     }
   },
 
@@ -132,6 +134,7 @@ export default {
       this.recipientemail = this.boardData.recipientemail
       this.recipientname = this.boardData.recipientname
       this.imageData = this.boardData.image
+      this.isPublic = this.boardData.ispublic
     },
 
     goBack() {
@@ -165,7 +168,8 @@ export default {
           title: this.title,
           recipientemail: this.recipientemail,
           recipientname: this.recipientname,
-          image: this.imageData
+          image: this.imageData,
+          isPublic: this.isPublic
         })
         this.edit = false
       }

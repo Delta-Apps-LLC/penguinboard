@@ -79,6 +79,7 @@ export default {
                 this.email = ''
                 this.code = ''
                 this.codeWorked = false
+                this.$router.push('/login')
             }
         },
     },

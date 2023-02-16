@@ -1,5 +1,5 @@
 <template> 
-  <v-col class="whole-dashboard">
+  <v-col>
     <link rel="stylesheet" 
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
       integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" 
@@ -11,7 +11,7 @@
         <p class="title-text">{{ board.title }}</p>
       </span>
     </div>
-    <v-row>
+    <v-row v-if="!loading">
       <post v-for="post in posts"
         :key="post.postid"
         :gif="post.gif"
@@ -19,17 +19,17 @@
         :author="post.from"
         class="col-lg-4 col-md-6 col-sm-12 px-0"
       ></post>
-    </v-row> 
-  </v-col>
-</template>  
+    </v-row>
 
-<!-- <template>
-  <v-col justify="center" align="center">
-    <p>Posts: {{ posts }}</p>
-    <p>Board: {{ board }}</p>
+    <!-- Loading indicator -->
+    <div class="sk-folding-cube" v-if="loading">
+      <div class="sk-cube1 sk-cube"></div>
+      <div class="sk-cube2 sk-cube"></div>
+      <div class="sk-cube4 sk-cube"></div>
+      <div class="sk-cube3 sk-cube"></div>
+    </div>
   </v-col>
-  </v-col>
-</template> -->
+</template>
 
 <script>
 import { getJwtToken, getUserIdFromToken } from "../../store/auth"
@@ -97,6 +97,10 @@ export default {
 
     board () {
       return this.$store.state.board.boardData
+    },
+
+    loading () {
+      return this.$store.state.post.loading
     }
   },
 }

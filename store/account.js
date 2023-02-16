@@ -170,7 +170,24 @@ export const actions = {
             })
             if (res.status === 204 || res.status === 201 || res.status === 200) {
                 alert('Password reset successful')
-                this.$router.push('/login')
+            }
+        } catch (err) {
+            console.log(err)
+            alert('Something went wrong, please try again.')
+        }
+    },
+
+    async updateAvatar({ commit }, { userid, avatar }) {
+        try {
+            const res = await axios.patch(`${API}/user?userid=eq.${userid}`, {
+                avatar: avatar
+            },
+            {
+                headers: { ...authHeader(), Prefer: "return=representation" }
+            })
+            if (res.status === 204 || res.status === 200 || res.status === 201) {
+                alert('Profile photo successfully updated.')
+                await commit('setUserData', res.data[0])
             }
         } catch (err) {
             console.log(err)
@@ -192,7 +209,7 @@ async function encryptPassword (password) {
     return await bcrypt.hash(password, salt)
 }
 
-async function matchPassword(givenPass, accountPass) {
+export async function matchPassword(givenPass, accountPass) {
     const match = await bcrypt.compare(givenPass, accountPass)
     return match
 }

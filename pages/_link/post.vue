@@ -1,7 +1,7 @@
 <template>
   <v-col justify="center" align="center">
-    <v-card v-if="board != null && !board.sent" width="40%">
-      <v-card-title class="justify-center">{{ board.recipientname }}</v-card-title>
+    <v-card v-if="board != null && !board.sent && !loadingBoard" width="40%">
+      <v-card-title class="post-title justify-center">{{ board.recipientname }}</v-card-title>
       <v-card-subtitle>{{ board.title }}</v-card-subtitle>
 
       <v-btn class="gif-btn" @click="showGifs ? hideGifs() : getGifs(true)" v-if="!isGifSelected">
@@ -55,6 +55,14 @@
     </v-card>
 
     <h3 v-else-if="board != null && board.sent">This board has been sent, and posting is now closed.</h3>
+
+    <!-- Loading indicator -->
+    <div class="sk-folding-cube" v-if="loadingBoard">
+      <div class="sk-cube1 sk-cube"></div>
+      <div class="sk-cube2 sk-cube"></div>
+      <div class="sk-cube4 sk-cube"></div>
+      <div class="sk-cube3 sk-cube"></div>
+    </div>
   </v-col>
 </template>
 
@@ -172,6 +180,10 @@ export default {
 
     gifs () {
       return this.$store.state.giphy.gifs
+    },
+
+    loadingBoard () {
+      return this.$store.state.board.loadingBoard
     }
   },
 }
@@ -179,6 +191,11 @@ export default {
 
 <style scoped>
 @import '~/assets/style.css';
+
+.post-title {
+  font-family: Plus Jakarta Sans;
+  font-size: 22px;
+}
 
 .gif-section {
   margin-top: 10px;
