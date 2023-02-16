@@ -81,6 +81,7 @@ CREATE ROLE anonymous;
 GRANT anonymous, admins TO authenticator;
 
 GRANT USAGE, UPDATE, SELECT ON SEQUENCE reset_code_codeid_seq TO anonymous;
+GRANT USAGE ON SEQUENCE post_postid_seq TO anonymous;
 GRANT SELECT, UPDATE ON ALL TABLES IN SCHEMA public TO anonymous;
 GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO admins;
 GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO admins;

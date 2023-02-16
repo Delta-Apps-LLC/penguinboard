@@ -41,9 +41,6 @@ export const actions = {
                 boardid: post.boardid,
                 from: post.from,
                 gif: post.gif
-            },
-            {
-                headers: authHeader()
             })
             if (res.status === 201 || res.status === 200) {
                 alert('Your post has been sent!')
