@@ -7,6 +7,7 @@ CREATE TABLE "user"
   "lastname" VARCHAR NOT NULL,
   "email" VARCHAR NOT NULL,
   "password" VARCHAR NOT NULL,
+  "avatar" VARCHAR,
   PRIMARY KEY ("userid"),
   UNIQUE ("email")
 );
@@ -22,6 +23,7 @@ CREATE TABLE "board"
   "sent" BOOLEAN NOT NULL DEFAULT false,
   "expiration" VARCHAR NOT NULL DEFAULT '0',
   "image" VARCHAR,
+  "ispublic" BOOLEAN NOT NULL DEFAULT true,
   PRIMARY KEY ("boardid"),
   UNIQUE ("link")
 );
@@ -65,6 +67,10 @@ create or replace view get_board_posts as
 create or replace view get_board_data as
 	select * from board;
 
+create or replace view get_public_boards as
+	select * from board 
+	where ispublic = true and sent = false
+	order by recipientname asc;
 
 -- ROLES, GRANTS
 

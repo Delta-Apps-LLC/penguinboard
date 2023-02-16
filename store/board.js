@@ -7,8 +7,11 @@ export const state = () => ({
     managedBoards: [],
     myBoards: [],
     boardData: null,
+    publicBoards: [],
     loadingManaged: false,
     loadingMine: false,
+    loadingPublic: false,
+    loadingBoard: false,
 })
 
 export const getters = {
@@ -28,17 +31,29 @@ export const mutations = {
         state.boardData = data
     },
 
+    setPublicBoards(state, data) {
+        state.publicBoards = data  
+    },
+
     toggleLoadingManaged(state, data) {
         state.loadingManaged = data
     },
 
     toggleLoadingMine(state, data) {
         state.loadingMine = data
+    },
+
+    toggleLoadingPublic(state, data) {
+        state.loadingPublic = data
+    },
+
+    toggleLoadingBoard(state, data) {
+        state.loadingBoard = data
     }
 }
 
 export const actions = {
-    async createBoard({ dispatch, rootState }, { title, recipientemail, recipientname, image, suffix = '' }) {
+    async createBoard({ dispatch, rootState }, { title, recipientemail, recipientname, image, isPublic, suffix = '' }) {
         let link = recipientname.replace(/\s/g, '').toLowerCase().concat(suffix)
         try {
             const res = await axios.post(`${API}/board`, {
@@ -47,7 +62,8 @@ export const actions = {
                 recipientname: recipientname,
                 sender: rootState.account.jwtUser.email,
                 link: link,
-                image: image
+                image: image,
+                ispublic: isPublic
             },
             {
                 headers: authHeader()
@@ -64,6 +80,7 @@ export const actions = {
                     recipientemail: recipientemail,
                     recipientname: recipientname,
                     image: image,
+                    isPublic: isPublic,
                     suffix: randomstring.generate(5)
                 })
             } else {
@@ -97,6 +114,20 @@ export const actions = {
         } catch (err) {
             console.log(err)
             await commit('toggleLoadingMine', false)
+        }
+    },
+
+    async getPublicBoards({ commit }) {
+        try {
+            await commit('toggleLoadingPublic', true)
+            const res = await axios.get(`${API}/get_public_boards`)
+            if (res.status === 200) {
+                await commit('toggleLoadingPublic', false)
+                await commit('setPublicBoards', res.data)
+            }
+        } catch (err) {
+            console.log(err)
+            await commit('toggleLoadingPublic', false)
         }
     },
 
@@ -148,12 +179,15 @@ export const actions = {
 
     async getBoardData({ commit }, { link }) {
         try {
+            await commit('toggleLoadingBoard', true)
             const res = await axios.get(`${API}/get_board_data?link=eq.${link}`)
             if (res.status === 200) {
+                await commit('toggleLoadingBoard', false)
                 await commit('setBoardData', res.data[0])
             }
         } catch (err) {
             console.log(err)
+            await commit('toggleLoadingBoard', false)
         }
     },
 

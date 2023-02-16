@@ -34,6 +34,8 @@
       <v-toolbar-title>
         <img class="logo" src="~/assets/images/bravo_logo.png" />
       </v-toolbar-title>
+      <v-spacer />
+      <v-btn to="/public" text>Public Boards</v-btn>
     </v-app-bar>
 
     <v-main class="main-fade" id="main">

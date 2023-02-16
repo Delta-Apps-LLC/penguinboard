@@ -23,6 +23,7 @@
           placeholder="Recipients Email"
           type="email"
         ></v-text-field>
+        <v-checkbox v-model="isPublic" label="Make Public"></v-checkbox>
       </v-card-text>
       <v-card-actions>
         <v-spacer />
@@ -44,6 +45,7 @@ export default {
       recipientemail: '',
       recipientname: '',
       imageData: null,
+      isPublic: true,
     }
   },
 
@@ -63,6 +65,7 @@ export default {
       this.recipientemail = ''
       this.recipientname = ''
       this.imageData = null
+      this.isPublic = true
     },
 
     async createBoard () {
@@ -74,6 +77,7 @@ export default {
           recipientemail: this.recipientemail,
           recipientname: this.recipientname,
           image: this.imageData,
+          isPublic: this.isPublic,
         })
         this.clearBoard()
         this.$router.push('/boards')

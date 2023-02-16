@@ -133,6 +133,7 @@ export default {
 .board-card {
     margin: 6px;
     border-radius: 15px;
+    background-color: #f3f3f3;
 }
 
 .card-title, .card-subtitle {
