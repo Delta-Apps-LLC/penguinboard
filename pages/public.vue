@@ -20,7 +20,7 @@
             </v-card-subtitle>
             <v-card-actions>
                 <v-spacer />
-                <a target="_blank" :href="`http://localhost:3000/${board.link}/post`">
+                <a target="_blank" :href="`http://54.219.6.20:3000/${board.link}/post`">
                     <v-btn text>Post</v-btn>
                 </a>
             </v-card-actions>
