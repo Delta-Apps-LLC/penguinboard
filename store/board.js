@@ -191,7 +191,7 @@ export const actions = {
         }
     },
 
-    async saveChanges({ commit, dispatch }, { boardid, title, recipientemail, recipientname, image, suffix = '' }) {
+    async saveChanges({ commit, dispatch }, { boardid, title, recipientemail, recipientname, image, isPublic, suffix = '' }) {
         let link = recipientname.replace(/\s/g, '').toLowerCase().concat(suffix)
         try {
             const res = await axios.patch(`${API}/board?boardid=eq.${boardid}`, {
@@ -199,7 +199,8 @@ export const actions = {
                 recipientemail: recipientemail,
                 recipientname: recipientname,
                 image: image,
-                link: link
+                link: link,
+                ispublic: isPublic
             },
             {
                 headers: { ...authHeader(), Prefer: "return=representation" }
@@ -218,6 +219,7 @@ export const actions = {
                     recipientemail: recipientemail,
                     recipientname: recipientname,
                     image: image,
+                    isPublic: isPublic,
                     suffix: randomstring.generate(5)
                 })
             } else {
