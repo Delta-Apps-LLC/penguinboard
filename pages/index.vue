@@ -3,7 +3,11 @@
     <v-card class="board-card"
       :width="isMobile ? '100%' : '50%'"
     >
-      <v-card-title class="title justify-center">Create a New Board Here!</v-card-title>
+      <v-card-title class="title justify-center"
+        style="word-break: break-word;"
+      >
+        Create a New Board Here!
+      </v-card-title>
       <v-card-text>
         <label for="image">Upload image (optional)</label>
         <input type="file" name="image" ref="fileInput" accept="image/*" @input="previewImage"/>
