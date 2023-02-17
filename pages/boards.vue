@@ -103,13 +103,32 @@ export default {
     },
 
     async copyToClipboard(link) {
-      alert(`${link}`)
-      navigator.clipboard.writeText(link)
-      .then(() => {
-        alert(`Link to post copied to clipboard. Please share with others to invite them to participate on your board. ${link}`)})
-      .catch(() => {
-        alert("something went wrong");
-      });
+      if (navigator.clipboard) {
+        try {
+          await navigator.clipboard.writeText(link).then(() => {
+            alert("Link copied to clipboard. Please share with others to invite them to participate on your board.");
+          })
+        }
+        catch (e) {
+          alert(`Copying doesn't work on your browser. Please copy the following link to share the post with others:\n ${link}`);
+          console.log(e);
+        }
+      }
+      else {
+        try {
+          const textarea = document.createElement('textarea');
+          textarea.value = link;
+          document.body.appendChild(textarea);
+          textarea.select();
+          document.execCommand('copy');
+          document.body.removeChild(textarea);
+          alert("Link copied to clipboard. Please share with others to invite them to participate on your board.")
+        }
+        catch (e) {
+          alert(`Copying link doesn't work on your browser. Please copy the following link to share the post with others:\n ${link}`)
+          console.log(e);
+        }
+      }
     }
   },
 
