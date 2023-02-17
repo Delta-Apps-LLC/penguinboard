@@ -103,9 +103,10 @@ export default {
     },
 
     async copyToClipboard(link) {
+      alert(`${link}`)
       navigator.clipboard.writeText(link)
       .then(() => {
-        alert(`Link to post copied to clipboard. Please share with others to invite them to participate on your board. ${link}`)      })
+        alert(`Link to post copied to clipboard. Please share with others to invite them to participate on your board. ${link}`)})
       .catch(() => {
         alert("something went wrong");
       });
