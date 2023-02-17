@@ -59,7 +59,7 @@ export const actions = {
     async login({ commit }, { user }) {
         try {
             const res = await axios.get(`${API}/user?email=eq.${user.email}`)
-            if (res.status === 200) {
+            if (res.status === 200 && res.data.length !== 0) {
                 if (await matchPassword(user.password, res.data[0].password)) {
                     try {
                         const response = await axios.post(`${API}/rpc/login`, {
@@ -83,12 +83,19 @@ export const actions = {
                 } else {
                     alert('The password you entered was incorrect.')
                 }
+            } else {
+                if (res.data.length === 0) {
+                    alert('No account was found with that email.')
+                }
             }
         } catch(err) {
-            if (err.response.status === 404) {
-                alert('No account was found with that email.')
-            } else if (err.response.status === 400) {
-                alert('Something went wrong, please refresh the page and try again.')
+            if (err) {
+                console.log(err)
+                if (err.response.status === 404) {
+                    alert('No account was found with that email.')
+                } else if (err.response.status === 400) {
+                    alert('Something went wrong, please refresh the page and try again.')
+                }
             }
         }
         // const { data, error } = await supabase.auth.signInWithPassword({
