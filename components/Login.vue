@@ -26,17 +26,17 @@
                     <input class="form-field" type="password" v-model="password" placeholder="Password" />
                     <v-spacer class="spacer" />
                     <v-tooltip bottom>
-                    <template v-slot:activator="{ on, attrs }">
-                        <v-btn
-                        @click="clearForm()"
-                        v-bind="attrs"
-                        v-on="on"
-                        icon
-                        >
-                        <v-icon>mdi-close</v-icon>
-                        </v-btn>
-                    </template>
-                    <span>Clear Form</span>
+                      <template v-slot:activator="{ on, attrs }">
+                          <v-btn
+                          @click="clearForm()"
+                          v-bind="attrs"
+                          v-on="on"
+                          icon
+                          >
+                          <v-icon>mdi-close</v-icon>
+                          </v-btn>
+                      </template>
+                      <span>Clear Form</span>
                     </v-tooltip>
                     <v-btn type="submit">Sign Up</v-btn>
                 </form>

@@ -1,5 +1,5 @@
 <template>
-  <v-app dark>
+  <v-app class="main-fade" dark>
     <v-app-bar
       fixed
       app
@@ -10,7 +10,7 @@
       <v-btn v-else @click="toHome()" text>Home</v-btn>
     </v-app-bar>
 
-    <v-main class="main">
+    <v-main class="main-fade" id="main">
       <v-container>
         <Nuxt />
       </v-container>

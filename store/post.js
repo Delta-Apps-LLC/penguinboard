@@ -3,6 +3,7 @@ import { API, authHeader } from './auth'
 
 export const state = () => ({
     posts: [],
+    loading: false,
 })
 
 export const getters = {
@@ -12,17 +13,24 @@ export const mutations = {
     setPosts(state, data) {
         state.posts = data
     },
+
+    toggleLoading(state, data) {
+        state.loading = data
+    }
 }
 
 export const actions = {
     async getBoardPosts({ commit }, { link }) {
         try {
+            await commit('toggleLoading', true)
             const res = await axios.get(`${API}/get_board_posts?link=eq.${link}`)
             if (res.status === 200) {
+                await commit('toggleLoading', false)
                 await commit('setPosts', res.data)
             }
         } catch (err) {
             console.log(err)
+            await commit('toggleLoading', false)
         }
     },
 
@@ -33,9 +41,6 @@ export const actions = {
                 boardid: post.boardid,
                 from: post.from,
                 gif: post.gif
-            },
-            {
-                headers: authHeader()
             })
             if (res.status === 201 || res.status === 200) {
                 alert('Your post has been sent!')

@@ -9,32 +9,50 @@
       </v-tabs>
     </span>
 
-    <v-row class="board-row">
+    <v-row class="board-row" v-if="tab === 0 ? !loadingManaged : !loadingMine">
       <v-card class="board-card"
         v-for="(board, i) in tab === 0 ? managedBoards : myBoards"
         :key="i"
         width="250px"
         height="100%"
       >
-        <v-card-title class="card-title justify-center">
-          {{ tab === 0 ? board.recipientname : board.title }}
-        </v-card-title>
-        <v-card-subtitle class="card-subtitle">
-          {{ tab === 0 ? board.title : `From: ${board.sender}` }}
-        </v-card-subtitle>
-        <img id="image" v-if="board.image != null" :src="board.image" />
-        <v-card-text>
-          <v-btn v-if="tab === 0" target="_blank" :href="`http://localhost:3000/${board.link}/post`" text>Add Post</v-btn>
-          <v-btn v-if="tab === 0" @click="copyToClipboard(`http://localhost:3000/${board.link}/post`)" text>Invite Others to Post</v-btn>
-          <v-btn v-if="tab === 0" @click="deleteBoard(board)" text>Delete Board</v-btn>
-          <v-btn v-if="tab === 0" @click="openBoard(board)" text>Edit Board</v-btn>
-          <v-btn v-if="tab === 0" @click="sendBoard(board)" text>Send to Recipient</v-btn>
-          <a v-else target="_blank" :href="`http://localhost:3000/${board.link}`">
-            <v-btn text>View</v-btn>
-          </a>
-        </v-card-text>
+          <v-card-title class="card-title justify-center">
+            {{ tab === 0 ? board.recipientname : board.title }}
+          </v-card-title>
+          <v-card-subtitle class="card-subtitle">
+            {{ tab === 0 ? board.title : `From: ${board.sender}` }}
+          </v-card-subtitle>
+          <img id="image" v-if="board.image != null" :src="board.image" />
+          <v-card-text>
+            <v-btn v-if="tab === 0" target="_blank" :href="`http://54.219.6.20:3000/${board.link}/post`" text>Add Post</v-btn>
+            <v-btn v-if="tab === 0" @click="copyToClipboard(`http://54.219.6.20:3000/${board.link}/post`)" text>Invite Others to Post</v-btn>
+            <v-btn v-if="tab === 0" @click="deleteBoard(board)" text>Delete Board</v-btn>
+            <v-btn v-if="tab === 0" @click="openBoard(board)" text>Edit Board</v-btn>
+            <v-btn v-if="tab === 0" @click="sendBoard(board)" text>Send to Recipient</v-btn>
+            <a v-else target="_blank" :href="`http://54.219.6.20:3000/${board.link}`">
+              <v-btn text>View</v-btn>
+            </a>
+          </v-card-text>
+          <!-- <v-card-actions>
+              <v-spacer />
+              <v-btn v-if="tab === 0" target="_blank" :href="`http://54.219.6.20:3000/${board.link}/post`" text>Add Post</v-btn>
+              <v-btn v-if="tab === 0" @click="deleteBoard(board)" text>Delete Board</v-btn>
+              <v-btn v-if="tab === 0" @click="sendBoard(board)" text>Send to Recipient</v-btn>
+              <v-btn v-if="tab === 0" @click="openBoard(board)" text>Edit Board</v-btn>
+              <a v-else target="_blank" :href="`http://54.219.6.20:3000/${board.link}`">
+                <v-btn text>View</v-btn>
+              </a>
+          </v-card-actions> -->
       </v-card>
     </v-row>
+
+    <!-- Loading indicator -->
+    <div class="sk-folding-cube" v-if="tab === 0 ? loadingManaged : loadingMine">
+      <div class="sk-cube1 sk-cube"></div>
+      <div class="sk-cube2 sk-cube"></div>
+      <div class="sk-cube4 sk-cube"></div>
+      <div class="sk-cube3 sk-cube"></div>
+    </div>
   </v-col>
 </template>
 
@@ -109,6 +127,14 @@ export default {
 
     myBoards () {
       return this.$store.state.board.myBoards
+    },
+
+    loadingMine () {
+      return this.$store.state.board.loadingMine
+    },
+
+    loadingManaged () {
+      return this.$store.state.board.loadingManaged
     }
   },
 }
@@ -124,6 +150,7 @@ export default {
 .board-card {
     margin: 6px;
     border-radius: 15px;
+    background-color: #f3f3f3;
 }
 
 .card-title, .card-subtitle {

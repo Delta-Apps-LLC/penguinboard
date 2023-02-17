@@ -21,7 +21,7 @@ Data is hosted in a PostgreSQL database on Railway. PostgreSQL is a relational d
 # install dependencies
 $ npm install
 
-# serve with hot reload at localhost:3000
+# serve with hot reload at 54.219.6.20:3000
 $ npm run dev
 
 # build for production and launch server

@@ -7,6 +7,7 @@ CREATE TABLE "user"
   "lastname" VARCHAR NOT NULL,
   "email" VARCHAR NOT NULL,
   "password" VARCHAR NOT NULL,
+  "avatar" VARCHAR,
   PRIMARY KEY ("userid"),
   UNIQUE ("email")
 );
@@ -22,6 +23,7 @@ CREATE TABLE "board"
   "sent" BOOLEAN NOT NULL DEFAULT false,
   "expiration" VARCHAR NOT NULL DEFAULT '0',
   "image" VARCHAR,
+  "ispublic" BOOLEAN NOT NULL DEFAULT true,
   PRIMARY KEY ("boardid"),
   UNIQUE ("link")
 );
@@ -49,8 +51,7 @@ CREATE TABLE "reset_code"
 
 -- VIEWS
 create or replace view get_user_data as
-	select u.userid, u.firstname, u.lastname, u.email
-	from "user" u;
+	select * from "user";
 
 create or replace view get_managed_boards as
 	select * from board where sent = false;
@@ -66,6 +67,10 @@ create or replace view get_board_posts as
 create or replace view get_board_data as
 	select * from board;
 
+create or replace view get_public_boards as
+	select * from board 
+	where ispublic = true and sent = false
+	order by recipientname asc;
 
 -- ROLES, GRANTS
 
@@ -76,6 +81,7 @@ CREATE ROLE anonymous;
 GRANT anonymous, admins TO authenticator;
 
 GRANT USAGE, UPDATE, SELECT ON SEQUENCE reset_code_codeid_seq TO anonymous;
+GRANT USAGE ON SEQUENCE post_postid_seq TO anonymous;
 GRANT SELECT, UPDATE ON ALL TABLES IN SCHEMA public TO anonymous;
 GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO admins;
 GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO admins;
