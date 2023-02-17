@@ -4,7 +4,7 @@
       :mini-variant="isMobile ? true : miniVariant"
       :clipped="true"
       fixed
-      permanent
+      :permanent="isMobile ? permanentMobile : true"
       app
     >
       <v-list>
@@ -31,7 +31,7 @@
       fixed
       app
     >
-      <v-app-bar-nav-icon @click.stop="miniVariant = !miniVariant" />
+      <v-app-bar-nav-icon @click.stop="toggleMenu()" />
       <v-toolbar-title>
         <img class="logo" src="~/assets/images/bravo_logo.png" />
       </v-toolbar-title>
@@ -90,6 +90,7 @@ export default {
         }
       ],
       miniVariant: false,
+      permanentMobile: true,
       title: 'Bravo!'
     }
   },
@@ -97,6 +98,11 @@ export default {
   methods: {
     async signOut () {
       await this.$store.dispatch('account/signOut')
+    },
+    
+    toggleMenu () {
+      this.miniVariant = !this.miniVariant
+      this.permanentMobile = !this.permanentMobile
     }
   },
 
