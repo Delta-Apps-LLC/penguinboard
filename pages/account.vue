@@ -200,7 +200,7 @@ h2 {
 }
 
 .table {
-  width: 90%;
+  width: 95%;
   border-collapse: collapse;
 }
 
