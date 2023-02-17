@@ -1,7 +1,7 @@
 <template>
   <v-col justify="center" align="center">
     <v-card class="board-card"
-      :width="isMobile ? '95%' : '50%'"
+      :width="isMobile ? '100%' : '50%'"
     >
       <v-card-title class="title justify-center">Create a New Board Here!</v-card-title>
       <v-card-text>
