@@ -33,7 +33,7 @@
                           v-on="on"
                           icon
                           >
-                          <v-icon>mdi-close</v-icon>
+                            <v-icon>mdi-close</v-icon>
                           </v-btn>
                       </template>
                       <span>Clear Form</span>

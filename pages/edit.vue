@@ -23,7 +23,7 @@
         :width="isMobile ? '95%' : '45%'"
       >
         <v-card-text class="text-center">
-          <v-tooltip bottom>
+          <v-tooltip bottom v-if="!edit">
             <template v-slot:activator="{ on, attrs }">
               <v-btn class="edit-icon"
                 @click="edit = true"
@@ -37,14 +37,28 @@
             <span>Edit</span>
           </v-tooltip>
 
-          <label for="image">Upload image (optional)</label>
+          <v-tooltip bottom v-if="imageData != null && edit">
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn class="edit-icon"
+                v-bind="attrs"
+                v-on="on"
+                @click="imageData = null"
+                icon
+              >
+                <v-icon>mdi-close</v-icon>
+              </v-btn>
+            </template>
+            <span>Remove Image</span>
+          </v-tooltip>
+
+          <label for="image" v-if="imageData == null">Upload image (optional)</label>
           <input
             type="file"
             name="image"
             ref="fileInput"
             accept="image/*"
             @input="previewImage"
-            :disabled="!edit"
+            v-if="imageData == null"
           />
           <img id="preview-img" :src="imageData" v-if="imageData" />
 

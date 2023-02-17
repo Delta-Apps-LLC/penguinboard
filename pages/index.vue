@@ -8,10 +8,24 @@
       >
         Create a New Board Here!
       </v-card-title>
+
       <v-card-text>
-        <label for="image">Upload image (optional)</label>
+        <label for="image" v-if="imageData == null">Upload image (optional)</label>
+        <v-tooltip left v-if="imageData != null">
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn icon
+              v-bind="attrs"
+              v-on="on"
+              @click="imageData = null"
+            >
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
+          </template>
+          <span>Remove Image</span>
+        </v-tooltip>
         <input type="file" name="image" ref="fileInput" accept="image/*" @input="previewImage"/>
         <img id="preview-img" :src="imageData" v-if="imageData" />
+
         <v-text-field
           v-model="title"
           placeholder="Board Title"
@@ -29,11 +43,13 @@
         ></v-text-field>
         <v-checkbox v-model="isPublic" label="Make Public"></v-checkbox>
       </v-card-text>
+
       <v-card-actions>
         <v-spacer />
         <v-btn @click="clearBoard()" text>Clear</v-btn>
         <v-btn @click="createBoard()" text>Create Board</v-btn>
       </v-card-actions>
+
     </v-card>
   </v-col>
 </template>
