@@ -20,7 +20,7 @@
             </v-card-subtitle>
             <v-card-actions>
                 <v-spacer />
-                <a target="_blank" :href="`https://penguinboard.app/${board.link}/post`">
+                <a target="_blank" :href="`${currentLocation}/${board.link}/post`">
                     <v-btn text>Post</v-btn>
                 </a>
             </v-card-actions>
@@ -49,11 +49,19 @@ export default {
 
   data () {
     return {
+      currentLocation: ""
     }
   },
 
   methods: {
-
+    async getCurrentLocation() {
+      if (window.location.hostname.contains("penguinboard.app")) {
+        return "https://penguinboard.app"
+      }
+      else {
+        return "http://192.168.0.103:3000"
+      }
+    },
   },
 
   computed: {
@@ -63,6 +71,9 @@ export default {
 
     loadingPublic () {
         return this.$store.state.board.loadingPublic
+    },
+    getLocation () {
+      this.currentLocation = getCurrentLocation()
     }
   },
 }
