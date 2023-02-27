@@ -1,5 +1,5 @@
 import axios from "axios"
-import { API, authHeader, getJwtToken, getUserIdFromToken } from './auth'
+import { API, authHeader, SUPABASE_KEY } from './auth'
 import randomstring from "randomstring"
 import emailjs from "@emailjs/browser"
 
@@ -66,7 +66,7 @@ export const actions = {
                 ispublic: isPublic
             },
             {
-                headers: authHeader()
+                headers: { ...authHeader(), apikey: SUPABASE_KEY }
             })
             if (res.status === 201) {
                 alert('Board successfully created!')
@@ -92,7 +92,9 @@ export const actions = {
     async getManagedBoards({ commit, rootState }) {
         try {
             await commit('toggleLoadingManaged', true)
-            const res = await axios.get(`${API}/get_managed_boards?sender=eq.${rootState.account.jwtUser.email}`)
+            const res = await axios.get(`${API}/get_managed_boards?sender=eq.${rootState.account.jwtUser.email}`, {
+                headers: { apikey: SUPABASE_KEY }
+            })
             if (res.status === 200) {
                 await commit('toggleLoadingManaged', false)
                 await commit('setManagedBoards', res.data)
@@ -106,7 +108,9 @@ export const actions = {
     async getMyBoards({ commit, rootState }) {
         try {
             await commit('toggleLoadingMine', true)
-            const res = await axios.get(`${API}/get_my_boards?recipientemail=eq.${rootState.account.jwtUser.email}`)
+            const res = await axios.get(`${API}/get_my_boards?recipientemail=eq.${rootState.account.jwtUser.email}`, {
+                headers: { apikey: SUPABASE_KEY }
+            })
             if (res.status === 200) {
                 await commit('toggleLoadingMine', false)
                 await commit('setMyBoards', res.data)
@@ -120,7 +124,9 @@ export const actions = {
     async getPublicBoards({ commit }) {
         try {
             await commit('toggleLoadingPublic', true)
-            const res = await axios.get(`${API}/get_public_boards`)
+            const res = await axios.get(`${API}/get_public_boards`, {
+                headers: { apikey: SUPABASE_KEY }
+            })
             if (res.status === 200) {
                 await commit('toggleLoadingPublic', false)
                 await commit('setPublicBoards', res.data)
@@ -134,7 +140,7 @@ export const actions = {
     async deleteBoard({ dispatch }, { board }) {
         try {
             const res = await axios.delete(`${API}/board?boardid=eq.${board.boardid}`, {
-                headers: authHeader()
+                headers: { ...authHeader(), apikey: SUPABASE_KEY }
             })
             if (res.status === 204 || res.status === 404) {
                 await dispatch('getManagedBoards')
@@ -162,7 +168,7 @@ export const actions = {
                         expiration: expiration.toString(),
                     },
                     {
-                        headers: authHeader()
+                        headers: { ...authHeader(), apikey: SUPABASE_KEY }
                     })
                     if (res.status === 204 || res.status === 200 || res.status === 201) {
                         alert(`The board has been sent to ${board.recipientemail}`)
@@ -180,7 +186,9 @@ export const actions = {
     async getBoardData({ commit }, { link }) {
         try {
             await commit('toggleLoadingBoard', true)
-            const res = await axios.get(`${API}/get_board_data?link=eq.${link}`)
+            const res = await axios.get(`${API}/get_board_data?link=eq.${link}`, {
+                headers: { apikey: SUPABASE_KEY }
+            })
             if (res.status === 200) {
                 await commit('toggleLoadingBoard', false)
                 await commit('setBoardData', res.data[0])
@@ -203,7 +211,7 @@ export const actions = {
                 ispublic: isPublic
             },
             {
-                headers: { ...authHeader(), Prefer: "return=representation" }
+                headers: { ...authHeader(), Prefer: "return=representation", apikey: SUPABASE_KEY }
             })
             if (res.status === 204 || res.status === 200 || res.status === 201) {
                 alert('Your changes have successfully been saved.')

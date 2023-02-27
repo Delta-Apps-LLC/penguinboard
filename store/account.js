@@ -1,10 +1,10 @@
-import { API, authHeader, deleteJwtToken, getJwtToken, getUserIdFromToken, setJwtToken } from "./auth";
+import { API, authHeader, deleteJwtToken, getJwtToken, getUserIdFromToken, setJwtToken, SUPABASE_KEY } from "./auth";
 import axios from "axios"
 import randomstring from "randomstring"
 import emailjs from "@emailjs/browser"
 const bcrypt = require('bcryptjs')
 // import { createClient } from '@supabase/supabase-js'
-// const supabase = createClient('https://hpjkjrfphqywelznpkei.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhwamtqcmZwaHF5d2Vsem5wa2VpIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzQyNDk4OTIsImV4cCI6MTk4OTgyNTg5Mn0._wwi-agtY8LScuU9MqLogT2BO05_57ADZatuJ4DQX90')
+// const supabase = createClient('https://hpjkjrfphqywelznpkei.supabase.co', 'SUPABASE_KEY')
 
 export const state = () => ({
     jwtUser: getJwtToken(),
@@ -39,7 +39,7 @@ export const actions = {
                 password: await encryptPassword(user.password)
             },
             {
-                headers: { ...authHeader(), Prefer: "return=representation" }
+                headers: { ...authHeader(), Prefer: "return=representation", apikey: SUPABASE_KEY }
             })
             if (res.status === 200) {
                 await dispatch('login', { user: user })
@@ -58,7 +58,9 @@ export const actions = {
 
     async login({ commit }, { user }) {
         try {
-            const res = await axios.get(`${API}/user?email=eq.${user.email}`)
+            const res = await axios.get(`${API}/user?email=eq.${user.email}`, {
+                headers: { apikey: SUPABASE_KEY }
+            })
             if (res.status === 200 && res.data.length !== 0) {
                 if (await matchPassword(user.password, res.data[0].password)) {
                     try {
@@ -67,7 +69,7 @@ export const actions = {
                             password: res.data[0].password
                         },
                         {
-                            headers: authHeader()
+                            headers: { ...authHeader(), apikey: SUPABASE_KEY }
                         })
                         if (response.status === 200) {
                             setJwtToken(response.data[0].token)
@@ -107,7 +109,9 @@ export const actions = {
 
     async getCurrentUser({ commit, state }) {
         try {
-            const res = await axios.get(`${API}/get_user_data?email=eq.${state.jwtUser.email}`)
+            const res = await axios.get(`${API}/get_user_data?email=eq.${state.jwtUser.email}`, {
+                headers: { apikey: SUPABASE_KEY }
+            })
             if (res.status === 200) {
                 await commit('setUserData', res.data[0])
             }
@@ -125,7 +129,9 @@ export const actions = {
 
     async getPassResetCode({ commit, dispatch }, { email, code = randomstring.generate(6) }) {
         try {
-            const res = await axios.get(`${API}/user?email=eq.${email}`)
+            const res = await axios.get(`${API}/user?email=eq.${email}`, {
+                headers: { apikey: SUPABASE_KEY }
+            })
             if (res.status === 200) {
                 try {
                     const fifteenMin = 900000
@@ -136,7 +142,7 @@ export const actions = {
                         codeexpiration: expiration.toString(),
                     },
                     {
-                        headers: { Prefer: "return=representation" }
+                        headers: { Prefer: "return=representation", apikey: SUPABASE_KEY }
                     })
                     if (res2.status === 200 || res2.status === 201) {
                         const params = {
@@ -174,6 +180,9 @@ export const actions = {
         try {
             const res = await axios.patch(`${API}/user?email=eq.${email}`, {
                 password: await encryptPassword(password)
+            },
+            {
+                headers: { apikey: SUPABASE_KEY }
             })
             if (res.status === 204 || res.status === 201 || res.status === 200) {
                 alert('Password reset successful')
@@ -190,7 +199,7 @@ export const actions = {
                 avatar: avatar
             },
             {
-                headers: { ...authHeader(), Prefer: "return=representation" }
+                headers: { ...authHeader(), Prefer: "return=representation", apikey: SUPABASE_KEY }
             })
             if (res.status === 204 || res.status === 200 || res.status === 201) {
                 alert('Profile photo successfully updated.')
