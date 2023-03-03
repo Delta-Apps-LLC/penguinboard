@@ -56,7 +56,7 @@ export const actions = {
     async createBoard({ dispatch, rootState }, { title, recipientemail, recipientname, image, isPublic, suffix = '' }) {
         let link = recipientname.replace(/\s/g, '').toLowerCase().concat(suffix)
         try {
-            const res = await axios.post(`${API}/board`, {
+            const res = await axios.post(`/board`, {
                 title: title,
                 recipientemail: recipientemail,
                 recipientname: recipientname,
@@ -92,7 +92,7 @@ export const actions = {
     async getManagedBoards({ commit, rootState }) {
         try {
             await commit('toggleLoadingManaged', true)
-            const res = await axios.get(`${API}/get_managed_boards?sender=eq.${rootState.account.jwtUser.email}`, {
+            const res = await axios.get(`/get_managed_boards?sender=eq.${rootState.account.jwtUser.email}`, {
                 headers: { apikey: SUPABASE_KEY }
             })
             if (res.status === 200) {
@@ -108,7 +108,7 @@ export const actions = {
     async getMyBoards({ commit, rootState }) {
         try {
             await commit('toggleLoadingMine', true)
-            const res = await axios.get(`${API}/get_my_boards?recipientemail=eq.${rootState.account.jwtUser.email}`, {
+            const res = await axios.get(`/get_my_boards?recipientemail=eq.${rootState.account.jwtUser.email}`, {
                 headers: { apikey: SUPABASE_KEY }
             })
             if (res.status === 200) {
@@ -124,7 +124,7 @@ export const actions = {
     async getPublicBoards({ commit }) {
         try {
             await commit('toggleLoadingPublic', true)
-            const res = await axios.get(`${API}/get_public_boards`, {
+            const res = await axios.get(`/get_public_boards`, {
                 headers: { apikey: SUPABASE_KEY }
             })
             if (res.status === 200) {
@@ -139,7 +139,7 @@ export const actions = {
 
     async deleteBoard({ dispatch }, { board }) {
         try {
-            const res = await axios.delete(`${API}/board?boardid=eq.${board.boardid}`, {
+            const res = await axios.delete(`/board?boardid=eq.${board.boardid}`, {
                 headers: { ...authHeader(), apikey: SUPABASE_KEY }
             })
             if (res.status === 204 || res.status === 404) {
@@ -163,7 +163,7 @@ export const actions = {
             }
             emailjs.send('mmq_gmail_service', 'template_t7nqxg9', params, 'rWfLyPQyBNY3WqQSS')
                 .then(async function(response) {
-                    const res = await axios.patch(`${API}/board?boardid=eq.${board.boardid}`, {
+                    const res = await axios.patch(`/board?boardid=eq.${board.boardid}`, {
                         sent: true,
                         expiration: expiration.toString(),
                     },
@@ -186,7 +186,7 @@ export const actions = {
     async getBoardData({ commit }, { link }) {
         try {
             await commit('toggleLoadingBoard', true)
-            const res = await axios.get(`${API}/get_board_data?link=eq.${link}`, {
+            const res = await axios.get(`/get_board_data?link=eq.${link}`, {
                 headers: { apikey: SUPABASE_KEY }
             })
             if (res.status === 200) {
@@ -202,7 +202,7 @@ export const actions = {
     async saveChanges({ commit, dispatch }, { boardid, title, recipientemail, recipientname, image, isPublic, suffix = '' }) {
         let link = recipientname.replace(/\s/g, '').toLowerCase().concat(suffix)
         try {
-            const res = await axios.patch(`${API}/board?boardid=eq.${boardid}`, {
+            const res = await axios.patch(`/board?boardid=eq.${boardid}`, {
                 title: title,
                 recipientemail: recipientemail,
                 recipientname: recipientname,

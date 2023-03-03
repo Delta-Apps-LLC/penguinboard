@@ -23,7 +23,7 @@ export const actions = {
     async getBoardPosts({ commit }, { link }) {
         try {
             await commit('toggleLoading', true)
-            const res = await axios.get(`${API}/get_board_posts?link=eq.${link}`, {
+            const res = await axios.get(`/get_board_posts?link=eq.${link}`, {
                 headers: { apikey: SUPABASE_KEY }
             })
             if (res.status === 200) {
@@ -38,7 +38,7 @@ export const actions = {
 
     async sendPost({}, { post }) {
         try {
-            const res = await axios.post(`${API}/post`, {
+            const res = await axios.post(`/post`, {
                 message: post.message,
                 boardid: post.boardid,
                 from: post.from,
@@ -58,7 +58,7 @@ export const actions = {
 
     async deletePost({ dispatch }, { postid, link }) {
         try {
-            const res = await axios.delete(`${API}/post?postid=eq.${postid}`, {
+            const res = await axios.delete(`/post?postid=eq.${postid}`, {
                 headers: { ...authHeader(), apikey: SUPABASE_KEY }
             })
             if (res.status === 204 || res.status === 404) {

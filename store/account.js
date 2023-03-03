@@ -1,10 +1,9 @@
-import { API, authHeader, deleteJwtToken, getJwtToken, getUserIdFromToken, setJwtToken, SUPABASE_KEY } from "./auth";
+import { API, SUPABASE, authHeader, deleteJwtToken, getJwtToken, getUserIdFromToken, setJwtToken, SUPABASE_KEY } from "./auth";
 import axios from "axios"
 import randomstring from "randomstring"
 import emailjs from "@emailjs/browser"
 const bcrypt = require('bcryptjs')
-// import { createClient } from '@supabase/supabase-js'
-// const supabase = createClient('https://hpjkjrfphqywelznpkei.supabase.co', 'SUPABASE_KEY')
+
 
 export const state = () => ({
     jwtUser: getJwtToken(),
@@ -31,85 +30,54 @@ export const mutations = {
 
 export const actions = {
     async signup({ dispatch }, { user }) {
-        try {
-            const res = await axios.post(`${API}/rpc/signup`, {
-                firstname: user.firstname,
-                lastname: user.lastname,
-                email: user.email,
-                password: await encryptPassword(user.password)
-            },
-            {
-                headers: { ...authHeader(), Prefer: "return=representation", apikey: SUPABASE_KEY }
-            })
-            if (res.status === 200) {
-                await dispatch('login', { user: user })
-            }
-        } catch (err) {
-            console.log(err)
-            if (err.response.status === 409) {
-                alert('An account with that email already exists.')
+        const { data, error, status } = await SUPABASE.rpc('signup', {
+            firstname: user.firstname,
+            lastname: user.lastname,
+            email: user.email,
+            password: await encryptPassword(user.password)
+        })
+        if (status === 204) {
+            await dispatch('login', { user: user })
+        } else if (status === 409) {
+            alert('An account already exists with that email.')
+        } else {
+            if (error) {
+                console.log(err)
             }
         }
-        // const { data, error } = await supabase.auth.signUp({
-        //     email: user.email,
-        //     password: user.password
-        // })
     },
 
-    async login({ commit }, { user }) {
-        try {
-            const res = await axios.get(`${API}/user?email=eq.${user.email}`, {
-                headers: { apikey: SUPABASE_KEY }
-            })
-            if (res.status === 200 && res.data.length !== 0) {
-                if (await matchPassword(user.password, res.data[0].password)) {
-                    try {
-                        const response = await axios.post(`${API}/rpc/login`, {
-                            email: user.email,
-                            password: res.data[0].password
-                        },
-                        {
-                            headers: { ...authHeader(), apikey: SUPABASE_KEY }
-                        })
-                        if (response.status === 200) {
-                            setJwtToken(response.data[0].token)
-                            await commit('setUserFromJwt', getUserIdFromToken(getJwtToken()))
-                            this.$router.push('/')
-                        }
-                    } catch(err) {
-                        console.log(err)
-                        if (err.response.status === 403 || err.response.status === 401) {
-                            alert('Email or password is incorrect.')
-                        }
-                    }
-                } else {
-                    alert('The password you entered was incorrect.')
+    async getUser({}, { user }) {
+        const { data, error, status } = await SUPABASE.from('user')
+            .select()
+            .eq('email', user.email)
+        return data
+    },
+
+    async login({ commit, dispatch }, { user }) {
+        const res = await dispatch('getUser', { user: user })
+        if (res.length > 0) {
+            if (await matchPassword(user.password, res[0].password)) {
+                const { data, error, status } = await SUPABASE.rpc('login', {
+                    email: user.email,
+                    password: res[0].password
+                })
+                if (data.token !== null) {
+                    setJwtToken(data.token)
+                    await commit('setUserFromJwt', getUserIdFromToken(getJwtToken()))
+                    this.$router.push('/')
                 }
             } else {
-                if (res.data.length === 0) {
-                    alert('No account was found with that email.')
-                }
+                alert('The password you provided is incorrect.')
             }
-        } catch(err) {
-            if (err) {
-                console.log(err)
-                if (err.response.status === 404) {
-                    alert('No account was found with that email.')
-                } else if (err.response.status === 400) {
-                    alert('Something went wrong, please refresh the page and try again.')
-                }
-            }
+        } else if (res.length === 0) {
+            alert('No account was found with that email.')
         }
-        // const { data, error } = await supabase.auth.signInWithPassword({
-        //     email: user.email,
-        //     password: user.password
-        // })
-        // setJwtToken(data.session.access_token)
     },
 
     async getCurrentUser({ commit, state }) {
         try {
-            const res = await axios.get(`${API}/get_user_data?email=eq.${state.jwtUser.email}`, {
+            const res = await axios.get(`/rest/v1/public/get_user_data?email=eq.${state.jwtUser.email}`, {
                 headers: { apikey: SUPABASE_KEY }
             })
             if (res.status === 200) {
@@ -129,14 +97,14 @@ export const actions = {
 
     async getPassResetCode({ commit, dispatch }, { email, code = randomstring.generate(6) }) {
         try {
-            const res = await axios.get(`${API}/user?email=eq.${email}`, {
+            const res = await axios.get(`/user?email=eq.${email}`, {
                 headers: { apikey: SUPABASE_KEY }
             })
             if (res.status === 200) {
                 try {
                     const fifteenMin = 900000
                     const expiration = Date.now() + fifteenMin
-                    const res2 = await axios.post(`${API}/reset_code`, {
+                    const res2 = await axios.post(`/reset_code`, {
                         code: code,
                         codeemail: email,
                         codeexpiration: expiration.toString(),
@@ -178,7 +146,7 @@ export const actions = {
 
     async resetPass({}, { email, password }) {
         try {
-            const res = await axios.patch(`${API}/user?email=eq.${email}`, {
+            const res = await axios.patch(`/user?email=eq.${email}`, {
                 password: await encryptPassword(password)
             },
             {
@@ -195,7 +163,7 @@ export const actions = {
 
     async updateAvatar({ commit }, { userid, avatar }) {
         try {
-            const res = await axios.patch(`${API}/user?userid=eq.${userid}`, {
+            const res = await axios.patch(`/user?userid=eq.${userid}`, {
                 avatar: avatar
             },
             {
