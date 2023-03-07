@@ -128,6 +128,9 @@ export default {
 
 .board-card {
   margin-top: 20px;
+  background-image: url("~/assets/images/penguin-fade.png");
+  background-position: center;
+  background-size: 80%;
 }
 
 .title {

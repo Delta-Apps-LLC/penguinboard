@@ -3,11 +3,12 @@
     <v-app-bar
       fixed
       app
+      height="85px"
     >
-      <v-toolbar-title><img class="logo" src="~/assets/images/bravo_logo.png" /></v-toolbar-title>
+      <v-toolbar-title><img class="logo" src="~/assets/images/penguin-logo-hz.png" /></v-toolbar-title>
       <v-spacer />
-      <v-btn v-if="jwtUser == null || jwtUser == undefined" to="/login" text>Signup</v-btn>
-      <v-btn v-else @click="toHome()" text>Home</v-btn>
+      <v-btn v-if="jwtUser == null || jwtUser == undefined" to="/login" height="60px" text>Signup</v-btn>
+      <v-btn v-else @click="toHome()" height="60px" text>Home</v-btn>
     </v-app-bar>
 
     <v-main class="main-fade" id="main">

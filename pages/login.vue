@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <div class="card text-center" :style="{'width': isMobile ? '95%' : null}">
-      <h2 class="welcome">Welcome to Bravo!</h2>
+      <h2 class="welcome">Welcome to Penguin Board!</h2>
       <v-btn-toggle
         class="toggle-btn"
         mandatory
@@ -155,6 +155,9 @@ export default {
   margin: 20px auto;
   border-radius: 8px;
   box-shadow:  0 0 6px #303030;
+  background-image: url("~/assets/images/penguin-fade.png");
+  background-position: center;
+  background-size: 60%;
 }
 
 .welcome {

@@ -3,10 +3,11 @@
     <v-app-bar
       fixed
       app
+      height="85px"
     >
-      <v-toolbar-title><img class="logo" src="~/assets/images/bravo_logo.png" /></v-toolbar-title>
+      <v-toolbar-title><img class="logo" src="~/assets/images/penguin-logo-hz.png" /></v-toolbar-title>
       <v-spacer />
-      <v-btn to="/public" text>Public Boards</v-btn>
+      <v-btn to="/public" height="60px" text>Public Boards</v-btn>
     </v-app-bar>
 
     <v-main class="main-fade" id="main">
