@@ -1,5 +1,6 @@
 import { GiphyFetch } from '@giphy/js-fetch-api'
 const gf = new GiphyFetch('TSTsZUj5ef011dyfVhM44VRhdLaqM1RX')
+// TODO: GET PRODUCTION GIPHY KEY
 
 export const state = () => ({
     gifs: []
