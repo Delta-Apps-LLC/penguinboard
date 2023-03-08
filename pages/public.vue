@@ -1,30 +1,32 @@
 <template>
   <v-col class="text-center">
-    <h2 class="header">Public Boards</h2>
-    <v-row class="board-row" align="center" justify="center" v-if="!loadingPublic">
-        <v-card class="board-card text-center" v-for="(board, i) in publicBoards"
-            :key="i"
-            width="250px"
-            height="100%"
+    <h2 class="header" v-if="!loadingPublic">
+      {{ publicBoards.length > 0 ? 'Public Boards' : 'There are currently no public boards.'}}
+    </h2>
+    <v-row class="board-row" align="center" justify="center" v-if="!loadingPublic && publicBoards.length != 0">
+      <v-card class="board-card text-center" v-for="(board, i) in publicBoards"
+          :key="i"
+          width="250px"
+          height="100%"
+      >
+        <v-card-title class="board-name justify-center"
         >
-            <v-card-title class="board-name justify-center"
-            >
-                {{board.recipientname}}
-            </v-card-title>
-            <v-divider />
-            <v-card-subtitle
-                class="board-title"
-                style="word-break: break-word;"
-            >
-                {{board.title}}
-            </v-card-subtitle>
-            <v-card-actions>
-                <v-spacer />
-                <a target="_blank" :href="`${currentLocation}/${board.link}/post`">
-                    <v-btn text>Post</v-btn>
-                </a>
-            </v-card-actions>
-        </v-card>
+            {{board.recipientname}}
+        </v-card-title>
+        <v-divider />
+        <v-card-subtitle
+          class="board-title"
+          style="word-break: break-word;"
+        >
+          {{board.title}}
+        </v-card-subtitle>
+        <v-card-actions>
+          <v-spacer />
+          <a target="_blank" :href="`${currentLocation}/${board.link}/post`">
+            <v-btn text>Post</v-btn>
+          </a>
+        </v-card-actions>
+      </v-card>
     </v-row>
 
 
@@ -72,8 +74,9 @@ export default {
     loadingPublic () {
         return this.$store.state.board.loadingPublic
     },
+
     getLocation () {
-      this.currentLocation = getCurrentLocation()
+      this.currentLocation = this.getCurrentLocation()
     }
   },
 }
