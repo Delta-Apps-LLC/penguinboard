@@ -65,7 +65,7 @@ export default {
       recipientemail: '',
       recipientname: '',
       imageData: null,
-      isPublic: true,
+      isPublic: false,
     }
   },
 
