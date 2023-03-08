@@ -1,5 +1,4 @@
-import axios from "axios"
-import { API, authHeader, SUPABASE, SUPABASE_KEY } from './auth'
+import { SUPABASE } from './auth'
 
 export const state = () => ({
     posts: [],

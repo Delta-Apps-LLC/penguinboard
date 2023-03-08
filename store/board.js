@@ -1,5 +1,4 @@
-import axios from "axios"
-import { API, authHeader, SUPABASE_KEY, SUPABASE } from './auth'
+import { SUPABASE } from './auth'
 import randomstring from "randomstring"
 import emailjs from "@emailjs/browser"
 
