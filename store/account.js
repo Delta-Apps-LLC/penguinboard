@@ -1,4 +1,4 @@
-import { API, SUPABASE, authHeader, deleteJwtToken, getJwtToken, getUserIdFromToken, setJwtToken, SUPABASE_KEY } from "./auth";
+import { SUPABASE, deleteJwtToken, getJwtToken, getUserIdFromToken, setJwtToken } from "./auth";
 import axios from "axios"
 import randomstring from "randomstring"
 import emailjs from "@emailjs/browser"
