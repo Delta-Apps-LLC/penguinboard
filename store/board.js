@@ -1,5 +1,5 @@
 import axios from "axios"
-import { API, authHeader, SUPABASE_KEY } from './auth'
+import { API, authHeader, SUPABASE_KEY, SUPABASE } from './auth'
 import randomstring from "randomstring"
 import emailjs from "@emailjs/browser"
 
@@ -55,8 +55,8 @@ export const mutations = {
 export const actions = {
     async createBoard({ dispatch, rootState }, { title, recipientemail, recipientname, image, isPublic, suffix = '' }) {
         let link = recipientname.replace(/\s/g, '').toLowerCase().concat(suffix)
-        try {
-            const res = await axios.post(`/board`, {
+        const { data, error, status } = await SUPABASE.from('board')
+            .insert({
                 title: title,
                 recipientemail: recipientemail,
                 recipientname: recipientname,
@@ -64,77 +64,52 @@ export const actions = {
                 link: link,
                 image: image,
                 ispublic: isPublic
-            },
-            {
-                headers: { ...authHeader(), apikey: SUPABASE_KEY }
             })
-            if (res.status === 201) {
-                alert('Board successfully created!')
-                // await dispatch('getManagedBoards')
-            }
-        } catch (err) {
-            console.log(err)
-            if (err.response.status === 409) {
-                await dispatch('createBoard', {
-                    title: title,
-                    recipientemail: recipientemail,
-                    recipientname: recipientname,
-                    image: image,
-                    isPublic: isPublic,
-                    suffix: randomstring.generate(5)
-                })
-            } else {
-                alert('Something went wrong, please try again.')
-            }
+        if (status === 201 || status === 200 || status === 204) {
+            alert('Board successfully created!')
+        } else if (status === 409) {
+            await dispatch('createBoard', {
+                title: title,
+                recipientemail: recipientemail,
+                recipientname: recipientname,
+                image: image,
+                isPublic: isPublic,
+                suffix: randomstring.generate(5)
+            })
+        } else {
+            alert('Something went wrong, please try again.')
         }
     },
 
     async getManagedBoards({ commit, rootState }) {
-        try {
-            await commit('toggleLoadingManaged', true)
-            const res = await axios.get(`/get_managed_boards?sender=eq.${rootState.account.jwtUser.email}`, {
-                headers: { apikey: SUPABASE_KEY }
-            })
-            if (res.status === 200) {
-                await commit('toggleLoadingManaged', false)
-                await commit('setManagedBoards', res.data)
-            }
-        } catch (err) {
-            console.log(err)
+        await commit('toggleLoadingManaged', true)
+        const { data, error, status } = await SUPABASE.from('get_managed_boards')
+            .select()
+            .eq('sender', rootState.account.jwtUser.email)
+        if (status === 200 || status === 201 || status === 204) {
             await commit('toggleLoadingManaged', false)
-        }
+            await commit('setManagedBoards', data)
+        } else await commit('toggleLoadingManaged', false)
     },
 
     async getMyBoards({ commit, rootState }) {
-        try {
-            await commit('toggleLoadingMine', true)
-            const res = await axios.get(`/get_my_boards?recipientemail=eq.${rootState.account.jwtUser.email}`, {
-                headers: { apikey: SUPABASE_KEY }
-            })
-            if (res.status === 200) {
-                await commit('toggleLoadingMine', false)
-                await commit('setMyBoards', res.data)
-            }
-        } catch (err) {
-            console.log(err)
+        await commit('toggleLoadingMine', true)
+        const { data, error, status } = await SUPABASE.from('get_my_boards')
+            .select()
+            .eq('recipientemail', rootState.account.jwtUser.email)
+        if (status === 200 || status === 201 || status === 204) {
             await commit('toggleLoadingMine', false)
-        }
+            await commit('setMyBoards', data)
+        } else await commit('toggleLoadingMine', false)
     },
 
     async getPublicBoards({ commit }) {
-        try {
-            await commit('toggleLoadingPublic', true)
-            const res = await axios.get(`/get_public_boards`, {
-                headers: { apikey: SUPABASE_KEY }
-            })
-            if (res.status === 200) {
-                await commit('toggleLoadingPublic', false)
-                await commit('setPublicBoards', res.data)
-            }
-        } catch (err) {
-            console.log(err)
+        await commit('toggleLoadingPublic', true)
+        const { data, error, status } = await SUPABASE.from('get_public_boards').select()
+        if (status === 200 || status === 201 || status === 204) {
             await commit('toggleLoadingPublic', false)
-        }
+            await commit('setPublicBoards', res.data)
+        } else await commit('toggleLoadingPublic', false)
     },
 
     async deleteBoard({ dispatch }, { board }) {
