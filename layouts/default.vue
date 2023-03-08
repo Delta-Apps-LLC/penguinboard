@@ -1,6 +1,7 @@
 <template>
   <v-app class="main-fade" dark>
     <v-navigation-drawer
+      class="nav-drawer"
       :mini-variant="isMobile ? true : miniVariant"
       :clipped="true"
       fixed
@@ -27,6 +28,7 @@
     </v-navigation-drawer>
 
     <v-app-bar
+      class="app-bar"
       :clipped-left="true"
       fixed
       app
