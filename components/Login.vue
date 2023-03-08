@@ -4,8 +4,10 @@
             @click.stop
             :style="{ 'height': isMobile ? '315px' : null }"
         >
+          <h2 class="welcome">Welcome to Penguin Board!</h2>
             <v-col class="text-center">
                 <v-btn-toggle
+                    class="toggle-btn"
                     mandatory
                     rounded
                     v-model="isLogin"
@@ -38,7 +40,7 @@
                       </template>
                       <span>Clear Form</span>
                     </v-tooltip>
-                    <v-btn type="submit">Sign Up</v-btn>
+                    <v-btn type="submit" color="#1C7293" class="white--text">Sign Up</v-btn>
                 </form>
 
                 <form class="form" @submit.prevent="login" v-if="isLogin">
@@ -58,8 +60,12 @@
                     </template>
                     <span>Clear Form</span>
                     </v-tooltip>
-                    <v-btn type="submit">Sign In</v-btn>
+                    <v-btn type="submit" color="#1C7293" class="white--text">Sign In</v-btn>
                 </form>
+
+                <p class="forgot-password" @click="$emit('close-modal')">
+                  <nuxt-link to="/password"><b>Forgot Password</b></nuxt-link>
+                </p>
             </v-col>
         </div>
     </div>
@@ -150,8 +156,12 @@ export default {
   height: 40%;
   width: 35%;
   margin-top: 8%;
-  padding: 0px 0;
+  padding: 15px 0;
   border-radius: 20px;
+  box-shadow:  0 0 6px #303030;
+  background-image: url("~/assets/images/penguin-fade.png");
+  background-position: center;
+  background-size: 60%;
 }
 
 .modal-mobile {
@@ -162,6 +172,10 @@ export default {
     margin-top: 15%;
     padding: 0px 0;
     border-radius: 20px;
+    box-shadow:  0 0 6px #303030;
+    background-image: url("~/assets/images/penguin-fade.png");
+    background-position: center;
+    background-size: 60%;
 }
 
 .modal, .modal-overlay, .modal-mobile {
@@ -193,5 +207,44 @@ export default {
   margin-top: 6px;
 }
 
+.welcome {
+  font-family: 'Plus Jakarta Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 40px;
+  color: #303030;
+}
+
+.form {
+  margin-top: 20px;
+}
+
+.form-field {
+  font-family: Plus Jakarta Sans;
+  background-color: #EBEBEB;
+  border: solid gray;
+  border-radius: 6px;
+  padding: 6px;
+}
+
+.spacer {
+  margin-top: 6px;
+}
+
+.toggle-btn {
+  margin-top: 8px;
+  font-family: Plus Jakarta Sans;
+}
+
+.submit-btn {
+  background-color: #0085FF !important;
+  color: #EBEBEB;
+  font-family: Plus Jakarta Sans;
+}
+
+.forgot-password {
+  margin: 20px;
+}
 
 </style>
