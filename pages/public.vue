@@ -59,7 +59,7 @@ export default {
         return "https://penguinboard.app"
       }
       else {
-        return "http://192.168.0.103:3000"
+        return "localhost:3000"
       }
     },
   },
