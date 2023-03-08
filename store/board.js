@@ -1,4 +1,3 @@
-import axios from "axios"
 import { SUPABASE } from './auth'
 import randomstring from "randomstring"
 import emailjs from "@emailjs/browser"

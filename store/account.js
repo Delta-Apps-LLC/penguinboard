@@ -1,5 +1,4 @@
 import { SUPABASE, deleteJwtToken, getJwtToken, getUserIdFromToken, setJwtToken } from "./auth";
-import axios from "axios"
 import randomstring from "randomstring"
 import emailjs from "@emailjs/browser"
 const bcrypt = require('bcryptjs')

@@ -1,4 +1,3 @@
-import axios from "axios"
 import { SUPABASE } from './auth'
 
 export const state = () => ({
