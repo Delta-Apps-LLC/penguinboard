@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <div class="card text-center" :style="{'width': isMobile ? '95%' : null}">
+    <!-- <div class="card text-center" :style="{'width': isMobile ? '95%' : null}">
       <h2 class="welcome">Welcome to Penguin Board!</h2>
       <v-btn-toggle
         class="toggle-btn"
@@ -77,7 +77,7 @@
       <p class="forgot-password">
         <nuxt-link to="/password">Forgot Password</nuxt-link>
       </p>
-    </div>
+    </div> -->
   </v-app>
 </template>
 
