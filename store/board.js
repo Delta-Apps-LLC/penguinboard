@@ -108,106 +108,91 @@ export const actions = {
         const { data, error, status } = await SUPABASE.from('get_public_boards').select()
         if (status === 200 || status === 201 || status === 204) {
             await commit('toggleLoadingPublic', false)
-            await commit('setPublicBoards', res.data)
+            await commit('setPublicBoards', data)
         } else await commit('toggleLoadingPublic', false)
     },
 
     async deleteBoard({ dispatch }, { board }) {
-        try {
-            const res = await axios.delete(`/board?boardid=eq.${board.boardid}`, {
-                headers: { ...authHeader(), apikey: SUPABASE_KEY }
-            })
-            if (res.status === 204 || res.status === 404) {
-                await dispatch('getManagedBoards')
-                await dispatch('getMyBoards')
-            }
-        } catch (err) {
-            console.log(err)
+        const { data, error, status } = await SUPABASE.from('board')
+            .delete()
+            .eq('boardid', board.boardid)
+        if (status === 200 || status === 201 || status === 204) {
+            await dispatch('getManagedBoards')
+            await dispatch('getMyBoards')
+        } else {
+            alert('Something went wrong, please try again.')
         }
     },
 
     async sendBoard({ dispatch }, { board }) {
-        try {
-            const twoWeeksMs = 1209600000
-            const expiration = Date.now() + twoWeeksMs
-            const params = {
-                to_name: board.recipientname,
-                link: board.link,
-                from_email: board.sender,
-                to_email: board.recipientemail,
-            }
-            emailjs.send('service_gkpmhag', 'template_raywi9b', params, 'xV0FXrkqMbJpZz4Eg')
-                .then(async function(response) {
-                    const res = await axios.patch(`/board?boardid=eq.${board.boardid}`, {
-                        sent: true,
-                        expiration: expiration.toString(),
-                    },
-                    {
-                        headers: { ...authHeader(), apikey: SUPABASE_KEY }
-                    })
-                    if (res.status === 204 || res.status === 200 || res.status === 201) {
-                        alert(`The board has been sent to ${board.recipientemail}`)
-                        await dispatch('getManagedBoards')
-                    }
-                }, function(error) {
-                    console.log('FAILED...', error);
-                });
-        } catch (err) {
-            alert('Could not send email, something went wrong.')
-            console.log(err)
+        const twoWeeksMs = 1209600000
+        const expiration = Date.now() + twoWeeksMs
+        const params = {
+            to_name: board.recipientname,
+            link: board.link,
+            from_email: board.sender,
+            to_email: board.recipientemail,
         }
+        emailjs.send('service_gkpmhag', 'template_raywi9b', params, 'xV0FXrkqMbJpZz4Eg')
+            .then(async function(response) {
+                const { data, error, status } = await SUPABASE.from('board')
+                    .update({
+                        sent: true,
+                        expiration: expiration.toString()
+                    })
+                    .eq('boardid', board.boardid)
+                if (status === 204 || status === 200 || status === 201) {
+                    alert(`The board has been sent to ${board.recipientemail}`)
+                    await dispatch('getManagedBoards')
+                } else {
+                    alert('Something went wrong, please try again.')
+                }
+            }, function(error) {
+                console.log('FAILED...', error);
+                alert('Could not send email, something went wrong.')
+            });
     },
 
     async getBoardData({ commit }, { link }) {
-        try {
-            await commit('toggleLoadingBoard', true)
-            const res = await axios.get(`/get_board_data?link=eq.${link}`, {
-                headers: { apikey: SUPABASE_KEY }
-            })
-            if (res.status === 200) {
-                await commit('toggleLoadingBoard', false)
-                await commit('setBoardData', res.data[0])
-            }
-        } catch (err) {
-            console.log(err)
+        await commit('toggleLoadingBoard', true)
+        const { data, error, status } = await SUPABASE.from('get_board_data')
+            .select()
+            .eq('link', link)
+        if (status === 200 || status === 201 || status === 204) {
             await commit('toggleLoadingBoard', false)
-        }
+            await commit('setBoardData', data[0])
+        } else await commit('toggleLoadingBoard', false)
     },
 
     async saveChanges({ commit, dispatch }, { boardid, title, recipientemail, recipientname, image, isPublic, suffix = '' }) {
         let link = recipientname.replace(/\s/g, '').toLowerCase().concat(suffix)
-        try {
-            const res = await axios.patch(`/board?boardid=eq.${boardid}`, {
+        const { data, error, status } = await SUPABASE.from('board')
+            .update({
                 title: title,
                 recipientemail: recipientemail,
                 recipientname: recipientname,
                 image: image,
                 link: link,
                 ispublic: isPublic
-            },
-            {
-                headers: { ...authHeader(), Prefer: "return=representation", apikey: SUPABASE_KEY }
             })
-            if (res.status === 204 || res.status === 200 || res.status === 201) {
-                alert('Your changes have successfully been saved.')
-                await commit('setBoardData', res.data[0])
-                localStorage.setItem('boardToEdit', res.data[0].link)
-            }
-        } catch (err) {
-            console.log(err)
-            if (err.response.status === 409) {
-                await dispatch('saveChanges', {
-                    boardid: boardid,
-                    title: title,
-                    recipientemail: recipientemail,
-                    recipientname: recipientname,
-                    image: image,
-                    isPublic: isPublic,
-                    suffix: randomstring.generate(5)
-                })
-            } else {
-                alert('Something went wrong, please try again.')
-            }
+            .eq('boardid', boardid)
+            .select()
+        if (status === 204 || status === 200 || status === 201) {
+            alert('Your changes have successfully been saved.')
+            await commit('setBoardData', data[0])
+            localStorage.setItem('boardToEdit', data[0].link)
+        } else if (status === 409) {
+            await dispatch('saveChanges', {
+                boardid: boardid,
+                title: title,
+                recipientemail: recipientemail,
+                recipientname: recipientname,
+                image: image,
+                isPublic: isPublic,
+                suffix: randomstring.generate(5)
+            })
+        } else {
+            alert('Something went wrong, please try again.')
         }
     }
 }
