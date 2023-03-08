@@ -161,7 +161,7 @@ export const actions = {
                 from_email: board.sender,
                 to_email: board.recipientemail,
             }
-            emailjs.send('mmq_gmail_service', 'template_t7nqxg9', params, 'rWfLyPQyBNY3WqQSS')
+            emailjs.send('service_gkpmhag', 'template_raywi9b', params, 'xV0FXrkqMbJpZz4Eg')
                 .then(async function(response) {
                     const res = await axios.patch(`/board?boardid=eq.${board.boardid}`, {
                         sent: true,
