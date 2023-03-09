@@ -5,6 +5,8 @@ export default {
   ssr: false,
   middleware: ["auth", "login"],
 
+  target: "static",
+
   server: {
     host: '0.0.0.0'
   },

@@ -92,7 +92,7 @@
     </v-row>
 
     <!-- Row of posts -->
-    <v-row class="post-row" :justify="isMobile ? 'center' : null">
+    <v-row class="post-row" justify="center">
       <v-card class="post-card text-center" v-for="(post, i) in posts" :key="i">
         <iframe class="gif-iframe"
           v-if="post.gif != null"
@@ -107,6 +107,8 @@
           <v-btn @click="deletePost(post.postid)" text>Delete</v-btn>
         </v-card-actions>
       </v-card>
+
+      <h2 class="header" v-if="posts.length == 0">This board does not have any posts yet.</h2>
     </v-row>
     <br>
   </v-col>
@@ -235,6 +237,12 @@ export default {
 
 .post-row {
   margin-top: 20px;
+}
+
+.header {
+  font-family: Plus Jakarta Sans;
+  font-size: 28px;
+  color: #303030;
 }
 
 .post-card {
