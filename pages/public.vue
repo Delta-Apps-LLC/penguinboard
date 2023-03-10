@@ -51,13 +51,20 @@ export default {
 
   data () {
     return {
-      currentLocation: ""
+      currentLocation: getCurrentLocation(),
+      inDevelopmentMode: false
     }
   },
 
   methods: {
     async getCurrentLocation() {
-      if (window.location.hostname.contains("penguinboard.app")) {
+      // if (window.location.hostname.contains("penguinboard.app")) {
+      //   return "https://penguinboard.app"
+      // }
+      // else {
+      //   return "localhost:3000"
+      // }
+      if (!this.inDevelopmentMode) {
         return "https://penguinboard.app"
       }
       else {
