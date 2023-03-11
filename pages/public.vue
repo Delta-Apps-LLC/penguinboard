@@ -51,8 +51,8 @@ export default {
 
   data () {
     return {
-      currentLocation: getCurrentLocation(),
-      inDevelopmentMode: false
+      currentLocation: "",
+      inDevelopmentMode: true
     }
   },
 

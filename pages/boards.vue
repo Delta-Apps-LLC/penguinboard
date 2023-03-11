@@ -25,13 +25,14 @@
         <img id="image" v-if="board.image != null" :src="board.image" />
         <v-card-text>
           <v-btn v-if="tab === 0" target="_blank" :href="`${currentLocation}/${board.link}/post`" text>Add Post</v-btn>
-          <v-btn v-if="tab === 0" @click="copyToClipboard(`https://penguinboard.app/${board.link}/post`)" text>Invite Others to Post</v-btn>
+          <v-btn v-if="tab === 0" @click="copyToClipboard(`https://penguinboard.app/${board.link}/post`)" text>Invite Contributors</v-btn>
           <v-btn v-if="tab === 0" @click="deleteBoard(board)" text>Delete Board</v-btn>
           <v-btn v-if="tab === 0" @click="openBoard(board)" text>Edit Board</v-btn>
           <v-btn v-if="tab === 0" @click="sendBoard(board)" text>Send to Recipient</v-btn>
-          <a v-else target="_blank" :href="`${currentLocation}/${board.link}`">
+          <!-- <a v-else target="_blank" :href="`${currentLocation}/${board.link}`">
             <v-btn text>View</v-btn>
-          </a>
+          </a> -->
+          <nuxt-link v-else :to="currentLocation + '/' + board.link">View</nuxt-link>
         </v-card-text>
       </v-card>
       <h2 class="header" v-if="!loadingManaged && tab === 0 && managedBoards.length == 0">
@@ -143,6 +144,11 @@ export default {
         return "localhost:3000"
       }
     },
+
+    async asyncData() {
+      const posts = await fetchPosts()
+      return { posts }
+  }
   },
 
   computed: {

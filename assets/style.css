@@ -3,8 +3,8 @@
 }
 
 .app-bar {
-    /* background-color: #A9D9EF !important; */
-    background-image: linear-gradient(to bottom right, #DCDAD0, #99D2EB, #DCDAD0);
+    background-color: #F4F6F4 !important;
+    /* background-image: linear-gradient(to bottom right, #DCDAD0, #99D2EB, #DCDAD0); */
 }
 
 .nav-drawer {

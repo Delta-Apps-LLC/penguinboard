@@ -86,5 +86,13 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+  },
+
+  generate: {
+    routes: async function () {
+      const currentEnv = await fetchCurrEnv()
+      const boardId = await fetchBoardId()
+      return `${currentEnv}/${boardId}/post`
+    }
   }
 }

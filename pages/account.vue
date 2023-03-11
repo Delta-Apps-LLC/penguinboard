@@ -215,7 +215,8 @@ h2 {
 }
 
 .data {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Plus Jakarta Sans;
+  /* font-family: Arial, Helvetica, sans-serif; */
   font-size: 18px;
 }
 
