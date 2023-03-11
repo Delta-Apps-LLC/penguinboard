@@ -88,9 +88,9 @@ export default {
   build: {
   },
 
-  generate: {
-    routes: async function () {
-      return window.location.hostname
-    }
-  }
+  // generate: {
+  //   routes: async function () {
+  //     return window.location.hostname
+  //   }
+  // }
 }
