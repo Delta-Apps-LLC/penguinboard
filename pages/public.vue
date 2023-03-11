@@ -22,9 +22,10 @@
         </v-card-subtitle>
         <v-card-actions>
           <v-spacer />
-          <a target="_blank" :href="`${currentLocation}/${board.link}/post`">
+          <!-- <a target="_blank" :href="`${currentLocation}/${board.link}/post`">
             <v-btn text>Post</v-btn>
-          </a>
+          </a> -->
+          <nuxt-link :to="currentLocation + '/' + board.link + '/post'">Add Post</nuxt-link>
         </v-card-actions>
       </v-card>
     </v-row>
@@ -52,7 +53,7 @@ export default {
   data () {
     return {
       currentLocation: "",
-      inDevelopmentMode: true
+      inDevelopmentMode: false
     }
   },
 

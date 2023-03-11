@@ -24,7 +24,8 @@
         </v-card-subtitle>
         <img id="image" v-if="board.image != null" :src="board.image" />
         <v-card-text>
-          <v-btn v-if="tab === 0" target="_blank" :href="`${currentLocation}/${board.link}/post`" text>Add Post</v-btn>
+          <!-- <v-btn v-if="tab === 0" target="_blank" :href="`${currentLocation}/${board.link}/post`" text>Add Post</v-btn> -->
+          <nuxt-link v-if="tab === 0" :to="currentLocation + '/' + board.link + '/post'">Add Post</nuxt-link>
           <v-btn v-if="tab === 0" @click="copyToClipboard(`https://penguinboard.app/${board.link}/post`)" text>Invite Contributors</v-btn>
           <v-btn v-if="tab === 0" @click="deleteBoard(board)" text>Delete Board</v-btn>
           <v-btn v-if="tab === 0" @click="openBoard(board)" text>Edit Board</v-btn>
