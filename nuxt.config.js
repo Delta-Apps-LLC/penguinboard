@@ -88,11 +88,9 @@ export default {
   build: {
   },
 
-  // generate: {
-  //   routes: async function () {
-  //     const currentEnv = await fetchCurrEnv()
-  //     const boardId = await fetchBoardId()
-  //     return `${currentEnv}/${boardId}/post`
-  //   }
-  // }
+  generate: {
+    routes: async function () {
+      return window.location.hostname
+    }
+  }
 }
