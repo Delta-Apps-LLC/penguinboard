@@ -78,6 +78,9 @@
         <nuxt-link to="/password">Forgot Password</nuxt-link>
       </p>
     </div> -->
+    <a>
+      Something
+    </a>
   </v-app>
 </template>
 

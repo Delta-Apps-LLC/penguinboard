@@ -29,6 +29,9 @@
           </div>
         </v-row>
         <v-btn @click="loadMore()">Load More</v-btn>
+        <v-col cols="6" class="justify-end">
+          <img src="~/assets/images/PoweredBy_200px-Black_HorizText.png" alt="your-image-alt-text">
+        </v-col>
       </v-col>
 
       <!-- Display Selected GIF here -->
