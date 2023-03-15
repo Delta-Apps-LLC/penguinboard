@@ -1,6 +1,6 @@
 <template>
   <v-col justify="center" align="center">
-    <v-card class="board-card"
+    <v-card class="board-card" id="step-2"
       :width="isMobile ? '100%' : '50%'"
     >
       <v-card-title class="title justify-center"
@@ -55,9 +55,16 @@
 </template>
 
 <script>
+import Shepherd from 'shepherd.js'
 export default {
   name: 'IndexPage',
   middleware: "auth",
+
+  mounted () {
+    this.addSteps()
+    // this.tour.start()
+    this.tour.on('complete', this.onboardingComplete)
+  },
 
   data () {
     return {
@@ -66,6 +73,13 @@ export default {
       recipientname: '',
       imageData: null,
       isPublic: false,
+      tour: new Shepherd.Tour({
+        useModalOverlay: true,
+        defaultStepOptions: {
+          classes: 'shadow-md bg-purple-dark',
+          scrollTo: true
+        }
+      }),
     }
   },
 
@@ -103,6 +117,41 @@ export default {
         this.$router.push('/boards')
       }
     },
+
+    async onboardingComplete() {
+
+    },
+
+    async addSteps() {
+      this.tour.addSteps([
+        {
+          id: 'step-1',
+          title: 'Hello there!',
+          text: 'Welcome to Penguin Board. Let\'s get you started on your tour!',
+          buttons: [
+            {
+              text: 'Okay!',
+              action: this.tour.next
+            }
+          ]
+        },
+        {
+          id: 'step-2',
+          title: 'Create Board',
+          text: 'The home page is where you create new Penguin Boards. Add a picture if you like, a title, some information about who it is to, and if you want it publicly available to post to. You will manage any boards you create.',
+          attachTo: {
+            element: '#step-2',
+            on: 'bottom'
+          },
+          buttons: [
+            {
+              text: 'Next',
+              action: this.tour.next
+            }
+          ]
+        },
+      ])
+    }
   },
 
   computed: {
