@@ -53,7 +53,7 @@ export default {
   data () {
     return {
       currentLocation: "",
-      // inDevelopmentMode: true
+      // inDevelopmentMode: true 
     }
   },
 
