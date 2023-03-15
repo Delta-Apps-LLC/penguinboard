@@ -1,4 +1,8 @@
 <template>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://unpkg.com/shepherd.js/dist/css/shepherd.css">
+  </head>
   <v-col justify="center" align="center">
     <v-card class="board-card" id="step-2"
       :width="isMobile ? '100%' : '50%'"
@@ -52,6 +56,7 @@
 
     </v-card>
   </v-col>
+</html>
 </template>
 
 <script>
@@ -76,7 +81,7 @@ export default {
       tour: new Shepherd.Tour({
         useModalOverlay: true,
         defaultStepOptions: {
-          classes: 'shadow-md bg-purple-dark',
+          classes: 'default-tour',
           scrollTo: true
         }
       }),
@@ -141,7 +146,7 @@ export default {
           text: 'The home page is where you create new Penguin Boards. Add a picture if you like, a title, some information about who it is to, and if you want it publicly available to post to. You will manage any boards you create.',
           attachTo: {
             element: '#step-2',
-            on: 'bottom'
+            on: 'top'
           },
           buttons: [
             {
@@ -174,6 +179,11 @@ export default {
 
 <style scoped>
 @import '~/assets/style.css';
+
+.default-tour {
+  background-color: red !important;
+  z-index: 9999;
+}
 
 .board-card {
   margin-top: 20px;
