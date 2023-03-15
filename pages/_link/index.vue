@@ -28,6 +28,9 @@
       <div class="sk-cube4 sk-cube"></div>
       <div class="sk-cube3 sk-cube"></div>
     </div>
+
+    <img src="~/assets/images/PoweredBy_200px-White_HorizText.png" alt="your-image-alt-text">
+    
   </v-col>
 </template>
 

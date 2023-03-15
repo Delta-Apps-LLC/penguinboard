@@ -24,17 +24,30 @@
         </v-card-subtitle>
         <img id="image" v-if="board.image != null" :src="board.image" />
         <v-card-text>
-          <!-- <v-btn v-if="tab === 0" target="_blank" :href="`${currentLocation}/${board.link}/post`" text>Add Post</v-btn> -->
-          <nuxt-link v-if="tab === 0" :to="currentLocation + '/' + board.link + '/post'">Add Post</nuxt-link>
-          <v-btn v-if="tab === 0" @click="copyToClipboard(`https://penguinboard.app/${board.link}/post`)" text>Invite Contributors</v-btn>
-          <v-btn v-if="tab === 0" @click="deleteBoard(board)" text>Delete Board</v-btn>
-          <v-btn v-if="tab === 0" @click="openBoard(board)" text>Edit Board</v-btn>
-          <v-btn v-if="tab === 0" @click="sendBoard(board)" text>Send to Recipient</v-btn>
-          <!-- <a v-else target="_blank" :href="`${currentLocation}/${board.link}`">
-            <v-btn text>View</v-btn>
-          </a> -->
-          <nuxt-link v-else :to="currentLocation + '/' + board.link">View</nuxt-link>
+          <v-btn v-if="tab === 0" elevation="0" style="margin: 3px;">
+            <nuxt-link :to="currentLocation + '/' + board.link + '/post'" style="text-decoration: none; color: #1C7293;">Add Post</nuxt-link>
+          </v-btn>
+          <v-btn v-if="tab === 0" elevation="0" style="margin: 3px;" color="#1C7293" @click="copyToClipboard(`https://penguinboard.app/${board.link}/post`)" text>Invite Contributors</v-btn>
+          <!-- <v-btn v-if="tab === 0" @click="deleteBoard(board)" text>Delete Board</v-btn> -->
+          <!-- <v-btn v-if="tab === 0" @click="openBoard(board)" text>Edit Board</v-btn> -->
+          <v-btn v-if="tab === 0" elevation="0" style="margin: 3px;" color="#1C7293" class="white--text" @click="sendBoard(board)">Send to Recipient</v-btn>
+         
+          <v-btn v-else color="#1C7293" class="white--text">
+            <nuxt-link :to="currentLocation + '/' + board.link" style="text-decoration: none; color: #fff;">View</nuxt-link>
+          </v-btn>
+
         </v-card-text>
+
+        <v-card-actions v-if="tab === 0">
+          <v-btn icon @click="deleteBoard(board)">
+            <v-icon>mdi-delete</v-icon>
+          </v-btn>
+          <v-spacer></v-spacer>
+          <v-btn icon @click="openBoard(board)">
+            <v-icon>mdi-pencil</v-icon>
+          </v-btn>
+        </v-card-actions>
+
       </v-card>
       <h2 class="header" v-if="!loadingManaged && tab === 0 && managedBoards.length == 0">
         You do not have any managed boards.
@@ -75,7 +88,7 @@ export default {
         { tab: 'my boards' },
       ],
       currentLocation: "",
-      inDevelopmentMode: false
+      // inDevelopmentMode: true
     }
   },
 
@@ -132,18 +145,18 @@ export default {
     },
 
     async getCurrentLocation() {
-      // if (window.location.hostname.contains("penguinboard.app")) {
-      //   return "https://penguinboard.app"
-      // }
-      // else {
-      //   return "localhost:3000"
-      // }
-      if (!this.inDevelopmentMode) {
+      if (window.location.hostname.contains("penguinboard.app")) {
         return "https://penguinboard.app"
       }
       else {
         return "localhost:3000"
       }
+      // if (!this.inDevelopmentMode) {
+      //   return "https://penguinboard.app"
+      // }
+      // else {
+      //   return "localhost:3000"
+      // }
     },
 
     async asyncData() {

@@ -25,7 +25,7 @@
           <!-- <a target="_blank" :href="`${currentLocation}/${board.link}/post`">
             <v-btn text>Post</v-btn>
           </a> -->
-          <nuxt-link :to="currentLocation + '/' + board.link + '/post'">Add Post</nuxt-link>
+          <v-btn color="#1C7293" class="white--text"><nuxt-link :to="currentLocation + '/' + board.link + '/post'" style="text-decoration: none; color: #fff;">Add Post</nuxt-link></v-btn>
         </v-card-actions>
       </v-card>
     </v-row>
@@ -53,24 +53,24 @@ export default {
   data () {
     return {
       currentLocation: "",
-      inDevelopmentMode: false
+      // inDevelopmentMode: true
     }
   },
 
   methods: {
     async getCurrentLocation() {
-      // if (window.location.hostname.contains("penguinboard.app")) {
-      //   return "https://penguinboard.app"
-      // }
-      // else {
-      //   return "localhost:3000"
-      // }
-      if (!this.inDevelopmentMode) {
+      if (window.location.hostname.contains("penguinboard.app")) {
         return "https://penguinboard.app"
       }
       else {
         return "localhost:3000"
       }
+      // if (!this.inDevelopmentMode) {
+      //   return "https://penguinboard.app"
+      // }
+      // else {
+      //   return "localhost:3000"
+      // }
     },
   },
 
