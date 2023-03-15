@@ -2,9 +2,8 @@
     <div class="modal-overlay" @click="close()">
         <div :class="isMobile ? 'modal-mobile' : 'modal'" 
             @click.stop
-            :style="{ 'height': isMobile ? '315px' : null }"
         >
-          <h2 class="welcome">Welcome to Penguin Board!</h2>
+          <h2 class="welcome" :style="{'font-size': isMobile ? '28px' : null}">Welcome to Penguin Board!</h2>
             <v-col class="text-center">
                 <v-btn-toggle
                     class="toggle-btn"
@@ -22,10 +21,10 @@
 
                 <form class="form" @submit.prevent="signup" v-if="!isLogin">
                     <input class="form-field" type="name" v-model="firstname" placeholder="First Name" />
-                    <input class="form-field" type="name" v-model="lastname" placeholder="Last Name" />
+                    <input class="form-field" type="name" v-model="lastname" placeholder="Last Name" :style="{'margin-top': isMobile ? '6px' : null}" />
                     <v-spacer class="spacer" />
                     <input class="form-field" type="email" v-model="email" placeholder="Email" />
-                    <input class="form-field" type="password" v-model="password" placeholder="Password" />
+                    <input class="form-field" type="password" v-model="password" placeholder="Password" :style="{'margin-top': isMobile ? '6px' : null}" />
                     <v-spacer class="spacer" />
                     <v-tooltip bottom>
                       <template v-slot:activator="{ on, attrs }">
@@ -45,7 +44,7 @@
 
                 <form class="form" @submit.prevent="login" v-if="isLogin">
                     <input class="form-field" type="email" v-model="email" placeholder="Email" />
-                    <input class="form-field" type="password" v-model="password" placeholder="Password" />
+                    <input class="form-field" type="password" v-model="password" placeholder="Password" :style="{'margin-top': isMobile ? '6px' : null}" />
                     <v-spacer class="spacer" />
                     <v-tooltip bottom>
                     <template v-slot:activator="{ on, attrs }">
@@ -153,9 +152,9 @@ export default {
 .modal {
   text-align: center;
   background-color: #EBEBEB;
-  height: 40%;
-  width: 35%;
-  margin-top: 8%;
+  height: 350px;
+  width: 560px;
+  margin-top: 10%;
   padding: 15px 0;
   border-radius: 20px;
   box-shadow:  0 0 6px #303030;
@@ -167,15 +166,15 @@ export default {
 .modal-mobile {
     text-align: center;
     background-color: #EBEBEB;
-    height: 40%;
-    width: 90%;
-    margin-top: 15%;
-    padding: 0px 0;
+    height: 55%;
+    width: 95%;
+    margin-top: 25%;
+    padding: 15px 0;
     border-radius: 20px;
     box-shadow:  0 0 6px #303030;
     background-image: url("~/assets/images/penguin-fade.png");
     background-position: center;
-    background-size: 60%;
+    background-size: 100%;
 }
 
 .modal, .modal-overlay, .modal-mobile {
@@ -191,16 +190,6 @@ export default {
     100% {
         opacity: 1;
     }
-}
-
-.form {
-  margin-top: 20px;
-}
-
-.form-field {
-  border: solid gray;
-  border-radius: 6px;
-  padding: 6px;
 }
 
 .spacer {
@@ -225,7 +214,7 @@ export default {
   background-color: #EBEBEB;
   border: solid gray;
   border-radius: 6px;
-  padding: 6px;
+  padding: 8px;
 }
 
 .spacer {
