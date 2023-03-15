@@ -8,6 +8,7 @@ export const state = () => ({
     jwtUser: getJwtToken(),
     userData: null,
     resetCode: null,
+    loadingLogin: false,
 })
 
 export const getters = {
@@ -24,11 +25,16 @@ export const mutations = {
 
     setResetCode(state, data) {
         state.resetCode = data
+    },
+
+    setLoadingLogin(state, data) {
+        state.loadingLogin = data
     }
 }
 
 export const actions = {
-    async signup({ dispatch }, { user }) {
+    async signup({ commit, dispatch }, { user }) {
+        await commit('setLoadingLogin', true)
         const { data, error, status } = await SUPABASE.rpc('signup', {
             firstname: user.firstname,
             lastname: user.lastname,
@@ -39,9 +45,11 @@ export const actions = {
             await dispatch('login', { user: user })
         } else if (status === 409) {
             alert('An account already exists with that email.')
+            await commit('setLoadingLogin', false)
         } else {
             if (error) {
                 console.log(err)
+                await commit('setLoadingLogin', false)
             }
         }
     },
@@ -54,6 +62,7 @@ export const actions = {
     },
 
     async login({ commit, dispatch }, { user }) {
+        await commit('setLoadingLogin', true)
         const res = await dispatch('getUser', { email: user.email })
         if (res.length > 0) {
             if (await matchPassword(user.password, res[0].password)) {
@@ -64,13 +73,16 @@ export const actions = {
                 if (data.token !== null) {
                     setJwtToken(data.token)
                     await commit('setUserFromJwt', getUserIdFromToken(getJwtToken()))
+                    await commit('setLoadingLogin', false)
                     this.$router.push('/')
                 }
             } else {
                 alert('The password you provided is incorrect.')
+                await commit('setLoadingLogin', false)
             }
         } else if (res.length === 0) {
             alert('No account was found with that email.')
+            await commit('setLoadingLogin', false)
         }
     },
 
