@@ -20,6 +20,7 @@
     "jwt-decode": "^3.1.2",
     "nuxt": "^2.15.8",
     "randomstring": "^1.2.3",
+    "shepherd.js": "^11.0.1",
     "vue": "^2.7.10",
     "vue-server-renderer": "^2.7.10",
     "vue-template-compiler": "^2.7.10",
