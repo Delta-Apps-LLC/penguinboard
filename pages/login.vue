@@ -78,9 +78,18 @@
         <nuxt-link to="/password">Forgot Password</nuxt-link>
       </p>
     </div> -->
-    <a>
-      Something
-    </a>
+    <v-row>
+      <v-col>
+        <a>something1</a>
+        <a>something1.1</a>
+      </v-col>
+      <v-col>
+        <a>something2</a>
+      </v-col>
+      <v-col>
+        <a>something3</a>
+      </v-col>
+    </v-row>
   </v-app>
 </template>
 
