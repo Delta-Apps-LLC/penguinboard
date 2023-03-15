@@ -25,7 +25,7 @@
         <img id="image" v-if="board.image != null" :src="board.image" />
         <v-card-text>
           <v-btn v-if="tab === 0" elevation="0" style="margin: 3px;">
-            <nuxt-link :to="currentLocation + '/' + board.link + '/post'" style="text-decoration: none; color: #1C7293;">Add Post</nuxt-link>
+            <nuxt-link :to="`${currentLocation}/${board.link}/post`" style="text-decoration: none; color: #1C7293;">Add Post</nuxt-link>
           </v-btn>
           <v-btn v-if="tab === 0" elevation="0" style="margin: 3px;" color="#1C7293" @click="copyToClipboard(`https://penguinboard.app/${board.link}/post`)" text>Invite Contributors</v-btn>
           <!-- <v-btn v-if="tab === 0" @click="deleteBoard(board)" text>Delete Board</v-btn> -->
@@ -33,19 +33,37 @@
           <v-btn v-if="tab === 0" elevation="0" style="margin: 3px;" color="#1C7293" class="white--text" @click="sendBoard(board)">Send to Recipient</v-btn>
          
           <v-btn v-else color="#1C7293" class="white--text">
-            <nuxt-link :to="currentLocation + '/' + board.link" style="text-decoration: none; color: #fff;">View</nuxt-link>
+            <nuxt-link :to="`${currentLocation}/${board.link}`" style="text-decoration: none; color: #fff;">View</nuxt-link>
           </v-btn>
 
         </v-card-text>
 
         <v-card-actions v-if="tab === 0">
-          <v-btn icon @click="deleteBoard(board)">
-            <v-icon>mdi-delete</v-icon>
-          </v-btn>
-          <v-spacer></v-spacer>
-          <v-btn icon @click="openBoard(board)">
-            <v-icon>mdi-pencil</v-icon>
-          </v-btn>
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn icon
+                @click="deleteBoard(board)"
+                v-on="on"
+                v-bind="attrs"
+              >
+                <v-icon>mdi-delete</v-icon>
+              </v-btn>
+            </template>
+            <span>Delete Board</span>
+          </v-tooltip>
+          <v-spacer />
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn icon
+                @click="openBoard(board)"
+                v-on="on"
+                v-bind="attrs"
+              >
+                <v-icon>mdi-pencil</v-icon>
+              </v-btn>
+            </template>
+            <span>Edit Board</span>
+          </v-tooltip>
         </v-card-actions>
 
       </v-card>

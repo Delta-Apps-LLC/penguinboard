@@ -225,7 +225,7 @@ td {
 }
 
 tr:nth-child(odd) {
-    background-color: #E0E4DD;
+    background-color: #d6d6d6;
 }
 
 .form-field-1, .form-field-2, .form-field-3 {
