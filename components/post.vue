@@ -50,8 +50,8 @@ export default {
     padding: 1%;
     vertical-align: center;
     margin-top: 10px;
-    background-image: linear-gradient(to top right, #ba8989, #81a5c7);
-    /* background-image: url('assets/files/post_background.jpg'); */
+    /* background-image: linear-gradient(to top right, #ba8989, #81a5c7); */
+    background-image: url('assets/files/post_background.jpg');
     background-size: 100% 100%;
     margin: 8px;
     border-radius: 15px;

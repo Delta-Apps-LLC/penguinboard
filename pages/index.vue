@@ -8,8 +8,7 @@
       :width="isMobile ? '100%' : '50%'"
     >
       <v-card-title class="title justify-center"
-        style="word-break: break-word;"
-      >
+        style="word-break: break-word;">
         Create a New Board Here!
       </v-card-title>
 
@@ -51,7 +50,7 @@
       <v-card-actions>
         <v-spacer />
         <v-btn @click="clearBoard()" text>Clear</v-btn>
-        <v-btn @click="createBoard()" color="#1C7293" class="white--text" style="margin: 10px;">Create Board</v-btn>
+        <v-btn @click="createBoard()" color="#1DA9D3" class="white--text" style="margin: 10px;">Create Board</v-btn>
       </v-card-actions>
 
     </v-card>

@@ -13,7 +13,7 @@
       </v-toolbar-title>
       <v-spacer />
       <v-btn to="/public" height="60px" style="margin: 3px;" text>Public Boards</v-btn>
-      <v-btn height="60px" style="background-color: #1C7293; color: white; margin: 3px;" @click="showLogin = true" text>Login</v-btn>
+      <v-btn height="60px" style="background-color: #1DA9D3; color: white; margin: 3px;" @click="showLogin = true" text>Login</v-btn>
     </v-app-bar>
 
     <v-main class="main-fade" id="main">

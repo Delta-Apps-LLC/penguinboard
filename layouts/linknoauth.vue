@@ -7,7 +7,7 @@
     >
       <v-toolbar-title><img class="logo" src="~/assets/images/penguin-logo-hz.png" /></v-toolbar-title>
       <v-spacer />
-      <v-btn v-if="jwtUser == null || jwtUser == undefined" to="/login" height="60px" color="#1C7293" class="white--text" style="margin: 10px;">Signup</v-btn>
+      <v-btn v-if="jwtUser == null || jwtUser == undefined" to="/login" height="60px" color="#1DA9D3" class="white--text" style="margin: 10px;">Signup</v-btn>
       <v-btn v-else @click="toHome()" height="60px" text>Home</v-btn>
     </v-app-bar>
 

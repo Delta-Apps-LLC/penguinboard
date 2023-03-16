@@ -25,14 +25,14 @@
         <img id="image" v-if="board.image != null" :src="board.image" />
         <v-card-text>
           <v-btn v-if="tab === 0" elevation="0" style="margin: 3px;">
-            <nuxt-link :to="`${currentLocation}/${board.link}/post`" style="text-decoration: none; color: #1C7293;">Add Post</nuxt-link>
+            <nuxt-link :to="`${currentLocation}/${board.link}/post`" style="text-decoration: none; color: #1DA9D3;">Add Post</nuxt-link>
           </v-btn>
-          <v-btn v-if="tab === 0" elevation="0" style="margin: 3px;" color="#1C7293" @click="copyToClipboard(`https://penguinboard.app/${board.link}/post`)" text>Invite Contributors</v-btn>
+          <v-btn v-if="tab === 0" elevation="0" style="margin: 3px;" color="#1DA9D3" @click="copyToClipboard(`https://penguinboard.app/${board.link}/post`)" text>Invite Contributors</v-btn>
           <!-- <v-btn v-if="tab === 0" @click="deleteBoard(board)" text>Delete Board</v-btn> -->
           <!-- <v-btn v-if="tab === 0" @click="openBoard(board)" text>Edit Board</v-btn> -->
-          <v-btn v-if="tab === 0" elevation="0" style="margin: 3px;" color="#1C7293" class="white--text" @click="sendBoard(board)">Send to Recipient</v-btn>
+          <v-btn v-if="tab === 0" elevation="0" style="margin: 3px;" color="#1DA9D3" class="white--text" @click="sendBoard(board)">Send to Recipient</v-btn>
          
-          <v-btn v-else color="#1C7293" class="white--text">
+          <v-btn v-else color="#1DA9D3" class="white--text">
             <nuxt-link :to="`${currentLocation}/${board.link}`" style="text-decoration: none; color: #fff;">View</nuxt-link>
           </v-btn>
 

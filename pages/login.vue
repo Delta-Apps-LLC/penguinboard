@@ -1,14 +1,76 @@
 <template>
   <v-app>
-    <v-row class="text-center" justify="center">
-      <v-col>
-        <h2>Uplift. Motivate. Celebrate.</h2>
-      </v-col>
+    <h1 class="large-header">Welcome to Penguin Board</h1>
+    <h2 class="medium-header">Recognize others</h2>
+
+    <v-btn to="/login" height="60px" color="#1DA9D3" class="white--text" style="margin: 10px; text-align: center;" 
+      @click="showLogin = true">
+      Create a Board
+    </v-btn>
+
+    <p class="description-paragraph">
+      Penguin Board is a software platform where you can write digital cards to those you care about. 
+      These cards can cover a wide range of occasions such as birthdays, celebrations, Thank You opportunities, encouragement, and more. 
+    </p>
+
+    <v-row>
+      <post
+        :key="1"
+        :gif="'cl27Mh8srUEog5GtUR'"
+        :message="'<p>Congratulations!!! You did it!</p>'"
+        :author="'Aunt Clara'"
+        class="col-lg-4 col-md-6 col-sm-12 px-0"
+      ></post>
+
+      <post
+        :key="2"
+        :gif="'WsGIKEooehJsW8ZMH8'"
+        :message="'<p>Wooow! Let\'s go!!</p>'"
+        :author="'Brent'"
+        class="col-lg-4 col-md-6 col-sm-12 px-0"
+      ></post>
+
+      <post
+        :key="3"
+        :gif="'hfoippkIKxOqosR6xm'"
+        :message="'<p>So proud of you</p>'"
+        :author="'Mom'"
+        class="col-lg-4 col-md-6 col-sm-12 px-0"
+      ></post>
+
+      <post
+        :key="4"
+        :gif="'pK6k4BNalmx44CQj3v'"
+        :message="'<p>Gender studies graduate isn\'t something to celebrate</p>'"
+        :author="'Grandpa'"
+        class="col-lg-4 col-md-6 col-sm-12 px-0"
+      ></post>
+
+      <post
+        :key="5"
+        :gif="'vQqeT3AYg8S5O'"
+        :message="'<p>Didn\'t doubt you too often. Congrats!</p>'"
+        :author="'Emily'"
+        class="col-lg-4 col-md-6 col-sm-12 px-0"
+      ></post>
+
+      <post
+        :key="6"
+        :gif="'kyLYXonQYYfwYDIeZl'"
+        :message="'<p>Let\'s Party!!!</p>'"
+        :author="'Michael'"
+        class="col-lg-4 col-md-6 col-sm-12 px-0"
+      ></post>
     </v-row>
+
+    <Login v-show="showLogin" @close-modal="showLogin = false"/>
   </v-app>
 </template>
 
 <script>
+import post from "~/components/post"
+import Login from "~/components/Login.vue"
+
 export default {
   name: 'LoginPage',
   layout: 'noauth',
@@ -21,6 +83,7 @@ export default {
       email: '',
       password: '',
       isLogin: false,
+      showLogin: false,
     }
   },
 
@@ -75,8 +138,100 @@ export default {
 <style scoped>
 @import '~/assets/style.css';
 
-h2 {
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+.large-header {
+  position: relative;
+  margin-bottom: 2%;
+  margin-top: 10%;
+  clear: both;
+  font-family: Poppins,sans-serif;
+  font-size: 4rem;
+  font-weight: 600;
+  letter-spacing: -.02em;
+  white-space: normal;
+  text-align: center; 
+  color: white;
+}
+
+.medium-header {
+  margin-top: 0;
+  margin-bottom: 40px;
+  font-family: Poppins,sans-serif;
+  font-size: .875rem;
+  line-height: 1.5;
+  font-size: 3rem;
+  font-weight: 400;
+  letter-spacing: -.02em;
+  -webkit-column-span: none;
+  column-span: none;
+  text-align: center; 
+  color: white;
+}
+
+.description-paragraph {
+  margin-top: 40px;
+  margin-bottom: 40px;
+  font-family: Poppins,sans-serif;
+  font-size: .875rem;
+  line-height: 1.5;
+  font-size: 2rem;
+  font-weight: 300;
+  letter-spacing: -.02em;
+  -webkit-column-span: none;
+  column-span: none;
+  text-align: center; 
+  color: white;
+}
+
+.card {
+  background-color: #f3f3f3;
+  padding-top: 20px;
+  width: 560px;
+  margin: 20px auto;
+  border-radius: 8px;
+  box-shadow:  0 0 6px #303030;
+  background-image: url("~/assets/images/penguin-fade.png");
+  background-position: center;
+  background-size: 60%;
+}
+
+.welcome {
+  font-family: 'Plus Jakarta Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 40px;
+  color: #303030;
+}
+
+.form {
+  margin-top: 20px;
+}
+
+.form-field {
+  font-family: Plus Jakarta Sans;
+  background-color: #EBEBEB;
+  border: solid gray;
+  border-radius: 6px;
+  padding: 6px;
+}
+
+.spacer {
+  margin-top: 6px;
+}
+
+.toggle-btn {
+  margin-top: 8px;
+  font-family: Plus Jakarta Sans;
+}
+
+.submit-btn {
+  background-color: #0085FF !important;
+  color: #EBEBEB;
+  font-family: Plus Jakarta Sans;
+}
+
+.forgot-password {
+  margin: 20px;
 }
 
 </style>
