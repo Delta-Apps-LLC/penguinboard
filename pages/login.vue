@@ -13,7 +13,7 @@
       These cards can cover a wide range of occasions such as birthdays, celebrations, Thank You opportunities, encouragement, and more. 
     </p>
 
-    <v-row>
+    <!-- <v-row>
       <post
         :key="1"
         :gif="'cl27Mh8srUEog5GtUR'"
@@ -61,7 +61,7 @@
         :author="'Michael'"
         class="col-lg-4 col-md-6 col-sm-12 px-0"
       ></post>
-    </v-row>
+    </v-row> -->
 
     <Login v-show="showLogin" @close-modal="showLogin = false"/>
   </v-app>

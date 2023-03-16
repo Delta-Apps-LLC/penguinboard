@@ -10,6 +10,7 @@
     >
       <v-list>
         <v-list-item
+          class="nav-list-item"
           v-for="(item, i) in items"
           :key="i"
           :to="item.to"
@@ -17,11 +18,11 @@
           router
           exact
         >
-          <v-list-item-action>
-            <v-icon>{{ item.icon }}</v-icon>
+          <v-list-item-action class="nav-icon">
+            <v-icon class="nav-icon">{{ item.icon }}</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
+            <v-list-item-title class="nav-title">{{ item.title }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -124,5 +125,16 @@ export default {
 <style scoped>
 @import '~/assets/style.css';
 
+.nav-list-item:hover {
+  background-color: #686868;
+}
+
+.nav-list-item:hover ~ .nav-icon {
+  color: #222222;
+}
+
+.nav-icon, .nav-title {
+  color: #EBEBEB;
+}
 
 </style>

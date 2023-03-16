@@ -2,8 +2,8 @@
   <v-col justify="center" align="center">
     <span>
       <v-tabs background-color="transparent" left v-model="tab">
-        <v-tabs-slider></v-tabs-slider>
-        <v-tab v-for="item in items" :key="item.tab">
+        <v-tabs-slider color="#1DA9D3"></v-tabs-slider>
+        <v-tab class="tabs" v-for="item in items" :key="item.tab">
           {{ item.tab }} ({{item.tab === 'managed boards' ? managedBoards.length : myBoards.length}})
         </v-tab>
       </v-tabs>
@@ -24,12 +24,10 @@
         </v-card-subtitle>
         <img id="image" v-if="board.image != null" :src="board.image" />
         <v-card-text>
-          <v-btn v-if="tab === 0" elevation="0" style="margin: 3px;">
+          <v-btn v-if="tab === 0" elevation="0" style="margin: 3px;" text>
             <nuxt-link :to="`${currentLocation}/${board.link}/post`" style="text-decoration: none; color: #1DA9D3;">Add Post</nuxt-link>
           </v-btn>
           <v-btn v-if="tab === 0" elevation="0" style="margin: 3px;" color="#1DA9D3" @click="copyToClipboard(`https://penguinboard.app/${board.link}/post`)" text>Invite Contributors</v-btn>
-          <!-- <v-btn v-if="tab === 0" @click="deleteBoard(board)" text>Delete Board</v-btn> -->
-          <!-- <v-btn v-if="tab === 0" @click="openBoard(board)" text>Edit Board</v-btn> -->
           <v-btn v-if="tab === 0" elevation="0" style="margin: 3px;" color="#1DA9D3" class="white--text" @click="sendBoard(board)">Send to Recipient</v-btn>
          
           <v-btn v-else color="#1DA9D3" class="white--text">
@@ -224,10 +222,14 @@ export default {
 <style scoped>
 @import '~/assets/style.css';
 
+.tabs {
+  color: #1DA9D3;
+}
+
 .header {
   font-family: Plus Jakarta Sans;
   font-size: 28px;
-  color: #303030;
+  color: #EBEBEB;
 }
 
 .board-row {
@@ -237,7 +239,8 @@ export default {
 .board-card {
     margin: 6px;
     border-radius: 15px;
-    background-color: #f3f3f3;
+    box-shadow: 0 0 6px #303030;
+    background-color: #EBEBEB;
 }
 
 .card-title, .card-subtitle {

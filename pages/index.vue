@@ -179,13 +179,8 @@ export default {
 <style scoped>
 @import '~/assets/style.css';
 
-.default-tour {
-  background-color: red !important;
-  z-index: 9999;
-}
-
 .board-card {
-  margin-top: 20px;
+  background-color: #EBEBEB;
   background-image: url("~/assets/images/penguin-fade.png");
   background-position: center;
   background-size: 80%;

@@ -1,9 +1,12 @@
-#main {
-    /* background-color: #E0EBE7; */
-    /* background-color: #302b27; */
-    background-color: #222222;
-    /* background-color: black; */
+/* COLOR THEME:
+    Plum: #7D387D
+    Blue: #1DA9D3
+    Black: #222222
+    White: #EBEBEB
+*/
 
+#main {
+    background-color: #222222;
 }
 
 .app-bar {
@@ -14,7 +17,7 @@
 
 .nav-drawer {
     /* background-color: #F4F6F4 !important; */
-    background-color: #EBEBEB !important;
+    background-color: #222222 !important;
 }
 
 .logo {

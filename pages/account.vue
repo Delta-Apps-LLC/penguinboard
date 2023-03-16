@@ -47,7 +47,7 @@
             icon
             :disabled="icon.disabled"
           >
-          <v-icon>{{icon.icon}}</v-icon>
+            <v-icon class="icons">{{icon.icon}}</v-icon>
           </v-btn>
         </template>
         <span>{{icon.span}}</span>
@@ -185,12 +185,17 @@ export default {
 
 .upload {
   max-width: 22px;
+  color: #EBEBEB;
+}
+
+.icons {
+  color: #EBEBEB !important;
 }
 
 h2 {
   font-family: Plus Jakarta Sans;
   font-size: 30px;
-  color: #303030;
+  color: #EBEBEB;
 }
 
 .icon-row {
@@ -212,12 +217,13 @@ h2 {
   font-family: Plus Jakarta Sans;
   font-size: 24px;
   text-align: center;
+  color: #EBEBEB;
 }
 
 .data {
   font-family: Plus Jakarta Sans;
-  /* font-family: Arial, Helvetica, sans-serif; */
   font-size: 18px;
+  color: #EBEBEB;
 }
 
 td {
@@ -225,7 +231,7 @@ td {
 }
 
 tr:nth-child(odd) {
-    background-color: #d6d6d6;
+    background-color: #303030;
 }
 
 .form-field-1, .form-field-2, .form-field-3 {
