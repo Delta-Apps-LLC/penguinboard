@@ -9,13 +9,13 @@
             v-on="on"
             icon
           >
-            <v-icon size="50">mdi-chevron-left</v-icon>
+            <v-icon color="#EBEBEB" size="50">mdi-chevron-left</v-icon>
           </v-btn>
         </template>
         <span>Back</span>
       </v-tooltip>
 
-      <v-btn @click="show = !show" text>{{ show ? 'Hide' : 'Show'}} Board Details</v-btn>
+      <v-btn class="details-btn" @click="show = !show" text>{{ show ? 'Hide' : 'Show'}} Board Details</v-btn>
       
       <!-- Card with board details -->
       <v-card v-if="show"
@@ -222,8 +222,13 @@ export default {
 <style scoped>
 @import '~/assets/style.css';
 
+.details-btn {
+  color: #EBEBEB !important;
+}
+
 .board-card {
   margin-top: 20px;
+  background-color: #EBEBEB;
 }
 
 .edit-icon {
@@ -242,7 +247,7 @@ export default {
 .header {
   font-family: Plus Jakarta Sans;
   font-size: 28px;
-  color: #303030;
+  color: #EBEBEB;
 }
 
 .post-card {
@@ -250,6 +255,7 @@ export default {
   width: 300px;
   height: 100%;
   border-radius: 15px;
+  background-color: #EBEBEB !important;
 }
 
 .gif-iframe {

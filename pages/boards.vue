@@ -1,9 +1,9 @@
 <template>
   <v-col justify="center" align="center">
     <span>
-      <v-tabs background-color="transparent" left v-model="tab">
+      <v-tabs class="all-tabs" background-color="transparent" left v-model="tab">
         <v-tabs-slider color="#1DA9D3"></v-tabs-slider>
-        <v-tab class="tabs" v-for="item in items" :key="item.tab">
+        <v-tab class="tab" v-for="item in items" :key="item.tab">
           {{ item.tab }} ({{item.tab === 'managed boards' ? managedBoards.length : myBoards.length}})
         </v-tab>
       </v-tabs>
@@ -222,7 +222,7 @@ export default {
 <style scoped>
 @import '~/assets/style.css';
 
-.tabs {
+.tab {
   color: #1DA9D3;
 }
 
