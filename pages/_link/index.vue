@@ -112,16 +112,6 @@ export default {
 <style scoped>
 @import '~/assets/style.css';
 
-/* .bravo {
-  color: black;
-  background-color: white;
-  padding: 10px;
-  text-align: center;
-  width: 103%;
-  margin-left: -15px;
-  border-radius: 15px;
-} */
-
 .title-card {
   background-color: #585858;
   padding: 30px;

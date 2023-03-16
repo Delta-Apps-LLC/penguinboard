@@ -1,12 +1,12 @@
 <template>
   <v-col justify="center" align="center">
-    <v-card v-if="board != null && !board.sent && !loadingBoard"
+    <v-card class="card" v-if="board != null && !board.sent && !loadingBoard"
       :width="isMobile ? '95%' : '40%'"
     >
       <v-card-title class="post-title justify-center">{{ board.recipientname }}</v-card-title>
       <v-card-subtitle>{{ board.title }}</v-card-subtitle>
 
-      <v-btn class="gif-btn" @click="showGifs ? hideGifs() : getGifs(true)" v-if="!isGifSelected">
+      <v-btn class="gif-btn white--text" @click="showGifs ? hideGifs() : getGifs(true)" v-if="!isGifSelected">
         {{ showGifs ? 'Cancel' : 'Add GIF' }}
       </v-btn>
       <v-text-field id="gif-search" v-if="showGifs"
@@ -55,7 +55,7 @@
       <v-card-actions>
         <v-spacer />
         <v-btn @click="message = ''">Clear</v-btn>
-        <v-btn @click="sendPost()">Send</v-btn>
+        <v-btn class="white--text" color="#1DA9D3" @click="sendPost()">Send</v-btn>
       </v-card-actions>
     </v-card>
 
@@ -203,6 +203,10 @@ export default {
 <style scoped>
 @import '~/assets/style.css';
 
+.card {
+  background-color: #EBEBEB !important;
+}
+
 .post-title {
   font-family: Plus Jakarta Sans;
   font-size: 22px;
@@ -218,11 +222,12 @@ export default {
 }
 
 .gif-btn {
+  background-color: #7D387D !important;
   margin-bottom: 6px;
 }
 
 #category {
-  color: rgb(221, 221, 221);
+  color: #EBEBEB;
   font-weight: bold;
 }
 
@@ -253,7 +258,7 @@ iframe {
 }
 
 button {
-  background-color: rgb(221, 221, 221);
+  background-color: #EBEBEB;
   padding: 0 4px;
   border-radius: 4px;
 }

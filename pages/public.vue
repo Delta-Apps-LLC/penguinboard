@@ -97,7 +97,7 @@ export default {
 .header {
     font-family: Plus Jakarta Sans;
     font-size: 28px;
-    color: #303030;
+    color: #EBEBEB;
 }
 
 .board-row {
