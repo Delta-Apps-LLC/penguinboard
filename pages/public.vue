@@ -25,7 +25,7 @@
           <!-- <a target="_blank" :href="`${currentLocation}/${board.link}/post`">
             <v-btn text>Post</v-btn>
           </a> -->
-          <v-btn color="#1C7293" class="white--text"><nuxt-link :to="currentLocation + '/' + board.link + '/post'" style="text-decoration: none; color: #fff;">Add Post</nuxt-link></v-btn>
+          <v-btn color="#1DA9D3" class="white--text"><nuxt-link :to="currentLocation + '/' + board.link + '/post'" style="text-decoration: none; color: #fff;">Add Post</nuxt-link></v-btn>
         </v-card-actions>
       </v-card>
     </v-row>

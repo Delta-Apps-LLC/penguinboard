@@ -1,14 +1,20 @@
 #main {
-    background-color: #E0EBE7;
+    /* background-color: #E0EBE7; */
+    /* background-color: #302b27; */
+    background-color: #222222;
+    /* background-color: black; */
+
 }
 
 .app-bar {
-    background-color: #F4F6F4 !important;
+    /* background-color: #F4F6F4 !important; */
+    background-color: #EBEBEB !important;
     /* background-image: linear-gradient(to bottom right, #DCDAD0, #99D2EB, #DCDAD0); */
 }
 
 .nav-drawer {
-    background-color: #F4F6F4 !important;
+    /* background-color: #F4F6F4 !important; */
+    background-color: #EBEBEB !important;
 }
 
 .logo {

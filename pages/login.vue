@@ -1,99 +1,76 @@
 <template>
   <v-app>
-    <!-- <div class="card text-center" :style="{'width': isMobile ? '95%' : null}">
-      <h2 class="welcome">Welcome to Penguin Board!</h2>
-      <v-btn-toggle
-        class="toggle-btn"
-        mandatory
-        rounded
-        v-model="isLogin"
-      >
-        <v-btn @click="isLogin = false">
-          Sign Up
-        </v-btn>
-        <v-btn @click="isLogin = true">
-          Sign In
-        </v-btn>
-      </v-btn-toggle>
+    <h1 class="large-header">Welcome to Penguin Board</h1>
+    <h2 class="medium-header">Recognize others</h2>
 
-      <form class="form" @submit.prevent="signup" v-if="!isLogin">
-        <input class="form-field" type="name" v-model="firstname" placeholder="First Name" />
-        <input class="form-field"
-          type="name"
-          v-model="lastname"
-          placeholder="Last Name"
-          :style="{'margin-top': isMobile ? '5px' : null}"
-        />
-        <v-spacer class="spacer" />
-        <input class="form-field" type="email" v-model="email" placeholder="Email" />
-        <input class="form-field"
-          type="password"
-          v-model="password"
-          placeholder="Password"
-          :style="{'margin-top': isMobile ? '5px' : null}"
-        />
-        <v-spacer class="spacer" />
-        <v-tooltip bottom>
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn
-              @click="clearForm()"
-              v-bind="attrs"
-              v-on="on"
-              icon
-            >
-              <v-icon>mdi-close</v-icon>
-            </v-btn>
-          </template>
-          <span>Clear Form</span>
-        </v-tooltip>
-        <v-btn class="submit-btn" type="submit">Sign Up</v-btn>
-      </form>
+    <v-btn to="/login" height="60px" color="#1DA9D3" class="white--text" style="margin: 10px; text-align: center;" 
+      @click="showLogin = true">
+      Create a Board
+    </v-btn>
 
-      <form class="form" @submit.prevent="login" v-if="isLogin">
-        <input class="form-field" type="email" v-model="email" placeholder="Email" />
-        <input class="form-field"
-          type="password"
-          v-model="password"
-          placeholder="Password"
-          :style="{'margin-top': isMobile ? '5px' : null}"
-        />
-        <v-spacer class="spacer" />
-        <v-tooltip bottom>
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn
-              @click="clearForm()"
-              v-bind="attrs"
-              v-on="on"
-              icon
-            >
-              <v-icon>mdi-close</v-icon>
-            </v-btn>
-          </template>
-          <span>Clear Form</span>
-        </v-tooltip>
-        <v-btn class="submit-btn" type="submit">Sign In</v-btn>
-      </form>
+    <p class="description-paragraph">
+      Penguin Board is a software platform where you can write digital cards to those you care about. 
+      These cards can cover a wide range of occasions such as birthdays, celebrations, Thank You opportunities, encouragement, and more. 
+    </p>
 
-      <p class="forgot-password">
-        <nuxt-link to="/password">Forgot Password</nuxt-link>
-      </p>
-    </div> -->
     <v-row>
-      <v-col>
-        <a>something1</a>
-        <a>something1.1</a>
-      </v-col>
-      <v-col>
-        <a>something2</a>
-      </v-col>
-      <v-col>
-        <a>something3</a>
-      </v-col>
+      <post
+        :key="1"
+        :gif="'cl27Mh8srUEog5GtUR'"
+        :message="'<p>Congratulations!!! You did it!</p>'"
+        :author="'Aunt Clara'"
+        class="col-lg-4 col-md-6 col-sm-12 px-0"
+      ></post>
+
+      <post
+        :key="2"
+        :gif="'WsGIKEooehJsW8ZMH8'"
+        :message="'<p>Wooow! Let\'s go!!</p>'"
+        :author="'Brent'"
+        class="col-lg-4 col-md-6 col-sm-12 px-0"
+      ></post>
+
+      <post
+        :key="3"
+        :gif="'hfoippkIKxOqosR6xm'"
+        :message="'<p>So proud of you</p>'"
+        :author="'Mom'"
+        class="col-lg-4 col-md-6 col-sm-12 px-0"
+      ></post>
+
+      <post
+        :key="4"
+        :gif="'pK6k4BNalmx44CQj3v'"
+        :message="'<p>Gender studies graduate isn\'t something to celebrate</p>'"
+        :author="'Grandpa'"
+        class="col-lg-4 col-md-6 col-sm-12 px-0"
+      ></post>
+
+      <post
+        :key="5"
+        :gif="'vQqeT3AYg8S5O'"
+        :message="'<p>Didn\'t doubt you too often. Congrats!</p>'"
+        :author="'Emily'"
+        class="col-lg-4 col-md-6 col-sm-12 px-0"
+      ></post>
+
+      <post
+        :key="6"
+        :gif="'kyLYXonQYYfwYDIeZl'"
+        :message="'<p>Let\'s Party!!!</p>'"
+        :author="'Michael'"
+        class="col-lg-4 col-md-6 col-sm-12 px-0"
+      ></post>
     </v-row>
+
+    <Login v-show="showLogin" @close-modal="showLogin = false"/>
   </v-app>
 </template>
 
 <script>
+import post from "~/components/post"
+import Login from "~/components/Login.vue"
+
 export default {
   name: 'LoginPage',
   layout: 'noauth',
@@ -106,6 +83,7 @@ export default {
       email: '',
       password: '',
       isLogin: false,
+      showLogin: false,
     }
   },
 
@@ -159,6 +137,50 @@ export default {
 
 <style scoped>
 @import '~/assets/style.css';
+
+.large-header {
+  position: relative;
+  margin-bottom: 2%;
+  margin-top: 10%;
+  clear: both;
+  font-family: Poppins,sans-serif;
+  font-size: 4rem;
+  font-weight: 600;
+  letter-spacing: -.02em;
+  white-space: normal;
+  text-align: center; 
+  color: white;
+}
+
+.medium-header {
+  margin-top: 0;
+  margin-bottom: 40px;
+  font-family: Poppins,sans-serif;
+  font-size: .875rem;
+  line-height: 1.5;
+  font-size: 3rem;
+  font-weight: 400;
+  letter-spacing: -.02em;
+  -webkit-column-span: none;
+  column-span: none;
+  text-align: center; 
+  color: white;
+}
+
+.description-paragraph {
+  margin-top: 40px;
+  margin-bottom: 40px;
+  font-family: Poppins,sans-serif;
+  font-size: .875rem;
+  line-height: 1.5;
+  font-size: 2rem;
+  font-weight: 300;
+  letter-spacing: -.02em;
+  -webkit-column-span: none;
+  column-span: none;
+  text-align: center; 
+  color: white;
+}
 
 .card {
   background-color: #f3f3f3;

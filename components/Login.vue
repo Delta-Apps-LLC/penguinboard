@@ -39,7 +39,7 @@
                       </template>
                       <span>Clear Form</span>
                     </v-tooltip>
-                    <v-btn type="submit" color="#1C7293" class="white--text">Sign Up</v-btn>
+                    <v-btn type="submit" color="#1DA9D3" class="white--text">Sign Up</v-btn>
                 </form>
 
                 <form class="form" @submit.prevent="login" v-if="isLogin">
@@ -59,7 +59,7 @@
                     </template>
                     <span>Clear Form</span>
                     </v-tooltip>
-                    <v-btn type="submit" color="#1C7293" class="white--text">Sign In</v-btn>
+                    <v-btn type="submit" color="#1DA9D3" class="white--text">Sign In</v-btn>
                 </form>
 
                 <p class="forgot-password" @click="$emit('close-modal')">
