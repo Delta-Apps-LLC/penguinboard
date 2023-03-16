@@ -53,6 +53,8 @@
       app
     >
       <span>&copy; {{ new Date().getFullYear() }}</span>
+      <v-spacer />
+      <a target="_blank" href="https://forms.gle/rWfHuxtMp37iDjiJA">Give Us Feedback</a>
     </v-footer>
   </v-app>
 </template>
