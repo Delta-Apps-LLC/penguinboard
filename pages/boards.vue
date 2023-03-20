@@ -2,7 +2,7 @@
   <v-col justify="center" align="center">
     <span>
       <v-tabs class="all-tabs" background-color="transparent" left v-model="tab">
-        <v-tabs-slider color="#1DA9D3"></v-tabs-slider>
+        <v-tabs-slider color="white"></v-tabs-slider>
         <v-tab class="tab" v-for="item in items" :key="item.tab">
           {{ item.tab }} ({{item.tab === 'managed boards' ? managedBoards.length : myBoards.length}})
         </v-tab>
@@ -223,7 +223,9 @@ export default {
 @import '~/assets/style.css';
 
 .tab {
-  color: #1DA9D3;
+  /* color: #1DA9D3; */
+  color: white !important;
+  font-size: medium;
 }
 
 .header {

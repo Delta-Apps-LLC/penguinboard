@@ -3,7 +3,7 @@
     <h1 class="large-header">Welcome to Penguin Board</h1>
     <h2 class="medium-header">Recognize others</h2>
 
-    <v-btn to="/login" height="60px" color="#1DA9D3" class="white--text" style="margin: 10px; text-align: center;" 
+    <v-btn to="/login" height="60px" color="#1DA9D3" class="white--text" style="margin: 10px; text-align: center; font-size: large;" 
       @click="showLogin = true">
       Create a Board
     </v-btn>

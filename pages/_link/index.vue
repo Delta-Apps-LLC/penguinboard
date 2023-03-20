@@ -29,7 +29,7 @@
       <div class="sk-cube3 sk-cube"></div>
     </div>
 
-    <img src="~/assets/images/PoweredBy_200px-White_HorizText.png" alt="your-image-alt-text">
+    <img src="~/assets/images/PoweredBy_200px-Black_HorizText.png" alt="your-image-alt-text">
     
   </v-col>
 </template>
@@ -113,7 +113,9 @@ export default {
 @import '~/assets/style.css';
 
 .title-card {
-  background-color: #585858;
+  /* background-color: #585858; */
+  /* background-color: #7d387d; */
+  background-color: #1da9d3;
   padding: 30px;
   justify-content: center;
   align-items: center;
@@ -131,7 +133,8 @@ export default {
 }
 
 .title {
-  color: #f3f3f3;
+  /* color: #f3f3f3; */
+  color: black;
   width: auto;
   margin: 0 50px;
   line-height: 250%;
@@ -140,7 +143,7 @@ export default {
 .title-name {
   font-size: 45px;
   font-family: Plus Jakarta Sans;
-  text-decoration: underline;
+  /* text-decoration: underline; */
 }
 
 .title-text {
