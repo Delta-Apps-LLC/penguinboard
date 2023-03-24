@@ -65,8 +65,13 @@
       ></post>
     </v-row>
 
-    <h3>FAQ</h3>
+    <h3 class="small-header">FAQ</h3>
+    <FAQ />
 
+    <v-btn to="/login" height="60px" color="#1DA9D3" class="white--text" style="margin: 10px; text-align: center; font-size: large;" 
+      @click="toggleLogin()">
+      Create my First Board
+    </v-btn>
 
     <Login v-show="showLogin" @close-modal="showLogin = false"/>
   </v-app>
@@ -75,6 +80,7 @@
 <script>
 import post from "~/components/post"
 import Login from "~/components/Login.vue"
+import FAQ from "~/components/Faq.vue"
 
 export default {
   name: 'LoginPage',
@@ -83,6 +89,7 @@ export default {
 
   components: {
     Login,
+    FAQ,
     post
   },
 
@@ -162,20 +169,19 @@ export default {
   margin-bottom: 2%;
   margin-top: 10%;
   clear: both;
-  font-family: Poppins,sans-serif;
+  font-family: Poppins, sans-serif;
   font-size: 4rem;
   font-weight: 600;
   letter-spacing: -.02em;
   white-space: normal;
   text-align: center; 
-  color: white;
+  color: #EBEBEB;
 }
 
 .medium-header {
   margin-top: 0;
   margin-bottom: 40px;
-  font-family: Poppins,sans-serif;
-  font-size: .875rem;
+  font-family: Poppins, sans-serif;
   line-height: 1.5;
   font-size: 3rem;
   font-weight: 400;
@@ -183,13 +189,24 @@ export default {
   -webkit-column-span: none;
   column-span: none;
   text-align: center; 
-  color: white;
+  color: #EBEBEB;
+}
+
+.small-header {
+  font-family: Poppins, sans-serif;
+  font-size: 2rem;
+  margin-top: 50px;
+  padding: 6px;
+  text-align: center;
+  color: #EBEBEB;
+  background-image: linear-gradient(to right, #7D387D, #1DA9D3);
+  border-radius: 20px;
 }
 
 .description-paragraph {
   margin-top: 40px;
   margin-bottom: 40px;
-  font-family: Poppins,sans-serif;
+  font-family: Poppins, sans-serif;
   font-size: .875rem;
   line-height: 1.5;
   font-size: 2rem;
@@ -198,7 +215,7 @@ export default {
   -webkit-column-span: none;
   column-span: none;
   text-align: center; 
-  color: white;
+  color: #EBEBEB;
 }
 
 .card {
