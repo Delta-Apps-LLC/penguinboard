@@ -9,6 +9,7 @@ export const state = () => ({
     userData: null,
     resetCode: null,
     loadingLogin: false,
+    showSampleRow: true,
 })
 
 export const getters = {
@@ -29,10 +30,14 @@ export const mutations = {
 
     setLoadingLogin(state, data) {
         state.loadingLogin = data
+    },
+
+    setShowSampleRow(state, data) {
+        state.showSampleRow = data
     }
 }
 
-export const actions = {
+export const actions = {    
     async signup({ commit, dispatch }, { user }) {
         await commit('setLoadingLogin', true)
         const { data, error, status } = await SUPABASE.rpc('signup', {

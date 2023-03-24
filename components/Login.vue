@@ -94,11 +94,12 @@ export default {
   },
 
   methods: {
-    close () {
+    async close () {
       this.email = ""
       this.password = ""
       this.firstname = ""
       this.lastname = ""
+      await this.$store.commit('account/setShowSampleRow', true)
       this.$emit('close-modal')
     },
     
@@ -159,7 +160,7 @@ export default {
   right: 0;
   display: flex;
   justify-content: center;
-  background-color: #000000da;
+  background-color: #000000f0;
 }
 
 .modal {
