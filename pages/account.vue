@@ -2,7 +2,8 @@
   <v-col justify="center" align="center" v-if="userData != null">
     <h2>Personal Information</h2>
     <v-avatar class="avatar" size="110" color="transparent" v-if="!loading">
-      <v-icon size="110" v-if="(userData.avatar === null && avatar === null) || blank === true">
+      <v-icon 
+     color="white" size="110" v-if="(userData.avatar === null && avatar === null) || blank === true">
         mdi-account-circle
       </v-icon>
       <img v-if="userData.avatar !== null && avatar === null && blank === false" :src="userData.avatar" />
@@ -75,7 +76,8 @@
           <input class="form-field-3" type="password" v-model="confirmPass" placeholder="Confirm Password" />
           <v-btn
             @click="changePassword()"
-            :disabled="currentPass === '' || pass === '' || confirmPass === '' || pass !== confirmPass"
+            :disabled="disableSubmitBtn"
+            class="blue--text"
             text
           >
             Submit
@@ -165,7 +167,7 @@ export default {
         this.avatar = null
         this.loading = false
       }
-    }
+    },
   },
 
   computed: {
@@ -176,6 +178,9 @@ export default {
     userData () {
       return this.$store.state.account.userData
     },
+    disableSubmitBtn() {
+      return this.currentPass === '' || this.pass === '' || this.confirmPass === '' || this.pass !== this.confirmPass
+    }
   },
 }
 </script>
@@ -217,21 +222,29 @@ h2 {
   font-family: Plus Jakarta Sans;
   font-size: 24px;
   text-align: center;
-  color: #EBEBEB;
+  /* color: #EBEBEB; */
+  color: solid gray;
 }
 
 .data {
   font-family: Plus Jakarta Sans;
   font-size: 18px;
-  color: #EBEBEB;
+  /* color: #EBEBEB; */
+  color: solid gray;
 }
 
 td {
   width: 50%;
 }
 
+tr:nth-child(even) {
+    /* background-color: #7D387D; */
+    background-color: #EBEBEB;
+}
+
 tr:nth-child(odd) {
-    background-color: #303030;
+    /* background-color: #303030; */
+    background-color: #EBEBEB;
 }
 
 .form-field-1, .form-field-2, .form-field-3 {

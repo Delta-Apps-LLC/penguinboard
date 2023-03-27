@@ -222,7 +222,7 @@ export default {
 }
 
 .gif-btn {
-  background-color: #7D387D !important;
+  background-color: #1DA9D3 !important;
   margin-bottom: 6px;
 }
 
