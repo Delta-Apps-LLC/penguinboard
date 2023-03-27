@@ -13,7 +13,7 @@
       These cards can cover a wide range of occasions such as birthdays, celebrations, Thank You opportunities, encouragement, and more. 
     </p>
 
-    <!-- <v-row>
+    <v-row>
       <post
         :key="1"
         :gif="'cl27Mh8srUEog5GtUR'"
@@ -40,7 +40,7 @@
 
       <post
         :key="4"
-        :gif="'pK6k4BNalmx44CQj3v'"
+        :gif="'jvtGmtAKiUcnu'"
         :message="'<p>Gender studies graduate isn\'t something to celebrate</p>'"
         :author="'Grandpa'"
         class="col-lg-4 col-md-6 col-sm-12 px-0"
@@ -61,7 +61,53 @@
         :author="'Michael'"
         class="col-lg-4 col-md-6 col-sm-12 px-0"
       ></post>
-    </v-row> -->
+    </v-row>
+
+    <div class="pricing-header">
+      <h2 class="pricing-text">Simple Pricing</h2>
+    </div>
+
+    <div class="pricing-options">
+      <div class="option">
+        <h2 style="color: #1DA9D3;">Basic</h2>
+        <p>$1 / board</p>
+        <ul>
+          <li>Access to one Penguin Board with Unlimited Posts</li>
+        </ul>
+        <v-btn class="white--text" color="#1DA9D3" style="width: 100%;">Select</v-btn>
+      </div>
+      <div class="option">
+        <h2 style="color: #7D387D;">Pro</h2>
+        <p>$3 / 5 boards</p>
+        <ul>
+          <li>Access to five Penguin Boards with Unlimited Posts</li>
+        </ul>
+        <v-btn class="white--text" color="#7D387D" style="width: 100%;">Select</v-btn>
+      </div>
+      <div class="option">
+        <h2 style="color: #F26419;">Premium</h2>
+        <p>$5 / 10 boards</p>
+        <ul>
+          <li>Access to ten Penguin Boards with Unlimited Posts</li>
+        </ul>
+        <v-btn class="white--text" color="#F26419" style="width: 100%;">Select</v-btn>
+      </div>
+      <div class="option">
+        <h2 style="color: #ED254E;">Unlimited</h2>
+        <p>$20 / Year</p>
+        <ul>
+          <li>Access to Unlimited Penguin Boards for a year</li>
+        </ul>
+        <v-btn class="white--text" color="#ED254E" style="width: 100%;">Select</v-btn>
+      </div>
+    </div>
+
+    <v-spacer/>
+    <v-spacer/>
+    <v-spacer/>
+    <v-spacer/>
+    <v-spacer/>
+    <v-spacer/>
 
     <Login v-show="showLogin" @close-modal="showLogin = false"/>
   </v-app>
@@ -233,5 +279,109 @@ export default {
 .forgot-password {
   margin: 20px;
 }
+
+.pricing-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 24px;
+  color: white;
+  text-align: center!important;
+  padding-left: 25%;
+  padding-right: 25%;
+  padding-top: 4%;
+  padding-bottom: 1%;
+}
+
+.pricing-text{
+  width: 100%;
+  /* background-color: #f9f9f9; */
+  padding: 20px;
+  position: relative;
+  align-items: center;
+}
+
+.pricing-options {
+  display: flex;
+  justify-content: space-between;
+}
+
+.option {
+  width: 23%;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 5px;
+  text-align: center;
+  position: relative;
+}
+
+.option h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.option p {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.option ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.option li {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.option v-btn {
+  background-color: #4CAF50;
+  color: aqua;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.popular .badge {
+  background-color: #ff9800;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 16px;
+}
+
+
+/* Stuff */
+  
+  .wider {
+    width: 150px;
+  }
+  
+  @media (max-width: 768px) {
+    .option {
+      flex-basis: 100%;
+    }
+  }
+  
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .pricing-options {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    
+    .option {
+      flex-basis: 48%;
+    }
+  }
 
 </style>
