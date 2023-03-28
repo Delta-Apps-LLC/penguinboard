@@ -79,6 +79,7 @@ export const actions = {
                     setJwtToken(data.token)
                     await commit('setUserFromJwt', getUserIdFromToken(getJwtToken()))
                     await commit('setLoadingLogin', false)
+                    await commit('setShowSampleRow', true)
                     this.$router.push('/')
                 }
             } else {
