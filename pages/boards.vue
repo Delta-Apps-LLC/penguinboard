@@ -85,6 +85,7 @@
 
 <script>
 import { getJwtToken, getUserIdFromToken } from "../store/auth"
+import Shepherd from 'shepherd.js'
 export default {
   name: 'BoardsPage',
   middleware: "auth",
@@ -94,6 +95,11 @@ export default {
     this.$store.dispatch('account/getCurrentUser')
     this.$store.dispatch('board/getManagedBoards')
     this.$store.dispatch('board/getMyBoards')
+    if (this.$route.params.new) {
+      this.addSteps()
+      this.tour.start()
+      this.tour.on('complete', this.onboardingComplete)
+    }
   },
 
   data () {
@@ -105,6 +111,13 @@ export default {
       ],
       currentLocation: "",
       // inDevelopmentMode: true
+      tour: new Shepherd.Tour({
+        useModalOverlay: true,
+        defaultStepOptions: {
+          classes: 'default-tour',
+          scrollTo: true
+        }
+      }),
     }
   },
 
@@ -178,7 +191,38 @@ export default {
     async asyncData() {
       const posts = await fetchPosts()
       return { posts }
-  }
+    },
+
+    async onboardingComplete() {
+      // trigger onboarding for account page
+    },
+
+    async addSteps() {
+      this.tour.addSteps([
+        {
+          id: 'step-1',
+          title: 'Managed Boards',
+          text: 'On the \'Boards\' page, you can see all the boards you are managing. You can edit posts, copy the link for posting, or send the board to its recipient once you\'re ready.',
+          buttons: [
+            {
+              text: 'Next',
+              action: this.tour.next
+            }
+          ]
+        },
+        {
+          id: 'step-2',
+          title: 'Your Boards',
+          text: 'In the \'My Boards\' tab, you can see all the boards that you have received. View them on that page.',
+          buttons: [
+            {
+              text: 'Next',
+              action: this.tour.complete
+            }
+          ]
+        },
+      ])
+    },
   },
 
   computed: {

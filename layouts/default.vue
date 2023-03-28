@@ -76,7 +76,7 @@ export default {
       items: [
         {
           icon: 'mdi-home',
-          title: 'Welcome',
+          title: 'Home',
           to: '/'
         },
         {

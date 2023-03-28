@@ -36,7 +36,7 @@ export default {
         {
           question: "How much does it cost?",
           answer:
-            "It is completely free to join Penguin Board! When you sign up, you are given some free boards to send. Purchasing more boards later is incredibly cheap!",
+            "It is completely free to join Penguin Board! When you sign up, you are given five free boards to send. Purchasing more boards later is incredibly cheap!",
           open: false,
         },
       ],

@@ -13,7 +13,7 @@
       These cards can cover a wide range of occasions such as birthdays, celebrations, Thank You opportunities, encouragement, and more. 
     </p>
 
-    <h2 class="medium-header">Graduation Sample Board</h2>
+    <h3 class="small-header">Sample Board: Graduation</h3>
 
     <v-row v-if="showSampleRow">
       <post
@@ -66,12 +66,13 @@
     </v-row>
 
     <div class="pricing-header">
-      <h2 class="pricing-text">Simple Pricing</h2>
+      <h2 class="pricing-text">Simple Board Pack Pricing</h2>
+      <h6 class="pricing-subtext">You will receive a pack of five free boards when you sign up.</h6>
     </div>
 
     <div class="pricing-options">
       <div class="option">
-        <h2 style="color: #1DA9D3;">Basic</h2>
+        <h2 style="color: #1DA9D3;">Single</h2>
         <p>$1 / board</p>
         <ul>
           <li>Access to one Penguin Board with Unlimited Posts</li>
@@ -81,7 +82,7 @@
         </v-btn>
       </div>
       <div class="option">
-        <h2 style="color: #7D387D;">Pro</h2>
+        <h2 style="color: #7D387D;">Small</h2>
         <p>$3 / 5 boards</p>
         <ul>
           <li>Access to five Penguin Boards with Unlimited Posts</li>
@@ -91,7 +92,7 @@
         </v-btn>
       </div>
       <div class="option">
-        <h2 style="color: #F26419;">Premium</h2>
+        <h2 style="color: #F26419;">Medium</h2>
         <p>$5 / 10 boards</p>
         <ul>
           <li>Access to ten Penguin Boards with Unlimited Posts</li>
@@ -263,7 +264,7 @@ export default {
 
 .description-paragraph {
   margin-top: 40px;
-  margin-bottom: 40px;
+  /* margin-bottom: 40px; */
   font-family: Poppins, sans-serif;
   font-size: .875rem;
   line-height: 1.5;
@@ -329,24 +330,28 @@ export default {
 }
 
 .pricing-header {
-  display: flex;
-  justify-content: space-between;
+  /* display: flex; */
+  /* justify-content: space-between; */
   align-items: center;
   font-size: 24px;
   color: white;
   text-align: center!important;
   padding-left: 25%;
   padding-right: 25%;
-  padding-top: 4%;
+  padding-top: 5%;
   padding-bottom: 1%;
 }
 
 .pricing-text{
   width: 100%;
   /* background-color: #f9f9f9; */
-  padding: 20px;
+  /* padding: 20px; */
   position: relative;
   align-items: center;
+}
+
+.pricing-subtext {
+  font-style: italic;
 }
 
 .pricing-options {

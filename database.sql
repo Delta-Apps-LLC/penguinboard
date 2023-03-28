@@ -8,6 +8,7 @@ CREATE TABLE "user"
   "email" VARCHAR NOT NULL,
   "password" VARCHAR NOT NULL,
   "avatar" VARCHAR,
+  "boardsremaining" INT DEFAULT 5,
   PRIMARY KEY ("userid"),
   UNIQUE ("email")
 );
