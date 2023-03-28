@@ -76,7 +76,9 @@
         <ul>
           <li>Access to one Penguin Board with Unlimited Posts</li>
         </ul>
-        <v-btn class="white--text" color="#1DA9D3" style="width: 100%;">Select</v-btn>
+        <v-btn class="white--text" color="#1DA9D3" style="width: 100%;" @click="toggleLogin('1')">
+          Select
+        </v-btn>
       </div>
       <div class="option">
         <h2 style="color: #7D387D;">Pro</h2>
@@ -84,7 +86,9 @@
         <ul>
           <li>Access to five Penguin Boards with Unlimited Posts</li>
         </ul>
-        <v-btn class="white--text" color="#7D387D" style="width: 100%;">Select</v-btn>
+        <v-btn class="white--text" color="#7D387D" style="width: 100%;" @click="toggleLogin('2')">
+          Select
+        </v-btn>
       </div>
       <div class="option">
         <h2 style="color: #F26419;">Premium</h2>
@@ -92,7 +96,9 @@
         <ul>
           <li>Access to ten Penguin Boards with Unlimited Posts</li>
         </ul>
-        <v-btn class="white--text" color="#F26419" style="width: 100%;">Select</v-btn>
+        <v-btn class="white--text" color="#F26419" style="width: 100%;" @click="toggleLogin('3')">
+          Select
+        </v-btn>
       </div>
       <div class="option">
         <h2 style="color: #ED254E;">Unlimited</h2>
@@ -100,7 +106,9 @@
         <ul>
           <li>Access to Unlimited Penguin Boards for a year</li>
         </ul>
-        <v-btn class="white--text" color="#ED254E" style="width: 100%;">Select</v-btn>
+        <v-btn class="white--text" color="#ED254E" style="width: 100%;" @click="toggleLogin('4')">
+          Select
+        </v-btn>
       </div>
     </div>
 
@@ -121,7 +129,7 @@
     <v-spacer/>
     <v-spacer/>
 
-    <Login v-show="showLogin" @close-modal="showLogin = false"/>
+    <Login v-show="showLogin" @close-modal="showLogin = false" :buyBoardNumber="`${buyBoardNum}`"/>
   </v-app>
 </template>
 
@@ -149,11 +157,13 @@ export default {
       password: '',
       isLogin: false,
       showLogin: false,
+      buyBoardNum: 0,
     }
   },
 
   methods: {
-    async toggleLogin() {
+    async toggleLogin(boardNum) {
+      this.buyBoardNum = boardNum
       await this.$store.commit('account/setShowSampleRow', false)
       this.showLogin = true
     },
@@ -397,9 +407,6 @@ export default {
   transform: translateX(-50%);
   font-size: 16px;
 }
-
-
-/* Stuff */
   
   .wider {
     width: 150px;

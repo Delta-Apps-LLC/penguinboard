@@ -55,6 +55,55 @@
 
     </v-card>
   </v-col>
+
+  <div class="pricing-header">
+    <h2 class="pricing-text">Need more boards?</h2>
+  </div>
+
+  <div class="pricing-options">
+    <div class="option">
+      <h2 style="color: #1DA9D3;">Basic</h2>
+      <p>$1 / board</p>
+      <ul>
+        <li>Access to one Penguin Board with Unlimited Posts</li>
+      </ul>
+      <v-btn class="white--text" color="#1DA9D3" style="width: 100%;" @click="buyBoard('1')">
+        Select
+      </v-btn>
+    </div>
+    <div class="option">
+      <h2 style="color: #7D387D;">Pro</h2>
+      <p>$3 / 5 boards</p>
+      <ul>
+        <li>Access to five Penguin Boards with Unlimited Posts</li>
+      </ul>
+      <v-btn class="white--text" color="#7D387D" style="width: 100%;" @click="buyBoard('2')">
+        Select
+      </v-btn>
+    </div>
+    <div class="option">
+      <h2 style="color: #F26419;">Premium</h2>
+      <p>$5 / 10 boards</p>
+      <ul>
+        <li>Access to ten Penguin Boards with Unlimited Posts</li>
+      </ul>
+      <v-btn class="white--text" color="#F26419" style="width: 100%;" @click="buyBoard('3')">
+        Select
+      </v-btn>
+    </div>
+    <div class="option">
+      <h2 style="color: #ED254E;">Unlimited</h2>
+      <p>$20 / Year</p>
+      <ul>
+        <li>Access to Unlimited Penguin Boards for a year</li>
+      </ul>
+      <v-btn class="white--text" color="#ED254E" style="width: 100%;" @click="buyBoard('4')">
+        Select
+      </v-btn>
+    </div>
+  </div>
+
+  <v-spacer/>
 </html>
 </template>
 
@@ -155,6 +204,21 @@ export default {
           ]
         },
       ])
+    },
+
+    buyBoard(boardNum) {
+      if (boardNum === '1') {
+        window.open('https://buy.stripe.com/test_eVag1y2PL5JtaGsdQQ', '_blank');
+      }
+      else if (boardNum === '2') {
+        window.open('https://buy.stripe.com/test_28o2aI3TP3BlaGs6op', '_blank');
+      }
+      else if (boardNum === '3') {
+        window.open('https://buy.stripe.com/test_8wM4iQ1LHc7R5m8002', '_blank');
+      }
+      else if (boardNum === '4') {
+        window.open('https://buy.stripe.com/test_5kAdTqdup1td5m8dQT', '_blank');
+      }
     }
   },
 
@@ -191,6 +255,108 @@ export default {
   font-size: 24px !important;
   color: #303030;
 }
+
+.pricing-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 24px;
+  color: white;
+  text-align: center!important;
+  padding-left: 25%;
+  padding-right: 25%;
+  padding-top: 2%;
+  padding-bottom: 1%;
+}
+
+.pricing-text{
+  width: 100%;
+  /* background-color: #f9f9f9; */
+  padding: 20px;
+  position: relative;
+  align-items: center;
+}
+
+.pricing-options {
+  display: flex;
+  justify-content: space-between;
+}
+
+.option {
+  width: 23%;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 5px;
+  text-align: center;
+  position: relative;
+}
+
+.option h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.option p {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.option ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.option li {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.option v-btn {
+  background-color: #4CAF50;
+  color: aqua;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.popular .badge {
+  background-color: #ff9800;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 16px;
+}
+
+.wider {
+  width: 150px;
+}
+
+@media (max-width: 768px) {
+  .option {
+    flex-basis: 100%;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .pricing-options {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .option {
+    flex-basis: 48%;
+  }
+}
+
 
 #preview-img {
   margin-top: 5px;

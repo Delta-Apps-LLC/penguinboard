@@ -4,6 +4,9 @@
             @click.stop
         >
           <h2 class="welcome" :style="{'font-size': isMobile ? '28px' : null}">Welcome to Penguin Board!</h2>
+          <h1 v-if="buyBoardNumber !== ''" class="purchase" :style="{'font-size': isMobile ? '28px' : null}">
+            Please sign in/up before you purchase a board
+          </h1>
             <v-col class="text-center">
                 <v-btn-toggle
                     class="toggle-btn"
@@ -83,6 +86,13 @@
 export default {
   name: 'Login',
 
+  props: {
+    buyBoardNumber: {
+      type: String,
+      default: '',
+    }
+  },
+
   data () {
     return {
       firstname: '',
@@ -118,7 +128,8 @@ export default {
         password: this.password,
       }
       await this.$store.dispatch('account/signup', {
-        user: user
+        user: user,
+        boardNum: this.buyBoardNumber,
       })
       this.clearForm()
     },
@@ -129,7 +140,8 @@ export default {
         password: this.password,
       }
       await this.$store.dispatch('account/login', {
-        user: user
+        user: user,
+        boardNum: this.buyBoardNumber,
       })
       this.clearForm()
     },
@@ -216,6 +228,15 @@ export default {
   font-weight: 600;
   font-size: 32px;
   line-height: 40px;
+  color: #303030;
+}
+
+.purchase {
+  font-family: 'Plus Jakarta Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 10px;
   color: #303030;
 }
 

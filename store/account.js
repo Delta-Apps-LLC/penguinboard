@@ -38,7 +38,7 @@ export const mutations = {
 }
 
 export const actions = {    
-    async signup({ commit, dispatch }, { user }) {
+    async signup({ commit, dispatch }, { user, boardNum }) {
         await commit('setLoadingLogin', true)
         const { data, error, status } = await SUPABASE.rpc('signup', {
             firstname: user.firstname,
@@ -47,7 +47,7 @@ export const actions = {
             password: await encryptPassword(user.password)
         })
         if (status === 204) {
-            await dispatch('login', { user: user })
+            await dispatch('login', { user: user, boardNum: boardNum })
         } else if (status === 409) {
             alert('An account already exists with that email.')
             await commit('setLoadingLogin', false)
@@ -66,7 +66,7 @@ export const actions = {
         return data
     },
 
-    async login({ commit, dispatch }, { user }) {
+    async login({ commit, dispatch }, { user, boardNum }) {
         await commit('setLoadingLogin', true)
         const res = await dispatch('getUser', { email: user.email })
         if (res.length > 0) {
@@ -79,6 +79,18 @@ export const actions = {
                     setJwtToken(data.token)
                     await commit('setUserFromJwt', getUserIdFromToken(getJwtToken()))
                     await commit('setLoadingLogin', false)
+                    if (boardNum === '1') {
+                        window.open('https://buy.stripe.com/test_eVag1y2PL5JtaGsdQQ', '_blank');
+                    }
+                    else if (boardNum === '2') {
+                        window.open('https://buy.stripe.com/test_28o2aI3TP3BlaGs6op', '_blank');
+                    }
+                    else if (boardNum === '3') {
+                        window.open('https://buy.stripe.com/test_8wM4iQ1LHc7R5m8002', '_blank');
+                    }
+                    else if (boardNum === '4') {
+                        window.open('https://buy.stripe.com/test_5kAdTqdup1td5m8dQT', '_blank');
+                    }
                     this.$router.push('/')
                 }
             } else {
