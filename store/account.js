@@ -80,16 +80,16 @@ export const actions = {
                     await commit('setUserFromJwt', getUserIdFromToken(getJwtToken()))
                     await commit('setLoadingLogin', false)
                     if (boardNum === '1') {
-                        window.open('https://buy.stripe.com/test_eVag1y2PL5JtaGsdQQ', '_blank');
+                        window.open(`https://buy.stripe.com/test_eVag1y2PL5JtaGsdQQ?prefilled_email=${user.email}`, '_blank');
                     }
                     else if (boardNum === '2') {
-                        window.open('https://buy.stripe.com/test_28o2aI3TP3BlaGs6op', '_blank');
+                        window.open(`https://buy.stripe.com/test_28o2aI3TP3BlaGs6op?prefilled_email=${user.email}`, '_blank');
                     }
                     else if (boardNum === '3') {
-                        window.open('https://buy.stripe.com/test_8wM4iQ1LHc7R5m8002', '_blank');
+                        window.open(`https://buy.stripe.com/test_8wM4iQ1LHc7R5m8002?prefilled_email=${user.email}`, '_blank');
                     }
                     else if (boardNum === '4') {
-                        window.open('https://buy.stripe.com/test_5kAdTqdup1td5m8dQT', '_blank');
+                        window.open(`https://buy.stripe.com/test_5kAdTqdup1td5m8dQT?prefilled_email=${user.email}`, '_blank');
                     }
                     this.$router.push('/')
                 }
