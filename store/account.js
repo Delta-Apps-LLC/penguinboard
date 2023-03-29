@@ -79,6 +79,7 @@ export const actions = {
                     setJwtToken(data.token)
                     await commit('setUserFromJwt', getUserIdFromToken(getJwtToken()))
                     await commit('setLoadingLogin', false)
+                    await commit('setShowSampleRow', true)
                     if (boardNum === '1') {
                         window.open(`https://buy.stripe.com/test_eVag1y2PL5JtaGsdQQ?prefilled_email=${user.email}`, '_blank');
                     }
