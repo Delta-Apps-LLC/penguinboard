@@ -118,12 +118,12 @@ export default {
     // this.tour.start()
     this.tour.on('complete', this.onboardingComplete)
 
-    const session_id = this.$route.query.session_id
+    // const session_id = this.$route.query.session_id
     const payment_plan = this.$route.query.payment_plan
-    console.log(`The session_id is: ${session_id}`)
+    // console.log(`The session_id is: ${session_id}`)
     console.log(`The payment_plan is: ${payment_plan}`)
     const queryString = this.$route.query
-    console.log(`The whole query is: ${queryString}`)
+    console.log(queryString)
   },
 
   data () {
