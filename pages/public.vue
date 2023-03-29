@@ -1,6 +1,6 @@
 <template>
   <v-col class="text-center">
-    <h2 class="header" v-if="!loadingPublic">
+    <h2 class="small-header" v-if="!loadingPublic">
       {{ publicBoards.length > 0 ? 'Public Boards' : 'There are currently no public boards.'}}
     </h2>
     <v-row class="board-row" align="center" justify="center" v-if="!loadingPublic && publicBoards.length != 0">
@@ -93,12 +93,6 @@ export default {
 
 <style scoped>
 @import '~/assets/style.css';
-
-.header {
-    font-family: Plus Jakarta Sans;
-    font-size: 28px;
-    color: #EBEBEB;
-}
 
 .board-row {
   margin-top: 20px;

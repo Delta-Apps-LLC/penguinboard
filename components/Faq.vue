@@ -24,7 +24,7 @@ export default {
         {
           question: "How does Penguin Board work?",
           answer:
-            "Using Penguin Board, you can create a virtual card for someone - such as a coworker, friend, or family member - invite people to \'sign\' it, then send it to the recipient! You are in charge of managing any boards you create, including monitoring posts and sending the card when it\'s ready.",
+            "Using Penguin Board, you can create a virtual card for someone - such as a coworker, friend, or family member - invite people to \"sign\" it, then send it to the recipient! You are in charge of managing any boards you create, including monitoring posts and sending the card when it\'s ready.",
           open: false,
         },
         {

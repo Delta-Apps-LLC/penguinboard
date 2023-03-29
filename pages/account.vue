@@ -1,6 +1,6 @@
 <template>
   <v-col justify="center" align="center" v-if="userData != null">
-    <h2>Account Information</h2>
+    <h3 class="small-header" style="margin-top: 0;">Account Information</h3>
     <v-avatar class="avatar" size="110" color="transparent" v-if="!loading">
       <v-icon 
      color="white" size="110" v-if="(userData.avatar === null && avatar === null) || blank === true">
@@ -86,10 +86,8 @@
       </tr>
     </table>
 
-    <div class="pricing-header" id="pricing">
-      <h2 class="pricing-text">Purchase Boards</h2>
-      <h6 class="pricing-subtext">Remaining Boards: {{userData.boardsremaining}}</h6>
-    </div>
+    <h3 class="small-header" id="pricing">Purchase Boards</h3>
+    <h4 class="pricing-subtext">Remaining Boards: {{userData.boardsremaining}}</h4>
 
     <div class="pricing-options">
       <div class="option">
@@ -259,6 +257,10 @@ export default {
 <style scoped>
 @import '~/assets/style.css';
 
+.avatar {
+  margin-top: 10px;
+}
+
 .upload {
   max-width: 22px;
   color: #EBEBEB;
@@ -340,29 +342,14 @@ tr:nth-child(odd) {
   margin-bottom: 6px;
 }
 
-.pricing-header {
-  /* display: flex; */
-  /* justify-content: space-between; */
-  align-items: center;
-  font-size: 24px;
-  color: white;
-  text-align: center!important;
-  padding-left: 25%;
-  padding-right: 25%;
-  padding-top: 5%;
-  padding-bottom: 1%;
-}
-
-.pricing-text{
-  width: 100%;
-  /* background-color: #f9f9f9; */
-  /* padding: 20px; */
-  position: relative;
-  align-items: center;
+.small-header {
+  margin-top: 50px;
 }
 
 .pricing-subtext {
   font-style: italic;
+  color: #EBEBEB;
+  /* font-size: 16px; */
 }
 
 .pricing-options {

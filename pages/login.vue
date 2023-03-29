@@ -65,10 +65,8 @@
       ></post>
     </v-row>
 
-    <div class="pricing-header">
-      <h2 class="pricing-text">Simple Board Pack Pricing</h2>
-      <h6 class="pricing-subtext">You will receive a pack of five free boards when you sign up.</h6>
-    </div>
+    <h2 class="small-header">Simple Board Pack Pricing</h2>
+    <h6 class="pricing-subtext">You will receive a pack of five free boards when you sign up.</h6>
 
     <div class="pricing-options">
       <div class="option">
@@ -123,12 +121,7 @@
       Create my First Board
     </v-btn>
 
-    <v-spacer/>
-    <v-spacer/>
-    <v-spacer/>
-    <v-spacer/>
-    <v-spacer/>
-    <v-spacer/>
+    <v-spacer class="bottom-space"/>
 
     <Login v-show="showLogin" @close-modal="showLogin = false" :buyBoardNumber="`${buyBoardNum}`"/>
   </v-app>
@@ -148,6 +141,10 @@ export default {
     Login,
     FAQ,
     post
+  },
+
+  async mounted () {
+    await this.$store.commit('account/setShowSampleRow', true)
   },
 
   data () {
@@ -252,14 +249,7 @@ export default {
 }
 
 .small-header {
-  font-family: Poppins, sans-serif;
-  font-size: 2rem;
-  margin-top: 50px;
-  padding: 6px;
-  text-align: center;
-  color: #EBEBEB;
-  background-image: linear-gradient(to right, #7D387D, #1DA9D3);
-  border-radius: 20px;
+  margin-top: 60px;
 }
 
 .description-paragraph {
@@ -329,29 +319,11 @@ export default {
   margin: 20px;
 }
 
-.pricing-header {
-  /* display: flex; */
-  /* justify-content: space-between; */
-  align-items: center;
-  font-size: 24px;
-  color: white;
-  text-align: center!important;
-  padding-left: 25%;
-  padding-right: 25%;
-  padding-top: 5%;
-  padding-bottom: 1%;
-}
-
-.pricing-text{
-  width: 100%;
-  /* background-color: #f9f9f9; */
-  /* padding: 20px; */
-  position: relative;
-  align-items: center;
-}
-
 .pricing-subtext {
   font-style: italic;
+  text-align: center;
+  color: #EBEBEB;
+  margin-bottom: 20px;
 }
 
 .pricing-options {
@@ -432,6 +404,10 @@ export default {
     .option {
       flex-basis: 48%;
     }
+  }
+
+  .bottom-space {
+    height: 20px;
   }
 
 </style>

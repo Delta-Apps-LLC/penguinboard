@@ -65,13 +65,15 @@
         </v-card-actions>
 
       </v-card>
-      <h2 class="header" v-if="!loadingManaged && tab === 0 && managedBoards.length == 0">
-        You do not have any managed boards.
-      </h2>
-      <h2 class="header" v-else-if="!loadingMine && tab === 1 && myBoards.length == 0">
-        You have not received any boards.
-      </h2>
+
     </v-row>
+
+    <h2 class="small-header" v-if="!loadingManaged && tab === 0 && managedBoards.length == 0">
+      You do not have any managed boards.
+    </h2>
+    <h2 class="small-header" v-else-if="!loadingMine && tab === 1 && myBoards.length == 0">
+      You have not received any boards.
+    </h2>
 
     <!-- Loading indicator -->
     <div class="sk-folding-cube" v-if="tab === 0 ? loadingManaged : loadingMine">
@@ -270,12 +272,6 @@ export default {
   /* color: #1DA9D3; */
   color: white !important;
   font-size: medium;
-}
-
-.header {
-  font-family: Plus Jakarta Sans;
-  font-size: 28px;
-  color: #EBEBEB;
 }
 
 .board-row {
