@@ -94,6 +94,11 @@ export default {
   name: 'AccountPage',
   middleware: "auth",
 
+  mounted() {
+    const queryString = this.$route.query
+    console.log(queryString)
+  },
+
   data () {
     return {
       currentPass: '',
