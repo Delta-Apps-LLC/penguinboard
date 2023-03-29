@@ -67,7 +67,7 @@ export default {
 
   mounted () {
     this.addSteps()
-    this.tour.start()
+    // this.tour.start()
     this.tour.on('complete', this.onboardingComplete)
   },
 

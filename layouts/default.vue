@@ -49,21 +49,20 @@
       </v-container>
     </v-main>
     
-    <v-footer
-      :absolute="!fixed"
-      app
-    >
-      <span>&copy; {{ new Date().getFullYear() }}</span>
-      <v-spacer />
-      <a target="_blank" href="https://forms.gle/rWfHuxtMp37iDjiJA">Give Us Feedback</a>
-    </v-footer>
+    <Footer />
+    
   </v-app>
 </template>
 
 <script>
 import { getJwtToken, getUserIdFromToken } from "../store/auth"
+import Footer from "~/components/Footer.vue"
 export default {
   name: 'DefaultLayout',
+
+  components: {
+    Footer,
+  },
 
   mounted () {
     this.$store.commit('account/setUserFromJwt', getUserIdFromToken(getJwtToken()))
