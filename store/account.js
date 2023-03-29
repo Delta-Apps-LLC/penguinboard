@@ -47,7 +47,7 @@ export const actions = {
             password: await encryptPassword(user.password)
         })
         if (status === 204) {
-            await dispatch('login', { user: user, boardNum: boardNum })
+            await dispatch('login', { user: user, boardNum: boardNum, isNew: true })
         } else if (status === 409) {
             alert('An account already exists with that email.')
             await commit('setLoadingLogin', false)
@@ -66,7 +66,7 @@ export const actions = {
         return data
     },
 
-    async login({ commit, dispatch }, { user, boardNum }) {
+    async login({ commit, dispatch }, { user, boardNum, isNew = false }) {
         await commit('setLoadingLogin', true)
         const res = await dispatch('getUser', { email: user.email })
         if (res.length > 0) {
@@ -92,7 +92,9 @@ export const actions = {
                     else if (boardNum === '4') {
                         window.open(`https://buy.stripe.com/test_5kAdTqdup1td5m8dQT?prefilled_email=${user.email}`, '_blank');
                     }
-                    this.$router.push('/')
+                    isNew ? this.$router.push({ path: '/account', hash: '#pricing', query: {
+                        new: isNew
+                    }}) : this.$router.push('/')
                 }
             } else {
                 alert('The password you provided is incorrect.')

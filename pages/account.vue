@@ -1,6 +1,6 @@
 <template>
   <v-col justify="center" align="center" v-if="userData != null">
-    <h2>Personal Information</h2>
+    <h3 class="small-header" style="margin-top: 0;">Account Information</h3>
     <v-avatar class="avatar" size="110" color="transparent" v-if="!loading">
       <v-icon 
      color="white" size="110" v-if="(userData.avatar === null && avatar === null) || blank === true">
@@ -85,6 +85,53 @@
         </td>
       </tr>
     </table>
+
+    <h3 class="small-header" id="pricing">Purchase Boards</h3>
+    <h4 class="pricing-subtext">Remaining Boards: {{userData.boardsremaining}}</h4>
+
+    <div class="pricing-options">
+      <div class="option">
+        <h2 style="color: #1DA9D3;">Single</h2>
+        <p>$1 / board</p>
+        <ul>
+          <li>Access to one Penguin Board with Unlimited Posts</li>
+        </ul>
+        <v-btn class="white--text" color="#1DA9D3" style="width: 100%;" @click="buyBoard('1')">
+          Select
+        </v-btn>
+      </div>
+      <div class="option">
+        <h2 style="color: #7D387D;">Small</h2>
+        <p>$3 / 5 boards</p>
+        <ul>
+          <li>Access to five Penguin Boards with Unlimited Posts</li>
+        </ul>
+        <v-btn class="white--text" color="#7D387D" style="width: 100%;" @click="buyBoard('2')">
+          Select
+        </v-btn>
+      </div>
+      <div class="option">
+        <h2 style="color: #F26419;">Medium</h2>
+        <p>$5 / 10 boards</p>
+        <ul>
+          <li>Access to ten Penguin Boards with Unlimited Posts</li>
+        </ul>
+        <v-btn class="white--text" color="#F26419" style="width: 100%;" @click="buyBoard('3')">
+          Select
+        </v-btn>
+      </div>
+      <div class="option">
+        <h2 style="color: #ED254E;">Unlimited</h2>
+        <p>$20 / Year</p>
+        <ul>
+          <li>Access to Unlimited Penguin Boards for a year</li>
+        </ul>
+        <v-btn class="white--text" color="#ED254E" style="width: 100%;" @click="buyBoard('4')">
+          Select
+        </v-btn>
+      </div>
+    </div>
+
   </v-col>
 </template>
 
@@ -173,6 +220,21 @@ export default {
         this.loading = false
       }
     },
+
+    buyBoard(boardNum) {
+      if (boardNum === '1') {
+        window.open('https://buy.stripe.com/test_eVag1y2PL5JtaGsdQQ', '_blank');
+      }
+      else if (boardNum === '2') {
+        window.open('https://buy.stripe.com/test_28o2aI3TP3BlaGs6op', '_blank');
+      }
+      else if (boardNum === '3') {
+        window.open('https://buy.stripe.com/test_8wM4iQ1LHc7R5m8002', '_blank');
+      }
+      else if (boardNum === '4') {
+        window.open('https://buy.stripe.com/test_5kAdTqdup1td5m8dQT', '_blank');
+      }
+    }
   },
 
   computed: {
@@ -183,6 +245,7 @@ export default {
     userData () {
       return this.$store.state.account.userData
     },
+
     disableSubmitBtn() {
       return this.currentPass === '' || this.pass === '' || this.confirmPass === '' || this.pass !== this.confirmPass
     }
@@ -192,6 +255,10 @@ export default {
 
 <style scoped>
 @import '~/assets/style.css';
+
+.avatar {
+  margin-top: 10px;
+}
 
 .upload {
   max-width: 22px;
@@ -272,6 +339,44 @@ tr:nth-child(odd) {
 .form-field-3 {
   margin-top: 1px;
   margin-bottom: 6px;
+}
+
+.small-header {
+  margin-top: 50px;
+}
+
+.pricing-subtext {
+  font-style: italic;
+  color: #EBEBEB;
+  /* font-size: 16px; */
+}
+
+.pricing-options {
+  margin: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.option {
+  width: 23%;
+  background-color: #EBEBEB;
+  padding: 20px;
+  border-radius: 5px;
+  text-align: center;
+  position: relative;
+}
+
+.option ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.option li {
+  font-size: 16px;
+  margin-bottom: 5px;
 }
 
 </style>

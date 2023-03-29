@@ -2,6 +2,7 @@
     <div class="modal-overlay" @click="close()">
         <div :class="isMobile ? 'modal-mobile' : 'modal'" 
             @click.stop
+            :style="{'height': isMobile ? null : isLogin ? '300px' : null}"
         >
           <h2 class="welcome" :style="{'font-size': isMobile ? '28px' : null}">Welcome to Penguin Board!</h2>
           <h1 v-if="buyBoardNumber !== ''" class="purchase" :style="{'font-size': isMobile ? '28px' : null}">
@@ -29,6 +30,17 @@
                     <v-spacer class="spacer" />
                     <input class="form-field" type="email" v-model="email" placeholder="Email" />
                     <input class="form-field" type="password" v-model="password" placeholder="Password" :style="{'margin-top': isMobile ? '6px' : null}" />
+                    <v-spacer />
+                    <input class="check" type="checkbox" name="age" v-model="overThirteen" />
+                    <label for="age">Confirm you are at least 13 years of age.</label>
+                    <v-spacer />
+                    <input class="check" type="checkbox" name="consent" v-model="consent" />
+                    <label for="consent">
+                      <span>I consent to the </span>
+                      <a target="_blank" href="privacy_policy.pdf">Privacy Policy</a>
+                      <span> and the </span>
+                      <a target="_blank" href="terms_conditions.pdf">Terms and Conditions</a>
+                    </label>
                     <v-spacer class="spacer" />
                     <v-tooltip bottom>
                       <template v-slot:activator="{ on, attrs }">
@@ -43,7 +55,9 @@
                       </template>
                       <span>Clear Form</span>
                     </v-tooltip>
-                    <v-btn type="submit" color="#1DA9D3" class="white--text">Sign Up</v-btn>
+                    <v-btn type="submit" :disabled="!overThirteen || !consent" color="#1DA9D3" class="white--text">
+                      Sign Up
+                    </v-btn>
                 </form>
 
                 <form class="form" @submit.prevent="login" v-if="isLogin && !loadingLogin">
@@ -100,6 +114,8 @@ export default {
       email: '',
       password: '',
       isLogin: false,
+      overThirteen: false,
+      consent: false,
     }
   },
 
@@ -118,6 +134,8 @@ export default {
       this.lastname = ''
       this.email = ''
       this.password = ''
+      this.overThirteen = false
+      this.consent = false
     },
 
     async signup () {
@@ -178,7 +196,7 @@ export default {
 .modal {
   text-align: center;
   background-color: #EBEBEB;
-  height: 350px;
+  height: 400px;
   width: 560px;
   margin-top: 10%;
   padding: 15px 0;
@@ -192,7 +210,7 @@ export default {
 .modal-mobile {
     text-align: center;
     background-color: #EBEBEB;
-    height: 55%;
+    height: 60%;
     width: 95%;
     margin-top: 25%;
     padding: 15px 0;
@@ -216,6 +234,11 @@ export default {
     100% {
         opacity: 1;
     }
+}
+
+.check {
+  height: 18px;
+  width: 18px;
 }
 
 .spacer {

@@ -24,7 +24,7 @@ export default {
         {
           question: "How does Penguin Board work?",
           answer:
-            "Using Penguin Board, you can create a virtual card for someone - such as a coworker, friend, or family member - invite people to \'sign\' it, then send it to the recipient! You are in charge of managing any boards you create, including monitoring posts and sending the card when it\'s ready.",
+            "Using Penguin Board, you can create a virtual card for someone - such as a coworker, friend, or family member - invite people to \"sign\" it, then send it to the recipient! You are in charge of managing any boards you create, including monitoring posts and sending the card when it\'s ready.",
           open: false,
         },
         {
@@ -36,7 +36,7 @@ export default {
         {
           question: "How much does it cost?",
           answer:
-            "It is completely free to join Penguin Board! When you sign up, you are given some free boards to send. Purchasing more boards later is incredibly cheap!",
+            "It is completely free to join Penguin Board! When you sign up, you are given five free boards to send. Purchasing more boards later is incredibly cheap!",
           open: false,
         },
       ],

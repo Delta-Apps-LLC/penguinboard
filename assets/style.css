@@ -9,6 +9,16 @@
     background-color: #222222;
 }
 
+.small-header {
+    font-family: Poppins, sans-serif;
+    font-size: 2rem;
+    padding: 6px;
+    text-align: center;
+    color: #EBEBEB;
+    background-image: linear-gradient(to right, #7D387D, #1DA9D3);
+    border-radius: 20px;
+}
+
 .app-bar {
     /* background-color: #F4F6F4 !important; */
     background-color: #EBEBEB !important;

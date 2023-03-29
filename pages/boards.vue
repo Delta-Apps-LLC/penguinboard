@@ -65,13 +65,15 @@
         </v-card-actions>
 
       </v-card>
-      <h2 class="header" v-if="!loadingManaged && tab === 0 && managedBoards.length == 0">
-        You do not have any managed boards.
-      </h2>
-      <h2 class="header" v-else-if="!loadingMine && tab === 1 && myBoards.length == 0">
-        You have not received any boards.
-      </h2>
+
     </v-row>
+
+    <h2 class="small-header" v-if="!loadingManaged && tab === 0 && managedBoards.length == 0">
+      You do not have any managed boards.
+    </h2>
+    <h2 class="small-header" v-else-if="!loadingMine && tab === 1 && myBoards.length == 0">
+      You have not received any boards.
+    </h2>
 
     <!-- Loading indicator -->
     <div class="sk-folding-cube" v-if="tab === 0 ? loadingManaged : loadingMine">
@@ -85,6 +87,7 @@
 
 <script>
 import { getJwtToken, getUserIdFromToken } from "../store/auth"
+import Shepherd from 'shepherd.js'
 export default {
   name: 'BoardsPage',
   middleware: "auth",
@@ -94,6 +97,11 @@ export default {
     this.$store.dispatch('account/getCurrentUser')
     this.$store.dispatch('board/getManagedBoards')
     this.$store.dispatch('board/getMyBoards')
+    if (this.$route.params.new) {
+      this.addSteps()
+      this.tour.start()
+      this.tour.on('complete', this.onboardingComplete)
+    }
   },
 
   data () {
@@ -105,6 +113,13 @@ export default {
       ],
       currentLocation: "",
       // inDevelopmentMode: true
+      tour: new Shepherd.Tour({
+        useModalOverlay: true,
+        defaultStepOptions: {
+          classes: 'default-tour',
+          scrollTo: true
+        }
+      }),
     }
   },
 
@@ -178,7 +193,38 @@ export default {
     async asyncData() {
       const posts = await fetchPosts()
       return { posts }
-  }
+    },
+
+    async onboardingComplete() {
+      // trigger onboarding for account page
+    },
+
+    async addSteps() {
+      this.tour.addSteps([
+        {
+          id: 'step-1',
+          title: 'Managed Boards',
+          text: 'On the \'Boards\' page, you can see all the boards you are managing. You can edit posts, copy the link for posting, or send the board to its recipient once you\'re ready.',
+          buttons: [
+            {
+              text: 'Next',
+              action: this.tour.next
+            }
+          ]
+        },
+        {
+          id: 'step-2',
+          title: 'Your Boards',
+          text: 'In the \'My Boards\' tab, you can see all the boards that you have received. View them on that page.',
+          buttons: [
+            {
+              text: 'Next',
+              action: this.tour.complete
+            }
+          ]
+        },
+      ])
+    },
   },
 
   computed: {
@@ -226,12 +272,6 @@ export default {
   /* color: #1DA9D3; */
   color: white !important;
   font-size: medium;
-}
-
-.header {
-  font-family: Plus Jakarta Sans;
-  font-size: 28px;
-  color: #EBEBEB;
 }
 
 .board-row {

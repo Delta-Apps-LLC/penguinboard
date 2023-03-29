@@ -55,54 +55,6 @@
 
     </v-card>
   </v-col>
-
-  <div class="pricing-header">
-    <h2 class="pricing-text">Need more boards?</h2>
-  </div>
-
-  <div class="pricing-options">
-    <div class="option">
-      <h2 style="color: #1DA9D3;">Basic</h2>
-      <p>$1 / board</p>
-      <ul>
-        <li>Access to one Penguin Board with Unlimited Posts</li>
-      </ul>
-      <v-btn class="white--text" color="#1DA9D3" style="width: 100%;" @click="buyBoard('1')">
-        Select
-      </v-btn>
-    </div>
-    <div class="option">
-      <h2 style="color: #7D387D;">Pro</h2>
-      <p>$3 / 5 boards</p>
-      <ul>
-        <li>Access to five Penguin Boards with Unlimited Posts</li>
-      </ul>
-      <v-btn class="white--text" color="#7D387D" style="width: 100%;" @click="buyBoard('2')">
-        Select
-      </v-btn>
-    </div>
-    <div class="option">
-      <h2 style="color: #F26419;">Premium</h2>
-      <p>$5 / 10 boards</p>
-      <ul>
-        <li>Access to ten Penguin Boards with Unlimited Posts</li>
-      </ul>
-      <v-btn class="white--text" color="#F26419" style="width: 100%;" @click="buyBoard('3')">
-        Select
-      </v-btn>
-    </div>
-    <div class="option">
-      <h2 style="color: #ED254E;">Unlimited</h2>
-      <p>$20 / Year</p>
-      <ul>
-        <li>Access to Unlimited Penguin Boards for a year</li>
-      </ul>
-      <v-btn class="white--text" color="#ED254E" style="width: 100%;" @click="buyBoard('4')">
-        Select
-      </v-btn>
-    </div>
-  </div>
-
   <v-spacer/>
 </html>
 </template>
@@ -179,7 +131,9 @@ export default {
     },
 
     async onboardingComplete() {
-
+      this.$router.push({ name: 'boards', params: {
+        new: true
+      }})
     },
 
     async addSteps() {
@@ -201,7 +155,7 @@ export default {
           text: 'The home page is where you create new Penguin Boards. Add a picture if you like, a title, some information about who it is to, and if you want it publicly available to post to. You will manage any boards you create.',
           attachTo: {
             element: '#step-2',
-            on: 'top'
+            on: 'left'
           },
           buttons: [
             {
@@ -212,21 +166,6 @@ export default {
         },
       ])
     },
-
-    buyBoard(boardNum) {
-      if (boardNum === '1') {
-        window.open('https://buy.stripe.com/test_eVag1y2PL5JtaGsdQQ', '_blank');
-      }
-      else if (boardNum === '2') {
-        window.open('https://buy.stripe.com/test_28o2aI3TP3BlaGs6op', '_blank');
-      }
-      else if (boardNum === '3') {
-        window.open('https://buy.stripe.com/test_8wM4iQ1LHc7R5m8002', '_blank');
-      }
-      else if (boardNum === '4') {
-        window.open('https://buy.stripe.com/test_5kAdTqdup1td5m8dQT', '_blank');
-      }
-    }
   },
 
   computed: {

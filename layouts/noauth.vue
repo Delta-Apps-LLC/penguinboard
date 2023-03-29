@@ -22,14 +22,7 @@
       </v-container>
     </v-main>
     
-    <v-footer
-      :absolute="!fixed"
-      app
-    >
-      <span>&copy; {{ new Date().getFullYear() }}</span>
-      <v-spacer />
-      <a target="_blank" href="https://forms.gle/rWfHuxtMp37iDjiJA">Give Us Feedback</a>
-    </v-footer>
+    <Footer />
 
     <Login v-show="showLogin" @close-modal="showLogin = false" />
   </v-app>
@@ -37,11 +30,13 @@
 
 <script>
 import Login from "~/components/Login.vue"
+import Footer from "~/components/Footer.vue"
 export default {
   name: 'NoauthLayout',
 
   components: {
     Login,
+    Footer,
   },
 
   data () {
