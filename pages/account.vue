@@ -142,6 +142,7 @@ export default {
   middleware: "auth",
 
   mounted() {
+    console.log(this.$route.from)
     const queryString = this.$route.query
     console.log(queryString)
   },
