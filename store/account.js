@@ -179,6 +179,34 @@ export const actions = {
             alert('Profile photo successfully updated.')
             await commit('setUserData', data[0])
         } else alert('Something went wrong, please try again.')
+    },
+
+    async buyBoards({ commit, state }, { num }) {
+        const { data, error, status } = await SUPABASE.from('user')
+            .update({
+                boardsremaining: state.userData.boardsremaining + num
+            })
+            .eq('userid', state.userData.userid)
+            .select()
+        if (status === 204 || status === 200) {
+            await commit('setUserData', data[0])
+            this.$router.push('/account#pricing')
+            alert('Thank you for your purchase. You should see your available boards posted in your account settings.')
+        }
+    },
+
+    async unlimited({ commit, state }, { expiration }) {
+        const { data, error, status } = await SUPABASE.from('user')
+            .update({
+                subscriptionexp: expiration
+            })
+            .eq('userid', state.userData.userid)
+            .select()
+        if (status === 204 || status === 200) {
+            await commit('setUserData', data[0])
+            this.$router.push('/account#pricing')
+            alert('Thank you for your purchase. You should see your available boards posted in your account settings.')
+        }
     }
 }
 

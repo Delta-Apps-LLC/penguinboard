@@ -87,7 +87,9 @@
     </table>
 
     <h3 class="small-header" id="pricing">Purchase Boards</h3>
-    <h4 class="pricing-subtext">Remaining Boards: {{userData.boardsremaining}}</h4>
+    <h4 class="pricing-subtext">
+      Remaining Boards: {{userData.subscriptionexp != null ? 'Unlimited' : userData.boardsremaining}}
+    </h4>
 
     <div class="pricing-options">
       <div class="option">
@@ -96,7 +98,9 @@
         <ul>
           <li>Access to one Penguin Board with Unlimited Posts</li>
         </ul>
-        <v-btn class="white--text" color="#1DA9D3" style="width: 100%;" @click="buyBoard('1')">
+        <v-btn class="white--text" color="#1DA9D3" style="width: 100%;" @click="buyBoard('1')"
+          :disabled="purchaseBtnDisabled"
+        >
           Select
         </v-btn>
       </div>
@@ -106,7 +110,9 @@
         <ul>
           <li>Access to five Penguin Boards with Unlimited Posts</li>
         </ul>
-        <v-btn class="white--text" color="#7D387D" style="width: 100%;" @click="buyBoard('2')">
+        <v-btn class="white--text" color="#7D387D" style="width: 100%;" @click="buyBoard('2')"
+          :disabled="purchaseBtnDisabled"
+        >
           Select
         </v-btn>
       </div>
@@ -116,7 +122,9 @@
         <ul>
           <li>Access to ten Penguin Boards with Unlimited Posts</li>
         </ul>
-        <v-btn class="white--text" color="#F26419" style="width: 100%;" @click="buyBoard('3')">
+        <v-btn class="white--text" color="#F26419" style="width: 100%;" @click="buyBoard('3')"
+          :disabled="purchaseBtnDisabled"
+        >
           Select
         </v-btn>
       </div>
@@ -126,7 +134,9 @@
         <ul>
           <li>Access to Unlimited Penguin Boards for a year</li>
         </ul>
-        <v-btn class="white--text" color="#ED254E" style="width: 100%;" @click="buyBoard('4')">
+        <v-btn class="white--text" color="#ED254E" style="width: 100%;" @click="buyBoard('4')"
+          :disabled="purchaseBtnDisabled"
+        >
           Select
         </v-btn>
       </div>
@@ -140,12 +150,6 @@ import { matchPassword } from '~/store/account'
 export default {
   name: 'AccountPage',
   middleware: "auth",
-
-  mounted() {
-    console.log(this.$route.from)
-    const queryString = this.$route.query
-    console.log(queryString)
-  },
 
   data () {
     return {
@@ -249,6 +253,10 @@ export default {
 
     disableSubmitBtn() {
       return this.currentPass === '' || this.pass === '' || this.confirmPass === '' || this.pass !== this.confirmPass
+    },
+
+    purchaseBtnDisabled () {
+      return this.userData.subscriptionexp != null
     }
   },
 }
@@ -349,6 +357,7 @@ tr:nth-child(odd) {
 .pricing-subtext {
   font-style: italic;
   color: #EBEBEB;
+  margin-top: 10px;
   /* font-size: 16px; */
 }
 

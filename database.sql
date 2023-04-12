@@ -9,6 +9,7 @@ CREATE TABLE "user"
   "password" VARCHAR NOT NULL,
   "avatar" VARCHAR,
   "boardsremaining" INT DEFAULT 5,
+  "subscriptionexp" TEXT DEFAULT null,
   PRIMARY KEY ("userid"),
   UNIQUE ("email")
 );

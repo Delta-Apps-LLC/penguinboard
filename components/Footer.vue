@@ -1,6 +1,6 @@
 <template>
     <v-footer
-      absolute="false"
+      absolute
       app
     >
       <span>&copy; 2023 Delta Apps, LLC</span>
