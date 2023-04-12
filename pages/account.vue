@@ -90,6 +90,9 @@
     <h4 class="pricing-subtext">
       Remaining Boards: {{userData.subscriptionexp != null ? 'Unlimited' : userData.boardsremaining}}
     </h4>
+    <h4 class="pricing-subtext" v-if="userData.subscriptionexp != null">
+      Your one year subscription will expire on {{expirationdate}}
+    </h4>
 
     <div class="pricing-options">
       <div class="option">
@@ -257,6 +260,11 @@ export default {
 
     purchaseBtnDisabled () {
       return this.userData.subscriptionexp != null
+    },
+
+    expirationdate () {
+      let date = new Date(parseInt(this.userData.subscriptionexp)).toDateString()
+      return date
     }
   },
 }
@@ -291,8 +299,11 @@ h2 {
 }
 
 .table {
+  background-color: #EBEBEB;
   width: 95%;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-radius: 50px !important;
+  border-spacing: 0;
 }
 
 .table-row {
@@ -316,16 +327,6 @@ h2 {
 
 td {
   width: 50%;
-}
-
-tr:nth-child(even) {
-    /* background-color: #7D387D; */
-    background-color: #EBEBEB;
-}
-
-tr:nth-child(odd) {
-    /* background-color: #303030; */
-    background-color: #EBEBEB;
 }
 
 .form-field-1, .form-field-2, .form-field-3 {

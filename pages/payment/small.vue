@@ -13,6 +13,8 @@ export default {
         await this.$store.dispatch('account/buyBoards', {
             num: 5
         })
+        this.$router.push('/account#pricing')
+        alert('Thank you for your purchase. You should see your available boards posted in your account settings.')
     },
 }
 </script>

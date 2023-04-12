@@ -190,8 +190,6 @@ export const actions = {
             .select()
         if (status === 204 || status === 200) {
             await commit('setUserData', data[0])
-            this.$router.push('/account#pricing')
-            alert('Thank you for your purchase. You should see your available boards posted in your account settings.')
         }
     },
 
@@ -204,8 +202,6 @@ export const actions = {
             .select()
         if (status === 204 || status === 200) {
             await commit('setUserData', data[0])
-            this.$router.push('/account#pricing')
-            alert('Thank you for your purchase. You should see your available boards posted in your account settings.')
         }
     }
 }

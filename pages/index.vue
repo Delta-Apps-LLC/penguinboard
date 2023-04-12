@@ -81,7 +81,6 @@ export default {
       tour: new Shepherd.Tour({
         useModalOverlay: true,
         defaultStepOptions: {
-          classes: 'default-tour',
           scrollTo: true
         }
       }),
@@ -111,15 +110,20 @@ export default {
       if (this.title === '' || this.recipientemail === '' || this.recipientname === '') {
         alert('No field may be left blank.')
       } else {
-        await this.$store.dispatch('board/createBoard', {
-          title: this.title,
-          recipientemail: this.recipientemail,
-          recipientname: this.recipientname,
-          image: this.imageData,
-          isPublic: this.isPublic,
-        })
-        this.clearBoard()
-        this.$router.push('/boards')
+        if (this.userData.boardsremaining > 0) {
+          await this.$store.dispatch('board/createBoard', {
+            title: this.title,
+            recipientemail: this.recipientemail,
+            recipientname: this.recipientname,
+            image: this.imageData,
+            isPublic: this.isPublic,
+          })
+          this.clearBoard()
+          this.$router.push('/boards')
+        } else {
+          alert('You have no more remaining boards to use. Please purchase more on the account settings page.')
+          this.$router.push('/account#pricing')
+        }
       }
     },
 

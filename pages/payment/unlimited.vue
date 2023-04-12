@@ -15,6 +15,8 @@ export default {
         await this.$store.dispatch('account/unlimited', {
             expiration: expiration
         })
+        this.$router.push('/account#pricing')
+        alert('Thank you for your purchase. You should see your available boards posted in your account settings.')
     },
 }
 </script>

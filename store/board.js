@@ -65,7 +65,8 @@ export const actions = {
                 ispublic: isPublic
             })
         if (status === 201 || status === 200 || status === 204) {
-            alert('Board successfully created!')
+            await dispatch('account/buyBoards', { num: -1 }, { root: true })
+            alert(`Board successfully created! You have ${rootState.account.userData.subscriptionexp != null ? 'unlimited' : rootState.account.userData.boardsremaining} boards remaining.`)
         } else if (status === 409) {
             await dispatch('createBoard', {
                 title: title,

@@ -116,7 +116,6 @@ export default {
       tour: new Shepherd.Tour({
         useModalOverlay: true,
         defaultStepOptions: {
-          classes: 'default-tour',
           scrollTo: true
         }
       }),
