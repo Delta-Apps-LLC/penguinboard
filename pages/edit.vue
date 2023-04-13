@@ -175,11 +175,11 @@ export default {
       this.imageData = null
     },
 
-    saveChanges() {
+    async saveChanges() {
       if (this.title === '' || this.recipientemail === '' || this.recipientname === '') {
         alert('No field may be left blank.')
       } else {
-        this.$store.dispatch('board/saveChanges', {
+        await this.$store.dispatch('board/saveChanges', {
           boardid: this.boardData.boardid,
           title: this.title,
           recipientemail: this.recipientemail,
@@ -188,6 +188,7 @@ export default {
           isPublic: this.isPublic
         })
         this.edit = false
+        this.show = false
       }
     },
 

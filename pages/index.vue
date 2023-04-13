@@ -110,7 +110,7 @@ export default {
       if (this.title === '' || this.recipientemail === '' || this.recipientname === '') {
         alert('No field may be left blank.')
       } else {
-        if (this.userData.boardsremaining > 0) {
+        if (this.userData.subscriptionexp != null || this.userData.boardsremaining > 0) {
           await this.$store.dispatch('board/createBoard', {
             title: this.title,
             recipientemail: this.recipientemail,
