@@ -68,8 +68,8 @@
     <h2 class="small-header">Simple Board Pack Pricing</h2>
     <h6 class="pricing-subtext">You will receive a pack of five free boards when you sign up.</h6>
 
-    <div class="pricing-options">
-      <div class="option">
+    <div :class="isMobile ? 'pricing-options-mobile justify-center' : 'pricing-options'">
+      <div class="option" :style="{'flex-basis': isMobile ? '46%' : null, 'margin': '2px'}">
         <h2 style="color: #1DA9D3;">Single</h2>
         <p>$1 / board</p>
         <ul>
@@ -79,7 +79,7 @@
           Select
         </v-btn>
       </div>
-      <div class="option">
+      <div class="option" :style="{'flex-basis': isMobile ? '46%' : null, 'margin': '2px'}">
         <h2 style="color: #7D387D;">Small</h2>
         <p>$3 / 5 boards</p>
         <ul>
@@ -89,7 +89,7 @@
           Select
         </v-btn>
       </div>
-      <div class="option">
+      <div class="option" :style="{'flex-basis': isMobile ? '46%' : null, 'margin': '2px'}">
         <h2 style="color: #F26419;">Medium</h2>
         <p>$5 / 10 boards</p>
         <ul>
@@ -99,7 +99,7 @@
           Select
         </v-btn>
       </div>
-      <div class="option">
+      <div class="option" :style="{'flex-basis': isMobile ? '46%' : null, 'margin': '2px'}">
         <h2 style="color: #ED254E;">Unlimited</h2>
         <p>$20 / Year</p>
         <ul>
@@ -329,6 +329,12 @@ export default {
 .pricing-options {
   display: flex;
   justify-content: space-between;
+}
+
+.pricing-options-mobile {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 .option {
