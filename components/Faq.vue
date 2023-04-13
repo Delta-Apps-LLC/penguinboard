@@ -30,7 +30,13 @@ export default {
         {
           question: "What are the benefits of using Penguin Board?",
           answer:
-            "Penguin Board is designed to improve engagement between work-from-home employees and make supporting others better! Rather than trying to physically collect signatures that will get thrown away, we made it easier for anyone to participate in recognizing others. Soon, you will earn points for the boards you send and be able to redeem them!",
+            "Penguin Board is designed to improve engagement between coworkers, family, and friends and make supporting others better! Rather than trying to physically collect signatures that will get thrown away, we made it easier for anyone to participate in recognizing others. Soon, you will earn points for the boards you send and be able to redeem them!",
+          open: false,
+        },
+        {
+          question: "Why use a digital card instead of just a normal physical greeting card?",
+          answer:
+            "Did you know that the US sends 6.5 billion greeting cards every year? The carbon dioxide emissions from all those cards are the same as charging 110 billion smartphones, or powering 110,000 homes for an entire year. That's a lot of CO2. Additionally, more and more cards are ending up in landfill because the decorations on them make them unrecyclable. We want to help save the environment, and our digital version will do just that!",
           open: false,
         },
         {
