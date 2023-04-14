@@ -1,0 +1,6 @@
+version: 1
+redirects:
+  - source: /privacy_policy.pdf
+    target: /static/privacy_policy.pdf
+  - source: /terms_conditioins.pdf
+    target: /static/terms_conditions.pdf
