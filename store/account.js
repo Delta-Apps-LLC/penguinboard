@@ -92,9 +92,10 @@ export const actions = {
                     else if (boardNum === '4') {
                         window.open(`https://buy.stripe.com/test_5kAdTqdup1td5m8dQT?prefilled_email=${user.email}`, '_blank');
                     }
-                    isNew ? this.$router.push({ path: '/account', hash: '#pricing', query: {
-                        new: isNew
-                    }}) : this.$router.push('/')
+                    // isNew ? this.$router.push({ path: '/account', hash: '#pricing', query: {
+                    //     new: isNew
+                    // }}) : this.$router.push('/')
+                    this.$router.push('/')
                 }
             } else {
                 alert('The password you provided is incorrect.')
