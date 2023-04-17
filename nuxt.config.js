@@ -86,5 +86,19 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    extend (config, { isClient }) {
+      // Add a rule to handle PDF files
+      config.module.rules.push({
+        test: /\.(pdf)(\?.*)?$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]'
+            }
+          }
+        ]
+      })
+    }
   },
 }
