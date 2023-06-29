@@ -37,9 +37,9 @@
                     <input class="check" type="checkbox" name="consent" v-model="consent" />
                     <label for="consent">
                       <span>I consent to the </span>
-                      <a target="_blank" href="/privacy_policy.pdf">Privacy Policy</a>
+                      <a target="_blank" href="https://deltaapps.dev/penguinboard/privacy_policy.pdf">Privacy Policy</a>
                       <span> and the </span>
-                      <a target="_blank" href="/terms_conditions.pdf">Terms and Conditions</a>
+                      <a target="_blank" href="https://deltaapps.dev/penguinboard/terms_conditions.pdf">Terms and Conditions</a>
                     </label>
                     <v-spacer class="spacer" />
                     <v-tooltip bottom>
